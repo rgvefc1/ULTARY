@@ -8,5 +8,6 @@
 </head>
 <body>
 	<%@ include file="views/main/main.jsp" %>
+	<p>희은집똥컴</p>
 </body>
 </html>
