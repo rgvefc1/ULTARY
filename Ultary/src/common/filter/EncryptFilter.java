@@ -46,10 +46,10 @@ public class EncryptFilter implements Filter {
 		// place your code here
 		HttpServletRequest hsr = (HttpServletRequest)request;
 		
-		EncryptWrapper ew = new EncryptWrapper(hsr);
+//		EncryptWrapper ew = new EncryptWrapper(hsr); // 비번암호화중....
 		
 		// pass the request along the filter chain
-		chain.doFilter(ew, response);
+//		chain.doFilter(ew, response);
 	}
 
 	/**

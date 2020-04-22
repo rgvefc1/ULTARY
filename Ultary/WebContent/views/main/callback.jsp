@@ -17,7 +17,7 @@
     String clientSecret = "HI1ukhWTvt";//애플리케이션 클라이언트 시크릿값";
     String code = request.getParameter("code");
     String state = request.getParameter("state");
-    String redirectURI = URLEncoder.encode("http://localhost:8866/ULTARY/views/main/callback.jsp", "UTF-8");
+    String redirectURI = URLEncoder.encode("http://localhost:9022/ULTARY/views/main/callback.jsp", "UTF-8");
     String apiURL;
     apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
     apiURL += "client_id=" + clientId;
@@ -69,7 +69,7 @@
         session.setAttribute("access_token", access_token);
         
         //그정보를 네이버로그인 서블릿으로 보내줌
-        response.sendRedirect("/ULTARY/naverlogin.mem");
+        response.sendRedirect("/naverlogin.mem");
  
         
   //네이버 제공 코드 이하 ------------------------------------------------------------- 	  
