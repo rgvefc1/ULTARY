@@ -150,6 +150,7 @@
 	height:120px;
 	margin-top: 20px;
 	background: white;
+	cursor:pointer;
 }
 .chatcontentprofile{
 	float:left;

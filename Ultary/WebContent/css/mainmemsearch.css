@@ -34,7 +34,7 @@ header{
 	overflow: hidden;
 	height:100%;
 	float:right;
-	width: 310px;
+	width:240px;
 }
 #proimgdiv{
 	margin-left: 150px;
@@ -57,7 +57,7 @@ header{
 	font-size:25px;
 	color: red;
 	text-align: right;
-    width: 160px;
+    width: 90px;
 }
 #nim{
 	margin-top: -3.5px;
@@ -368,66 +368,6 @@ header{
 
 
 
-/* ------사진 있는 부분----------------------------------------- */
-
-section{
-	height:550px;
-	width:100%;
-	min-width:1200px;
-}
-#mainleft{
-	position:absolute;
-	height:550px;
-	width:100px;
-	float:left;
-	cursor:pointer;
-	z-index: 800;
-}
-.arrow{
-	margin-top:200px;
-	width:100px;
-	height:100px;
-}
-
-#mainright{
-	position:absolute;
-	top:248.6px;
-	right:0px;
-	height:550px;
-	width:100px;
-	float:right;
-	cursor:pointer;
-	z-index: 800;
-}
-
-/* ------------------------------------------------------------------------------ */
-#main{
-	width:1200px;
-	margin:0 auto;
-	height:100%;
-	overflow: hidden;
-	margin-top:20px;
-}
-
-#slider{
-    list-style: none outside none;
-    padding-left: 0;
-    margin: 0;
-}
-.slider li{
-    background-size:cover;
-    background-position: center;
-    float:left;
-    width:450px;
-    height:450px;
-}
-.item1{background-image:url('../image/10.jpg');}
-.item2{background-image:url('../image/11.jpg');}
-.item3{background-image:url('../image/12.jpg');}
-.item4{background-image:url('../image/13.jpg');}
-.item5{background-image:url('../image/14.jpg');}
-.item6{background-image:url('../image/15.jpg');}
-
 /* ------검색창----------------------------------------- */
 
 #search{
@@ -472,51 +412,60 @@ section{
 	font-size:20px;
 }
 
-/* -----하단 게시물------------------------------------------ */
+/* 섹션영역 ------------------------*/	
 
-article{
-	width:100%;
+section{
 	min-width:1200px;
-	height:700px;
+	min-height:1000px;
+	overflow:hidden;
 }
-#articlewrap{
-	width:1500px;
+#section-wrap{
+	width:1200px;
+	min-height:1000px;
 	margin:0 auto;
+	overflow: auto;
+	border:1px solid gray;
+}
+.memdiv{
+	width: 520px;
+    height: 160px;
+    border: 1px solid black;
+    border-radius: 20px;
+    float: left;
+    margin-left: 50px;
+    margin-top: 20px;
+}
+.memintro{
+	float: left;
+    margin-left: 10px;
+    height: 100%;
+}
+.memimg{
+	width: 120px;
+    height: 120px;
+    cursor: pointer;
+}
+.memimg>img{
+	width:100%;
 	height:100%;
-	overflow: hidden;
 }
-.article{
-	margin-top: 10px;
-	margin-left:20px;
-	float:left;
-	width:350px;
-	height:500px;
+.memnick{
+	font-size: 25px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
 }
-.articleTitle{
-	border:1px solid black;
-	height:50px;
-	border-radius: 15px;
-	background: skyblue;
-	text-align: center;
-	font-size: 30px;
-	padding-top: 5px;
-	color: white;
-	font-weight: 900;
+.memlike{
+	float: left;
+    margin-left: 200px;
+    margin-top: 110px;
+    font-size: 30px;
 }
-.articlecontent{
-	border:1px solid black;
-	background: #D8D8D8;
-	height:600px;
-	font-size: 30px;
-	border-radius: 15px;
-}
-.articleinner{
-	border:1px solid black;
-	margin: 20px;
-	background: #FCFCFC;
-	border-radius: 15px;
-	width:310px;
-	height:560px;
+.memgender{
+	float: left;
+    margin-left: 20px;
+    margin-top: 117.1px;
+    font-size: 20px;
 }
 
 /* ----저작권------------------------------------------- */
@@ -530,163 +479,4 @@ footer{
 }
 
 
-
-/* ----글크게보기------------------------------------------- */
-
-#expansion{
-	position:absolute;
-	width: 923px;
-	height: 563px;
-	margin: 0 auto;
-	background: white;
-	z-index: 980;
-	top: 21.4%;
-    left: 26%;
-    border:1px solid black;
-    display: none;
-}
-#expansionIn{
-	width: 860px;
-    height: 502.1px;
-    margin: 0 auto;
-    margin-top: 30px;
-}
-#expansiontop{
-	width: 860px;
-	height: 450px;
-}
-#expansionL{
-	float:left;
-	height:100%;
-	width:502.1px;
-}
-#mainimg{
-	width:100%;
-	height:100%;
-}
-#expansionR{
-	float:left;
-	height:100%;
-	width:357.9px;
-}
-#expansionexit{
-	position:absolute;
-	top:0px;
-	z-index: 1000;
-	right:30px;
-	color: black;
-	font-size: 60px;
-	font-weight: 900;
-}
-#expansionRheader{
-	width:100%;
-	height:20%;
-}
-#expansionWriter{
-	width:100%;
-	height:70%;
-}
-#expansionimg{
-	float:left;
-	width:50px;
-	height:50px;
-	margin: 10px;
-	border-radius: 50px;
-}
-#expansionWri{
-	font-size:30px;
-	line-height: 60px;
-}
-#expansiondate{
-	width:100%;
-	height:30%;
-}
-#expansionRsection{
-	width:100%;
-	height:80%;
-}
-#expansionTitle{
-	width:100%;
-	height:30px;
-}
-#expansioncontent{
-	width:100%;
-	min-height:100px;
-}
-#expansioncomment{
-	width:100%;
-	height:185px;
-	overflow:scroll;
-}
-.comment{
-	margin:10px;
-	width:300px;
-	height:30px;
-	background: #FFDF24;
-	border-radius: 20px;
-}
-.commentans{
-	margin:5px;
-	margin-left: 90px;
-	width:200px;
-	height:20px;
-	background: #FFFFA1;
-	border-radius: 20px;
-}
-
-.expansionbox{
-	margin-top:5px;
-	margin-left:5px;
-	text-align:center;
-	float:left;
-	background: #FFDF24;
-	border-radius: 10px;
-	width:100px;
-	height:40px;
-	line-height: 40px;
-	font-weight: 800;
-	color:white;
-}
-#petlife{
-	float:left;
-	text-align:center;
-	width:80px;
-	height:40px;
-	line-height: 50px;
-}
-#like{
-	margin-left:7.8px;
-	float:left;
-	height:40px;
-	width:40px;
-	text-align:center;
-	line-height: 40px;
-	font-size:39.3px;
-}
-#likeimg{
-	float:left;
-	margin-left:5px;
-	margin-top:5px;
-	width:40px;
-	height:40px;
-}
-#commenttextdiv{
-	margin-top:10px;
-	margin-left:20px;
-	float:right;
-}
-#commenttext{
-	height:30px;
-	width:240px;
-}
-#commentsubmit{
-	width:100px;
-	height:35px;
-	font-size:15.9px;
-	font-weight: 900;
-	background:#FFDF24;
-	color: white;
-}
-
-/* ---------------------------------------------------------------------- */
 

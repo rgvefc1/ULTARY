@@ -31,7 +31,7 @@ header{
 	float:left;
 }
 #header-topR{
-	width:240px;
+	width: 320px;
 	height:100%;
 	margin-top: -12.7px;
 	float:right;
@@ -42,7 +42,7 @@ header{
     font-size: 25px;
     color: red;
     text-align: right;
-    width: 90px;
+    width: 170px;
 }
 #nim{
 	float:left;
@@ -69,7 +69,7 @@ header{
 
 #header-bottom{
 	width: 100%;
-    height: 270px;
+    height: 310px;
     background: gray;
     overflow: hidden;
 }
@@ -78,7 +78,7 @@ header{
 	overflow:hidden;
 }
 #proimgdiv{
-	top: -54.9%;
+	top: -67.8%;
     left: 3.1%;
     position: relative;
     z-index: 100;
@@ -90,6 +90,43 @@ header{
 	height:100%;
 	border-radius: 120px;
 }
+#tlhostdiv{
+	height:50px;
+	width:100%;
+}
+#tlhost{
+	float: left;
+    width: 170px;
+    height: 40px;
+    margin-left: 50px;
+    font-size: 30px;
+    margin-top: 10px;
+    font-weight: 500;
+    border-bottom: 2px solid black;
+}
+
+/* ---타인 타임라인 회원 관심표시 버튼 -----------------------------*/
+#tlmark{
+	position: relative;
+    top: -50px;
+    right: -800px;
+    width: 390px;
+    height: 40px;
+}
+#tlmark1{
+	position: absolute;
+    text-align: center;
+    right: 0px;
+    cursor: pointer;
+    min-width: 180px;
+    height: 100%;
+    color: white;
+    font-size: 30px;
+    font-weight: 600;
+    border-radius: 10px;
+    border: 1px solid gray;
+}
+
 
 /* ---프로필 사진변경------------------------------------------------ */
 
@@ -181,3 +218,4 @@ header{
     min-height: 310px;
     margin-top: 40px;
 }
+
