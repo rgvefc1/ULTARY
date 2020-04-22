@@ -152,9 +152,9 @@
 						</li>
 						<li><a href='#'>마이페이지</a>
 							<ul id="menu4">
-								<li><a href='#'>내 정보 관리</a></li>
-								<li><a href='#'>비밀번호변경</a></li>
-								<li><a href='#'>회원 탈퇴</a></li>
+								<li><a href='<%= request.getContextPath() %>/views/myPage/memberUpdate.jsp'>내 정보 관리</a></li>
+								<li><a href='<%= request.getContextPath() %>/views/myPage/pwdUpdate.jsp'>비밀번호변경</a></li>
+								<li><a href='<%= request.getContextPath() %>/views/myPage/memberDelete.jsp'>회원 탈퇴</a></li>
 							</ul>
 						</li>
 						<li><a href='#'>고객센터</a>
