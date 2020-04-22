@@ -3,6 +3,7 @@
 <%
 	Member m = (Member)request.getAttribute("m");
 	String tpostnum = request.getParameter("tpostnum");
+	String user = m.getMemberId();
 %>
 <!DOCTYPE html>
 <html>
@@ -75,7 +76,8 @@
 								        <a href="#" id="5star">★</a>
 								</p>
 								<input type="hidden" id="score" name="score" value="">
-								
+								<input type="hidden" id="tpnum" name="tpnum" value="<%=request.getParameter("tpostnum") %>">
+								<input type="hidden" id="user" name="user" value="<%=user %>">
 								<button id="button">리뷰등록</button>
 								
 							</div>

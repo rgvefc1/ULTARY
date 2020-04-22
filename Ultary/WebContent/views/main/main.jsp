@@ -145,7 +145,7 @@
 						</li>
 						<li><a href='#'>위탁매칭</a>
 							<ul id="menu3">
-								<li><a href='<%= request.getContextPath() %>/views/common/commonheader.jsp'>위탁검색</a></li>
+								<li><a href='#'>위탁검색</a></li>
 								<li><a href='#'>의뢰 관리</a></li>
 								<li><a href='#'>내가 남긴 리뷰</a></li>
 							</ul>
@@ -193,25 +193,25 @@
 		location.href="<%= request.getContextPath() %>/views/myUltary/trustEvm.jsp";
 	});
 	$('#cssmenu>ul>li:eq(1)>a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmnotice.po";
+		location.href="<%= request.getContextPath() %>/cmAllList.po";
 	});
 	$('#menu2>li:eq(0) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmnotice.po";
+		location.href="<%= request.getContextPath() %>/cmList.po?cnum=1";
 	});
 	$('#menu2>li:eq(1) a').click(function(){
 		location.href="<%= request.getContextPath() %>/cmAllList.po";
 	});
 	$('#menu2>li:eq(2) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmdlist.po";
+		location.href="<%= request.getContextPath() %>/cmList.po?cnum=2";
 	});
 	$('#menu2>li:eq(3) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmklist.po";
+		location.href="<%= request.getContextPath() %>/cmList.po?cnum=3";
 	});
 	$('#menu2>li:eq(4) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmrlist.po";
+		location.href="<%= request.getContextPath() %>/cmList.po?cnum=4";
 	});
 	$('#menu2>li:eq(5) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmrelist.po";
+		location.href="<%= request.getContextPath() %>/cmList.po?cnum=5";
 	});
 	$('#cssmenu>ul>li:eq(2)>a').click(function(){
 		location.href="<%= request.getContextPath() %>/views/trustMatch/matching01.jsp";
@@ -219,8 +219,26 @@
 	$('#menu3>li:eq(0) a').click(function(){
 		location.href="<%= request.getContextPath() %>/views/trustMatch/matching01.jsp";
 	});
+	$('#menu3>li:eq(1) a').click(function(){
+		location.href="<%= request.getContextPath() %>/TpostView.tu";
+	});
+	$('#menu3>li:eq(2) a').click(function(){
+		location.href="<%= request.getContextPath() %>/myreview.tu";
+	});
+	$('#cssmenu>ul>li:eq(3)>a').click(function(){
+		location.href="<%= request.getContextPath() %>/views/myPage/memberUpdate.jsp";
+	});
+	$('#menu4>li:eq(0) a').click(function(){
+		location.href="<%= request.getContextPath() %>/views/myPage/memberUpdate.jsp";
+	});
+	$('#menu4>li:eq(1) a').click(function(){
+		location.href="<%= request.getContextPath() %>/views/myPage/pwdUpdate.jsp";
+	});
+	$('#menu4>li:eq(2) a').click(function(){
+		location.href="<%= request.getContextPath() %>/views/myPage/memberDelete.jsp";
+	});
 	$('#cssmenu>ul>li:eq(4)>a').click(function(){
-		location.href="<%= request.getContextPath() %>/slist.no";
+		location.href="<%= request.getContextPath() %>/slist.no'";
 	});
 	$('#menu5>li:eq(0) a').click(function(){
 		location.href="<%= request.getContextPath() %>/slist.no";

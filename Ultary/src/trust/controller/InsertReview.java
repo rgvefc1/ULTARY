@@ -34,8 +34,7 @@ public class InsertReview extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int tpostnum = Integer.parseInt(request.getParameter("tpostnum"));
-		
-		
+	
 		Member m  = new MatchingService().RwriteView(tpostnum);
 		
 		String page = "";
