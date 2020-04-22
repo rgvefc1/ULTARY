@@ -30,7 +30,7 @@ header{
 	width:100%;
 	cursor: pointer;
 }
-#top-right{
+#top-right{ 
 	overflow: hidden;
 	height:100%;
 	float:right;

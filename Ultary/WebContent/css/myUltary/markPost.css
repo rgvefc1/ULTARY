@@ -14,7 +14,7 @@
 	overflow-y: overlay;
 }
 section{
-	float: left;
+	float: left; 
     width: 860px;
     height: 1500px;
     background: #EAEAEA;
