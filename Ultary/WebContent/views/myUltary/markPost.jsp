@@ -50,17 +50,21 @@
 					<div class="content1">
 						<div class="writer">
 							<div class="sectionimg">
+							<% if(!proList.isEmpty()){ %>
 								<% for(int q=0;q<=proList.size();q++){ 
 									if(q==proList.size()){ %>
-									<img class="sectionpic" src="<%= request.getContextPath() %>/image/프로필.png">
+								<img class="sectionpic" src="<%= request.getContextPath() %>/image/프로필.png">
 									<% break;
 									}
 									Media postproimg = proList.get(q); 
 									if(p.getMemberid().equals(postproimg.getMemberId())){ %>
-									<img class="sectionpic" src="<%= request.getContextPath() %>/uploadFiles/<%= postproimg.getWebName() %>">
+								<img class="sectionpic" src="<%= request.getContextPath() %>/uploadFiles/<%= postproimg.getWebName() %>">
 									<% break;
 									} %>
 								<% } %>
+							<% } else{ %>
+								<img class="sectionpic" src="<%= request.getContextPath() %>/image/프로필.png">
+							<% } %>
 								<div class="sectionNick"><%= p.getMemberid() %></div>
 							</div>
 							<div class="contentTitle"><%= p.getPostTitle() %></div>
@@ -112,15 +116,19 @@
 							<div class="comment1">
 								<div class="comment2-1">
 									<% if(!proList.isEmpty()){ %>
-										<% for(int o=0;o<=proList.size();o++) { 
-											Media cProimg = proList.get(o); %>
-											<% if(cProimg.getMemberId().equals(pc.getMemberid())){ %>
+										<% for(int o=0;o<=proList.size();o++) {
+											if(o==proList.size()){ %>
+									<img class="comment2-1img" src="<%= request.getContextPath() %>/image/프로필.png">			
+											<% break;
+											}
+											Media cProimg = proList.get(o);
+											if(cProimg.getMemberId().equals(pc.getMemberid())){ %>
 									<img class="comment2-1img" src="<%= request.getContextPath() %>/uploadFiles/<%= cProimg.getWebName() %>">
 											<% break;
-											   } else if(o==proList.size()){ %>
-									<img class="comment2-1img" src="<%= request.getContextPath() %>/image/프로필.png">
-											<% } %>
+											} %>
 										<% } %>
+									<% } else{ %>
+									<img class="comment2-1img" src="<%= request.getContextPath() %>/image/프로필.png">
 									<% } %>
 								</div>
 								<div class="comment2-3"><%= pc.getMemberid() %></div>
@@ -214,15 +222,19 @@
 									<div class="commentans2-0">ㄴ</div>
 									<div class="commentans2-1">
 									<% if(!proList.isEmpty()){ %>
-										<% for(int o=0;o<=proList.size();o++) { 
-											Media cProimg = proList.get(o); %>
-											<% if(cProimg.getMemberId().equals(ca.getMemberid())){ %>
+										<% for(int o=0;o<=proList.size();o++) {
+											if(o==proList.size()){ %>
+										<img class="commentans2-1img" src="<%= request.getContextPath() %>/image/프로필.png">			
+											<% break;
+											}
+											Media cProimg = proList.get(o);
+											if(cProimg.getMemberId().equals(ca.getMemberid())){ %>
 										<img class="commentans2-1img" src="<%= request.getContextPath() %>/uploadFiles/<%= cProimg.getWebName() %>">
 											<% break;
-											   } else if(o==proList.size()){ %>
-										<img class="commentans2-1img" src="<%= request.getContextPath() %>/image/프로필.png">
-											<% } %>
+											} %>
 										<% } %>
+									<% } else{ %>
+										<img class="commentans2-1img" src="<%= request.getContextPath() %>/image/프로필.png">
 									<% } %>
 									</div>
 									<div class="commentans2-3"><%= ca.getMemberid() %></div>

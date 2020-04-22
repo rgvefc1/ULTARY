@@ -106,14 +106,18 @@
 								<div class="comment2-1">
 									<% if(!proList.isEmpty()){ %>
 										<% for(int o=0;o<=proList.size();o++) { 
-											Media cProimg = proList.get(o); %>
-											<% if(cProimg.getMemberId().equals(pc.getMemberid())){ %>
-									<img class="comment2-1img" src="<%= request.getContextPath() %>/uploadFiles/<%= cProimg.getWebName() %>">
-											<% break;
-											   } else if(o==proList.size()){ %>
+											if(o==proList.size()){ %>
 									<img class="comment2-1img" src="<%= request.getContextPath() %>/image/프로필.png">
-											<% } %>
+											<% break;
+											}
+											Media cProimg = proList.get(o);
+											if(cProimg.getMemberId().equals(pc.getMemberid())){ %>
+									<img class="comment2-1img" src="<%= request.getContextPath() %>/uploadFiles/<%= cProimg.getWebName() %>">		   
+											<% break;
+											} %>
 										<% } %>
+									<% } else{ %>
+									<img class="comment2-1img" src="<%= request.getContextPath() %>/image/프로필.png">
 									<% } %>
 								</div>
 								<div class="comment2-3"><%= pc.getMemberid() %></div>
@@ -197,15 +201,19 @@
 									<div class="commentans2-0">ㄴ</div>
 									<div class="commentans2-1">
 									<% if(!proList.isEmpty()){ %>
-										<% for(int o=0;o<=proList.size();o++) { 
-											Media cProimg = proList.get(o); %>
-											<% if(cProimg.getMemberId().equals(ca.getMemberid())){ %>
-										<img class="commentans2-1img" src="<%= request.getContextPath() %>/uploadFiles/<%= cProimg.getWebName() %>">
-											<% break;
-											   } else if(o==proList.size()){ %>
+										<% for(int o=0;o<=proList.size();o++) {
+											if(o==proList.size()){ %>
 										<img class="commentans2-1img" src="<%= request.getContextPath() %>/image/프로필.png">
-											<% } %>
+											<% break; 
+											}
+											Media caProimg = proList.get(o);
+											if(caProimg.getMemberId().equals(ca.getMemberid())){ %>
+										<img class="commentans2-1img" src="<%= request.getContextPath() %>/uploadFiles/<%= caProimg.getWebName() %>">
+											<% break;
+											   } %>
 										<% } %>
+									<% } else{ %>
+										<img class="commentans2-1img" src="<%= request.getContextPath() %>/image/프로필.png">
 									<% } %>
 									</div>
 									<div class="commentans2-3"><%= ca.getMemberid() %></div>
