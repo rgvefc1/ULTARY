@@ -11,7 +11,7 @@
 	<aside>
 		<ul>
 			<li><a href="/Ultary/views/trustMatch/matching01.jsp">위탁검색</a></li>
-			<li><a href="/Ultary/views/trustMatch/matching05.jsp">의뢰 관리</a></li>
+			<li><a href="<%=request.getContextPath() %>/TpostView.tu">의뢰 관리</a></li>
 			<li><a href="<%=request.getContextPath() %>/myreview.tu">내가 남긴 리뷰</a></li>
 		</ul>
 	</aside>

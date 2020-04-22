@@ -145,18 +145,27 @@ public class MatchingService {
 		return m;
 	}
 
-	public int review(TrustReview tr) {
+	public int review(TrustReview tr, String user, int tpnum) {
 		Connection conn = getConnection();
 		
 		int result = new MatchingDAO().review(conn,tr);
-		
+		int result2 = 0;
 		if(result > 0) {
 			commit(conn);
+			int trnum = new MatchingDAO().gettrnum(conn,user);
+System.out.println(trnum);
+			result2= new MatchingDAO().insertTpnum(conn,tpnum,trnum);
+			
+			if(result2>0) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
 		}else {
 			rollback(conn);
 		}
 		close(conn);
-		return result;
+		return result2;
 	}
 
 	public ArrayList<TrustReview> trList(String loginUser) {

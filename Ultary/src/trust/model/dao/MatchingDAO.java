@@ -458,7 +458,6 @@ System.out.println("result="+result);
 											 rset.getString("balsin"),
 											 rset.getInt("position"));
 				tpArr.add(tp);
-				System.out.println(tpArr.size());
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -545,7 +544,6 @@ System.out.println("result="+result);
 		int result = 0;
 		
 		String query= prop.getProperty("review");
-		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, tr.getTrScore());
@@ -559,8 +557,6 @@ System.out.println("result="+result);
 		}finally {
 			close(pstmt);
 		}
-		
-		
 		return result;
 	}
 
@@ -675,6 +671,57 @@ System.out.println("result="+result);
 		
 		
 		return result;
+	}
+
+	public int insertTpnum(Connection conn, int tpnum, int trnum) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertTpnum");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, trnum);
+			pstmt.setInt(2, tpnum);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int gettrnum(Connection conn, String user) {
+		PreparedStatement pstmt = null;
+		ResultSet rset=null;
+		int trnum=0;
+		
+		String query = prop.getProperty("gettrnum");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, user);
+			
+			rset=pstmt.executeQuery();
+			while(rset.next()) {
+				trnum=rset.getInt(1);
+System.out.println(trnum);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return trnum;
 	}
 
 }
