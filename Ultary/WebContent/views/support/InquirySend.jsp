@@ -10,10 +10,7 @@
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/common/완성본틀.css">
 
 <style>
-    #content {
-        background: whitesmoke;
-        margin-top : 30px;
-    }
+
     #mainWrapper {
         line-height: 2em;
         font-family: "맑은 고딕";
@@ -23,14 +20,17 @@
        width: 650px;
        height: 300px;
        text-align: left;
+       border-radius: 15px;
+       font-size: 20px;
     }
     #submit{
        background-color: rgba(0, 0, 0, 0.658);
        color: white;
-       font-size: 22px;
+       font-size: 20px;
        border-radius: 15px;
        float: right;
-       transform: translateX(-90px);
+       transform: translateX(-320px);
+       width: 150px;
     }
     #content-box{
        background-color: rgb(214, 241, 252);
@@ -65,12 +65,16 @@
     button{
        background-color: rgba(0, 0, 0, 0.658);
        color: white;
-       font-size: 22px;
+       font-size: 20px;
        border-radius: 15px;
+       cursor: pointer;
     }
    
     #title{
-    	width: 400px;
+    	width: 450px;
+    	height: 20px;
+    	border-radius: 15px;
+    	 font-size: 18px;
     }
 
 </style>
@@ -96,13 +100,15 @@
     <!-- Ajax 방식으로 변경 --> 
     <!--  <form action ="<%= request.getContextPath() %>/insert.inq" method ="post" onsubmit="return submitcheck();"> -->
         <p style="color: gray;">궁금하신 사항을 입력해 주세요</p>
+        <p style="color: gray;">고객님의 소중한 문의사항을 관리자가 확인 후 답변해 드립니다.</p>
+        <p style="color: gray;">답변은 마이페이지에서 확인하실 수 있습니다.</p>
     	 <hr>
         <div id = "content-box">
        
        	   <br>
            <label>제목 : </label><input type ="text" name ="title" id ="title">
            <br>
-           <textarea id ="inputText" name="content" id ="content"></textarea><br>
+           <textarea id ="inputText" name="content"></textarea><br>
            
            <button type="submit" id ="submit">문의하기</button>
            
@@ -170,9 +176,10 @@
 					console.log(data);
 					
 					if(data > 0){
-						$('#content-box').css('display','none'); // 문의페이지 감추고
-						$('#sucess').css('display','block'); // 성공페이지 띄운다.
-						//alert('성공적으로 전송되었습니다.');
+						$('#content-box').fadeOut(1200);
+							setTimeout(function() {
+							$('#sucess').fadeIn(1200);
+							}, 1200);
 					}else{
 						alert('전송에 실패하였습니다.')
 					}

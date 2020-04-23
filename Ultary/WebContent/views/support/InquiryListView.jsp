@@ -164,11 +164,12 @@ input:checked+.slider:before {
 }
 
 #numBtn {
-	background: skyblue;
+	background: rgba(0, 0, 0, 0.658);
+	color:white;
 }
 
 #choosen {
-	background: #FFD8D8;
+	background: skyblue;
 }
 
 button:hover {

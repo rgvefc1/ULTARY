@@ -107,11 +107,12 @@ button:hover {
 }
 
 #numBtn {
-	background: skyblue;
+	background: rgba(0, 0, 0, 0.658);
+	color:white;
 }
 
 #choosen {
-	background: #FFD8D8;
+	background: skyblue;
 }
 
 #listArea {
@@ -120,6 +121,16 @@ button:hover {
 
 .admin {
 	display: inline;
+}
+
+#searchBtn, #writeNoBtn{
+	background :  rgba(0, 0, 0, 0.658);
+	color : white;
+	border-radius: 15px;
+	font-size: 15px;
+}
+#searchImg{
+	height: 25px;
 }
 </style>
 </head>
@@ -268,13 +279,15 @@ button:hover {
 
 							<!-- 검색 폼 영역 -->
 							<li id='liSearchOption'>
+						
 								<form action='<%=request.getContextPath()%>/slist.no'>
+									<img src = "<%=request.getContextPath()%>/image/검색.png" id ="searchImg">
 									<select id='selSearchOption' name="option">
 										<option value='A'>제목+내용</option>
 										<option value='T'>제목</option>
 										<option value='C'>내용</option>
 									</select> <input id='txtKeyWord' name="search" /> <input type="submit"
-										value='검색' />
+										value='검색' / id="searchBtn">
 									
 									<div class="admin" align="center">
 
