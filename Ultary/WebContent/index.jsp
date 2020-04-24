@@ -6,8 +6,12 @@
 <meta charset="UTF-8">
 <title>ULTARY</title>
 </head>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <body>
-	<%@ include file="views/main/main.jsp" %>
-	
+<script>
+	$(function(){
+		location.href = "<%= request.getContextPath() %>/main.ini"
+	});
+</script>
 </body>
 </html>
