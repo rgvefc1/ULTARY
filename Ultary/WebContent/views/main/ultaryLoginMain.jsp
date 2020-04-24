@@ -56,7 +56,7 @@
 <!----네이버 로그인 연동 시작--------------------------------------------------------------------->
 							 <%
 							 	String clientId = "I5f2j4CStj0Q0BPbHYAM";//애플리케이션 클라이언트 아이디값";
-							    String redirectURI = URLEncoder.encode("http://localhost:8866/ULTARY/views/main/callback.jsp", "UTF-8");
+							    String redirectURI = URLEncoder.encode("http://localhost:9022/ULTARY/views/main/callback.jsp", "UTF-8");
 							    SecureRandom random = new SecureRandom();
 							    String state = new BigInteger(130, random).toString();
 							    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
@@ -102,39 +102,6 @@
 	
 	
 	<script>
-	
-// 		/* 유효성 검사*/
-// 		var isidUsable = false; 	// 아이디 중복 시false, 사용가능시 true
-// 		var ispasswordUsable = false;	// 아이디 중복확인을 했는지 안했는지 검사
-		
-// 		$("#memberid").on('change paste keyup', function(){
-// 			isidUsable = false; 
-// 		});
-		
-// 		$("#password").on('change paste keyup', function(){
-// 			ispasswordUsable = false;
-// 		});
-		
-// 		$('#memberid, #password').change(function(){
-// 			var userId = $('#memberid');
-// 			var password = $('#password');
-			
-			
-// 				$.ajax({
-<%-- 					url:'<%= request.getContextPath() %>/login.mem', --%>
-// 					data:{userId: userId.val(), password: password.val()},
-// 					success: function(data){ 
-// 					//success = 회원 있음 / fail = 회원 없음
-						
-// // 						if(data == "fail"){
-// // 							isIdChecked = false;
-// // 							ispasswordUsable = false;
-// // 							alert("가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.");
-// // 						}
-// 					}
-					
-// 				})
-// 		};
 		
 		function loginvalidate(){
 			if($('#userId').val().trim().length==0){

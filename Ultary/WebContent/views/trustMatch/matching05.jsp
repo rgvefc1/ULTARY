@@ -45,6 +45,10 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="script.js"></script>
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/trust/matching05.css">
+ <style>
+ 	#req4{width: 84px; height: 40px; float: right;
+}
+ </style>
 <body>
 	<div id="all">
 		<div id="all-wrap">
@@ -112,6 +116,7 @@
 						<div id="myresp">
 							<div name ="req" id ="popup02" style="text-align:center; cursor:pointer;">내가받은의뢰</div>
 						</div>
+						
 					<div id = "mybalsin0"  style="display:none;">
 				<% if( balsin0.size()==0){ %>
 					내가 보낸의뢰가 없습니다.
@@ -126,10 +131,17 @@
 							의뢰일 | <%=balsin0.get(i).getTrustsDue() %> ~ <%=balsin0.get(i).getTrusteDue()%>
 						</div>
 						<div id ="req3">
-							<p style="display:inline;"><%=balsin0.get(i).getTrustPS() %>	</p>
+							<p style="display:inline;"><%=balsin0.get(i).getTrustPS() %></p>
 						</div>
-						<button type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=1&tpostnum=<%=balsin0.get(i).getTpostNum()%>'">수락</button>
-					<button type="button" id="btn2" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=2&tpostnum=<%=balsin0.get(i).getTpostNum()%>'">거절</button>
+						<div id="req4">
+						<%if(balsin0.get(i).getPosition()==0){ %>
+							<h4 style="color:green">수락대기중</h4>
+						<%}else if(balsin0.get(i).getPosition()==1){ %>
+							<h4 style="color:blue">수락완료</h4>
+						<%}else if(balsin0.get(i).getPosition()==2){ %>
+							<h4 style="coloe:red">거절됨</h4>
+						<%} %>
+						</div>
 					</div>
 					<%} }%>
 					</div>
@@ -156,6 +168,7 @@
 					<%} }%>
 					</div>
 					</div>
+
 					</div>
 					
 					
@@ -168,6 +181,9 @@
 						<div name ="req" id ="popup04" style="text-align:center; cursor:pointer;">내가받은의뢰</div>
 					</div>
 					<div id = "mybalsin1" style="display:none" >
+				<%if(balsin1.size()==0){ %>
+						<h4>수락받은 의뢰가 없습니다.</h4>
+				<%} else{ %>
 					<%for( int i=0;i<balsin1.size();i++){ %>
 					<div id="reqcontent1">
 						<div id ="req1">
@@ -182,9 +198,12 @@
 						</div>
 						<button type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/insertReview.tu?user=<%= balsin1.get(i).getSushin() %>&tpostnum=<%=balsin1.get(i).getTpostNum()%>'">리뷰작성</button>
 					</div>
-					<%} %>
+					<%} }%>
 					</div>
 					<div id = "mysusin1" style="display:none" >
+				<%if(susin1.size()==0){ %>
+						받은 의뢰가 없습니다.
+				<%} else{ %>
 					<% for(int i=0;i<susin1.size();i++){ %>
 					<div id="reqcontent1">
 						<div id ="req1">
@@ -197,11 +216,12 @@
 						<div id ="req3">
 							<p style="display:inline;"><%=susin1.get(i).getTrustPS() %>	</p>
 						</div>
-						<button type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/insertReview.tu?user=<%=susin1.get(i).getBalshin() %>&tpostnum=<%=balsin1.get(i).getTpostNum()%>'">수락</button>
+						<button type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/insertReview.tu?user=<%=susin1.get(i).getBalshin() %>&tpostnum=<%=susin1.get(i).getTpostNum()%>'">수락</button>
 						</div>
 					<%} %>
 						</div>
 						</div>
+					<%} %>
 					</div>
 					
 					
@@ -215,6 +235,9 @@
 							<div name ="req" id ="popup06" style="text-align:center; cursor:pointer;">내가받은의뢰</div>
 						</div>
 					<div id = "mybalsin2"  style="display:none;">
+					<%if(balsin2.size()==0){ %>
+						<h4>거절당한 의뢰가 없습니다.</h4>
+					<%}else{ %>
 					<%for( int i=0;i<balsin2.size();i++){ %>
 					<div id="reqcontent1">
 						<div id ="req1">
@@ -230,9 +253,12 @@
 						<button type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=1&tpostnum=<%=balsin2.get(i).getTpostNum()%>'">수락</button>
 					<button type="button" id="btn2" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=2&tpostnum=<%=balsin2.get(i).getTpostNum()%>'">거절</button>
 					</div>
-					<%} %>
+					<%} }%>
 					</div>
 					<div id = "mysusin2"  style="display:none;">
+					<%if(susin2.size()==0) {%>
+						<h4>거절한 의뢰가 없습니다.</h4>
+					<%}else{ %>
 					<% for(int i=0;i<susin2.size();i++){ %>
 					<div id="reqcontent1">
 						<div id ="req1">
@@ -248,7 +274,7 @@
 						<button type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=1&tpostnum=<%=susin2.get(i).getTpostNum()%>'">수락</button>
 					<button type="button" id="btn2" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=2&tpostnum=<%=susin2.get(i).getTpostNum()%>'">거절</button>
 					</div>
-					<%} %>
+					<%} }%>
 					</div>
 					</div>
 					</div>

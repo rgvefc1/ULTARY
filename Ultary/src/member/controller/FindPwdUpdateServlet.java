@@ -30,19 +30,34 @@ public class FindPwdUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//업데이트할 멤버 정보
-		String memberId = request.getParameter("userId");
+		//업데이트할 멤버 정보1
+		String memberId1 = request.getParameter("memberId1");
 		String email = request.getParameter("email");
-	
+		System.out.println("FindPwdUpdateServlet 에 아이디1과 이메일 들어오는지?  "+ memberId1 + " "+ email);
+		
+		//업데이트할 멤버 정보2
+		String memberId2 = request.getParameter("memberId2");
+		String pwquery = request.getParameter("pwquery");
+		String pwqans = request.getParameter("pwqans");
+		System.out.println("FindPwdUpdateServlet 에 아이디2와 질문, 질문답이 들어오는지?  "+ memberId2 + " "+ pwquery +" "+pwqans);
+		
 		//새 비밀번호
 		String newPassword = request.getParameter("fine_newPwd_Confirm");
+		System.out.println("FindPwdUpdateServlet 에 새 비밀번호가 들어오는지?"+newPassword);
 		
-		int result = new MemberService().findPwdUpdate(memberId, email, newPassword);
+		//업데이트 1
+		int result1 = new MemberService().findPwdUpdate1(memberId1, email, newPassword);
 		
-		if(result > 0) { // 업데이트 성공시
+		//업데이트 2
+		int result2 = new MemberService().findPwdUpdate2(memberId2, pwquery, pwqans, newPassword);
+		
+		if(result1 > 0 || result2 > 0) { // 업데이트 성공시
+			System.out.println("새 비밀번호 업데이트 성공이면 1 =>"+ result1);
+			System.out.println("새 비밀번호 업데이트 성공이면 1 =>"+ result2);
 			response.sendRedirect("views/main/main.jsp"); //메인으로
 		} else { //업데이트 실패시
-			request.setAttribute("msg", "로그인 실패");
+			request.setAttribute("msg", "새 비밀번호 설정 실패");
+			
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);
 		}

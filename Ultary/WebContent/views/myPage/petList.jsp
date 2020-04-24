@@ -3,8 +3,11 @@
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	ArrayList<Pet> loginPet = (ArrayList<Pet>)session.getAttribute("loginPet");
+	System.out.println(loginPet);
 	ArrayList<Media> loginMedia = (ArrayList<Media>)session.getAttribute("loginMedia");
+	System.out.println(loginMedia);
 	String petkind = "";
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -52,7 +55,7 @@ $("#self").change(function() {
  		    
 }
 
-	#pp{
+	.updateBtn{
 		float: right;
 		width: 80px;
 		box-shadow: 0px 1px 0px 0px #f0f7fa;
@@ -70,11 +73,11 @@ $("#self").change(function() {
 		text-decoration:none;
 		text-shadow:0px -1px 0px #5b6178;
 		}
-		#pp:hover{
+		.updateBtn:hover{
 		background:linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
 		background-color:#019ad2;
 		}
-		#pp:active {
+		.updateBtn:active {
 		position:relative;
 		top:1px;
 		}
@@ -84,7 +87,7 @@ $("#self").change(function() {
 		}
 		
 		
-		#pd{
+		.deleteBtn{
 		float: right;
 		width: 80px;
 		box-shadow: 0px 1px 0px 0px #f0f7fa;
@@ -102,11 +105,73 @@ $("#self").change(function() {
 		text-decoration:none;
 		text-shadow:0px -1px 0px #5b6178;
 		}
-		#pd:hover{
+		.deleteBtn:hover{
 		background:linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
 		background-color:#019ad2;
 		}
-		#pd:active {
+		.deleteBtn:active {
+		position:relative;
+		top:1px;
+		}
+		
+		input:focus {
+	    outline: none;
+		}
+		
+		#add{
+		float: right;
+		width: 80px;
+		box-shadow: 0px 1px 0px 0px #f0f7fa;
+		background:linear-gradient(to bottom, #33bdef 5%, #019ad2 100%);
+		background-color:#33bdef;
+		border-radius:6px;
+		border:1px solid #057fd0;
+		display:inline-block;
+		cursor:pointer;
+		color:#ffffff;
+		font-family:Arial;
+		font-size:14px;
+		font-weight:bold;
+		padding:6px 24px;
+		text-decoration:none;
+		text-shadow:0px -1px 0px #5b6178;
+		}
+		#add:hover{
+		background:linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
+		background-color:#019ad2;
+		}
+		#add:active {
+		position:relative;
+		top:1px;
+		}
+		
+		input:focus {
+	    outline: none;
+		}
+		
+		#ok{
+		float: right;
+		width: 80px;
+		box-shadow: 0px 1px 0px 0px #f0f7fa;
+		background:linear-gradient(to bottom, #33bdef 5%, #019ad2 100%);
+		background-color:#33bdef;
+		border-radius:6px;
+		border:1px solid #057fd0;
+		display:inline-block;
+		cursor:pointer;
+		color:#ffffff;
+		font-family:Arial;
+		font-size:14px;
+		font-weight:bold;
+		padding:6px 24px;
+		text-decoration:none;
+		text-shadow:0px -1px 0px #5b6178;
+		}
+		#ok:hover{
+		background:linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
+		background-color:#019ad2;
+		}
+		#ok:active {
 		position:relative;
 		top:1px;
 		}
@@ -154,8 +219,9 @@ $("#self").change(function() {
 </style>
 </head>
 <body>
-	<div id="myForm2">
+	<div id="myForm2" action="<%= request.getContextPath() %>/insert.pet" method="post" encType="multipart/form-data">
 		<center><h2>반려동물 정보</h2></center>
+		<% if(!loginPet.isEmpty()){ %>
 		<% for(int i=0;i<loginPet.size();i++){ 
 			Pet p = loginPet.get(i);
 			switch(p.getPetKind()){
@@ -169,8 +235,8 @@ $("#self").change(function() {
 			} %>
 			<% for(int j=0;j<loginMedia.size();j++){
 				Media m = loginMedia.get(j); %>
-				<% if(p.getPetNum() == m.getPetNum()){ %>
-			<table class="petone">
+				<% if(p.getPetNum() == m.getPetNum()){ %> <!--펫정보랑 펫사진이랑 일치하는지 -->
+			<table class="petone" id="petone<%= p.getPetNum() %>">
 				<tr>
 					<th>프로필  사진</th>
 					<td>
@@ -201,31 +267,58 @@ $("#self").change(function() {
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="button" id="pd" style="cursor:pointer;" value="삭제">
-						<input type="button" id="pp" style="cursor:pointer;" value="수정">
-					</td>		
+						<input type="button" id="pd<%= p.getPetNum() %>"  class="deleteBtn" style="cursor:pointer;" value="삭제">
+						<input type="button" id="pp<%= p.getPetNum() %>" class="updateBtn" style="cursor:pointer;" value="수정">
+					</td>
 				</tr>
 			</table>
 				<% } %>
 			<% } %>
 		<% } %>
+	<% } else{ %>
+	<h1>새로운 펫정보를 입력해주세요.</h1>
+	<% } %>
+	<input type="button" id="ok" style="cursor:pointer;" value="확인" onclick='javascript:self.close();'>
+	<input type="button" id="add" style="cursor:pointer;" value="추가">
 		<script>
-			var pp = $('#pp'); // 수정버튼
-			var pd = $('#pd'); // 삭제버튼
+		
+			$('.updateBtn').click(function(){ // 수정버튼
+				var myId = this.id;
+				var myParentTableId = $('#' + myId).parent().parent().parent().parent()[0].id;
+
+				<%-- $('#' + myParentTableId).remove(); --%>
+				location.href = "<%= request.getContextPath() %>/viesws/myPage/petinsert_Popup.jsp"; 
+				 
+				
+				 
+				 
+		        
+		             
+		     
+		});
+		
+/* ---------------------------------------------------------------- */	
+
+			$('.deleteBtn').click(function(){ // 삭제버튼
+				var myId = this.id;
+				var myParentTableId = $('#' + myId).parent().parent().parent().parent()[0].id;
+
+				$('#' + myParentTableId).remove();
+		
+			});
+					
+/* ---------------------------------------------------------------- */	
+
+			$('#add').click(function(){ // 추가버튼
+				location.href = "<%= request.getContextPath() %>/views/myPage/petinsert_Popup.jsp";
+			});
 			
-			function pp(){ // 수정버튼
-				
-				if(pp > 0){
-					return true;
-				}
-			}
-		
-			function pd(){ // 삭제버튼
-				
-			}
-		
-		
-	
+/* ---------------------------------------------------------------- */	
+
+			$('#ok').click(function(){ // 확인버튼
+			
+			});			
+			
 		</script>
 	</div>
 </body>

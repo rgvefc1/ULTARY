@@ -35,16 +35,21 @@ public class Review extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String review = request.getParameter("review");
 		int score = Integer.parseInt(request.getParameter("score"));
-		HttpSession session = request.getSession();
-		Member sessionMember =(Member)session.getAttribute("loginUser");
-		String loginUser = sessionMember.getMemberId();
+		/*
+		 * HttpSession session = request.getSession(); Member sessionMember
+		 * =(Member)session.getAttribute("loginUser"); String loginUser =
+		 * sessionMember.getMemberId();
+		 */
 		
+		String user = request.getParameter("user");
+		int tpnum = Integer.parseInt(request.getParameter("tpnum"));
+		System.out.println(user);
 		TrustReview tr = new TrustReview();
 		tr.setTrScore(score);
 		tr.setTrContent(review);
-		tr.setMemberId(loginUser);
+		tr.setMemberId(user);
 		
-		int result = new MatchingService().review(tr);
+		int result = new MatchingService().review(tr,user,tpnum);
 		
 		String page="";
 		if(result>0) {
