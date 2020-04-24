@@ -65,7 +65,7 @@ public class LoginServlet extends HttpServlet {
 			
 		//response.sendRedirect("index.jsp");
 			//이렇게 값을 넘기면 넘기고나서 페이지 주소에 index.jsp가 남기때문에 아래코드로 바꾸면 index.jsp가 안보이게 됌.
-		response.sendRedirect("views/main/main.jsp");
+		response.sendRedirect("main.login");
 			//** 왜 그런지 이해해야함.
 			//데이터를 보낼게 있는지 없는지 차이점 때문
 			//보내줄게 있는데도 왜 sendRedirect를 썼는지?

@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList ,member.model.vo.Member"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList ,member.model.vo.*"%>
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	String msg = (String)request.getAttribute("msg");
 	String absroute = request.getContextPath();
 	ArrayList<Member> mList = (ArrayList<Member>)request.getAttribute("Mlist");
+	ArrayList<Media> allPro = (ArrayList<Media>)request.getAttribute("allPro");
 %>
 <!DOCTYPE html>
 <html>
@@ -47,7 +48,7 @@
 				<div id="logeleft1"></div>
 				<div id="logoleft2"></div>
 				<div id="logo">
-					<a href='<%= request.getContextPath() %>/views/main/main.jsp'><img id="logoimg" src="<%= request.getContextPath() %>/image/logo.png"></a>
+					<a href='<%= request.getContextPath() %>/main.login'><img id="logoimg" src="<%= request.getContextPath() %>/image/logo.png"></a>
 				</div>
 			</div>
 		</div>
@@ -103,82 +104,117 @@
 		</div>
 	</header>
 <script>
-	<% if((loginUser) == null){ %>
-	$('#cssmenu>ul a').click(function(){
-		window.alert('로그인을 해주세요.');
-	});
-	<% } else{ %>
-	$('#cssmenu>ul>li:eq(0)>a').click(function(){
-		location.href="<%= request.getContextPath() %>/post.tl";
-	});
-	$('#menu1>li:eq(0) a').click(function(){
-		location.href="<%= request.getContextPath() %>/post.tl";
-	});
-	$('#menu1>li:eq(1) a').click(function(){
-		location.href="<%= request.getContextPath() %>/views/myUltary/postWrite.jsp";
-	});
-	$('#menu1>li:eq(2) a').click(function(){
-		location.href="<%= request.getContextPath() %>/markmember.mem";
-	});
-	$('#menu1>li:eq(3) a').click(function(){
-		location.href="<%= request.getContextPath() %>/views/myUltary/markPost.jsp";
-	});
-	$('#menu1>li:eq(4) a').click(function(){
-		location.href="<%= request.getContextPath() %>/views/myUltary/trustEvm.jsp";
-	});
-	$('#cssmenu>ul>li:eq(1)>a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmnotice.po";
-	});
-	$('#menu2>li:eq(0) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmnotice.po";
-	});
-	$('#menu2>li:eq(1) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmAllList.po";
-	});
-	$('#menu2>li:eq(2) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmdlist.po";
-	});
-	$('#menu2>li:eq(3) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmklist.po";
-	});
-	$('#menu2>li:eq(4) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmrlist.po";
-	});
-	$('#menu2>li:eq(5) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmrelist.po";
-	});
-	$('#cssmenu>ul>li:eq(2)>a').click(function(){
-		location.href="<%= request.getContextPath() %>/views/trustMatch/matching01.jsp";
-	});
-	$('#menu3>li:eq(0) a').click(function(){
-		location.href="<%= request.getContextPath() %>/views/trustMatch/matching01.jsp";
-	});
-	$('#cssmenu>ul>li:eq(4)>a').click(function(){
-		location.href="<%= request.getContextPath() %>/slist.no";
-	});
-	$('#menu5>li:eq(0) a').click(function(){
-		location.href="<%= request.getContextPath() %>/slist.no";
-	});
-	$('#menu5>li:eq(1) a').click(function(){
-		location.href="<%= request.getContextPath() %>/faq.sv";
-	});
-	$('#menu5>li:eq(2) a').click(function(){
-		location.href="<%= request.getContextPath() %>/views/support/InquirySend.jsp";
-	});
-	<% } %>
+   <% if((loginUser) == null){ %>
+   $('#cssmenu>ul a').click(function(){
+      window.alert('로그인을 해주세요.');
+   });
+   <% } else{ %>
+   $('#cssmenu>ul>li:eq(0)>a').click(function(){
+      location.href="<%= request.getContextPath() %>/post.tl";
+   });
+   $('#menu1>li:eq(0) a').click(function(){
+      location.href="<%= request.getContextPath() %>/post.tl";
+   });
+   $('#menu1>li:eq(1) a').click(function(){
+      location.href="<%= request.getContextPath() %>/views/myUltary/postWrite.jsp";
+   });
+   $('#menu1>li:eq(2) a').click(function(){
+      location.href="<%= request.getContextPath() %>/markmember.mem";
+   });
+   $('#menu1>li:eq(3) a').click(function(){
+      location.href="<%= request.getContextPath() %>/markpost.tl";
+   });
+   $('#menu1>li:eq(4) a').click(function(){
+      location.href="<%= request.getContextPath() %>/views/myUltary/trustEvm.jsp";
+   });
+   $('#cssmenu>ul>li:eq(1)>a').click(function(){
+      location.href="<%= request.getContextPath() %>/cmAllList.po";
+   });
+   $('#menu2>li:eq(0) a').click(function(){
+      location.href="<%= request.getContextPath() %>/cmList.po?cnum=1";
+   });
+   $('#menu2>li:eq(1) a').click(function(){
+      location.href="<%= request.getContextPath() %>/cmAllList.po";
+   });
+   $('#menu2>li:eq(2) a').click(function(){
+      location.href="<%= request.getContextPath() %>/cmList.po?cnum=2";
+   });
+   $('#menu2>li:eq(3) a').click(function(){
+      location.href="<%= request.getContextPath() %>/cmList.po?cnum=3";
+   });
+   $('#menu2>li:eq(4) a').click(function(){
+      location.href="<%= request.getContextPath() %>/cmList.po?cnum=4";
+   });
+   $('#menu2>li:eq(5) a').click(function(){
+      location.href="<%= request.getContextPath() %>/cmList.po?cnum=5";
+   });
+   $('#cssmenu>ul>li:eq(2)>a').click(function(){
+      location.href="<%= request.getContextPath() %>/views/trustMatch/matching01.jsp";
+   });
+   $('#menu3>li:eq(0) a').click(function(){
+      location.href="<%= request.getContextPath() %>/views/trustMatch/matching01.jsp";
+   });
+   $('#menu3>li:eq(1) a').click(function(){
+      location.href="<%= request.getContextPath() %>/TpostView.tu";
+   });
+   $('#menu3>li:eq(2) a').click(function(){
+      location.href="<%= request.getContextPath() %>/myreview.tu";
+   });
+   $('#cssmenu>ul>li:eq(3)>a').click(function(){
+      location.href="<%= request.getContextPath() %>/views/myPage/memberUpdate.jsp";
+   });
+   $('#menu4>li:eq(0) a').click(function(){
+      location.href="<%= request.getContextPath() %>/views/myPage/memberUpdate.jsp";
+   });
+   $('#menu4>li:eq(1) a').click(function(){
+      location.href="<%= request.getContextPath() %>/views/myPage/pwdUpdate.jsp";
+   });
+   $('#menu4>li:eq(2) a').click(function(){
+      location.href="<%= request.getContextPath() %>/views/myPage/memberDelete.jsp";
+   });
+   $('#cssmenu>ul>li:eq(4)>a').click(function(){
+      location.href="<%= request.getContextPath() %>/slist.no'";
+   });
+   $('#menu5>li:eq(0) a').click(function(){
+      location.href="<%= request.getContextPath() %>/slist.no";
+   });
+   $('#menu5>li:eq(1) a').click(function(){
+      location.href="<%= request.getContextPath() %>/faq.sv";
+   });
+   $('#menu5>li:eq(2) a').click(function(){
+      location.href="<%= request.getContextPath() %>/views/support/InquirySend.jsp";
+   });
+   <% } %>
 </script>
 	
-	<div id="search">
-		<div id="search-wrap">
-			<div id="search-left"></div>
-			<select id="searchselect">
-				<option>회원</option>
-				<option>게시글</option>
-			</select>
-			<input id="searchtext" type="search" placeholder="검색">
-			<input id="searchbutton" type="submit" value="검색">
+	<form onsubmit="return search();" action="<%= request.getContextPath() %>/search.mem">
+		<div id="search">
+			<div id="search-wrap">
+				<div id="search-left"></div>
+				<select id="searchselect" name="searchselect">
+					<option value="1">회원</option>
+					<option value="2">게시글</option>
+				</select>
+				<input id="searchtext" name="searchtext" type="search" placeholder="검색">
+				<input id="searchbutton" type="submit" value="검색">
+			</div>
 		</div>
-	</div>
+	</form>
+<script>
+	function search(){
+		<% if((loginUser) == null){ %>
+		alert('로그인을 해주세요.');
+		return false;
+		<% } else{ %>
+			if($('#searchtext').val() == ""){
+				alert('검색어를 입력해주세요');
+				return false;
+			} else{
+				return true;
+			}
+		<% } %>
+	}
+</script>
 	<section>
 		<div id="section-wrap">
 		<% if(!mList.isEmpty()){ %>
@@ -186,7 +222,21 @@
 					Member m = mList.get(i); %>
 			<div class="memdiv">
 				<div class="memintro">
-					<div id="memimg<%= i %>" class=memimg><img src="<%= request.getContextPath() %>/image/프로필.png"></div>
+					<% if(!allPro.isEmpty()){ %>
+						<% for(int a=0;a<=allPro.size();a++){
+							if(a==allPro.size()){ %>
+					<div id="memimg<%= i %>" class=memimg><a href="<%= request.getContextPath() %>/otherpost.tl?nickname=<%= m.getNickname() %>"><img src="<%= request.getContextPath() %>/image/프로필.png"></a></div>
+							<% break;
+							}
+							Media proimg = allPro.get(a); 
+							if(proimg.getMemberId().equals(m.getNickname())){ %>
+					<div id="memimg<%= i %>" class=memimg><a href="<%= request.getContextPath() %>/otherpost.tl?nickname=<%= m.getNickname() %>"><img src="<%= request.getContextPath() %>/uploadFiles/<%= proimg.getWebName() %>"></a></div>		
+							<% break;
+							} %>
+						<% } %>
+					<% } else{ %>
+					<div id="memimg<%= i %>" class=memimg><a href="<%= request.getContextPath() %>/otherpost.tl?nickname=<%= m.getNickname() %>"><img src="<%= request.getContextPath() %>/image/프로필.png"></a></div>
+					<% } %>
 					<div id="memnick<%= i %>" class="memnick"><%= m.getNickname() %></div>
 				</div>
 				<div class="memlike">
