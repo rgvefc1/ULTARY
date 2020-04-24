@@ -571,5 +571,70 @@ public class PostService {
 			close(conn);
 			return result1;
 		}	
+		// 상세보기 할때 필요한거
+		// 게시글 별 댓글 목록
+		public ArrayList<PostComment> detailpclist(int pno) {
+			Connection conn = getConnection();
+			
+			ArrayList<PostComment> pclist = new PostDAO().detailpclist(conn,pno);
+			
+			close(conn);
+			return pclist;
+		}
+		public ArrayList<CAns> detailcalist(int pno) {
+			Connection conn = getConnection();
+			ArrayList<CAns> calist = new PostDAO().detailcalist(conn,pno);
+			
+			close(conn);
+			return calist;
+		}
+		
+		//댓글,답글 전체 목록
+		public ArrayList<PostComment> selectAllpc() {
+	         Connection conn = getConnection();
+	         
+	         ArrayList<PostComment> list = new PostDAO().selectAllpc(conn);
+	         
+	         close(conn);
+	         return list;
+	      }
 
+	      public ArrayList<CAns> selectAllca() {
+	         Connection conn = getConnection();
+	         
+	         ArrayList<CAns> list = new PostDAO().selectAllca(conn);
+	         
+	         close(conn);
+	         return list;
+	      }
+
+	   // 관심글 추가 했는지 않았는지 확인하는거
+			public int checklikepost(int pno, String loginId) {
+				Connection conn = getConnection();
+				
+				ResultSet rset = new PostDAO().selectCheckMarkPost(conn, pno, loginId);
+				
+				int check = 0;
+				
+				if(rset != null) {
+					check = 1;
+				}
+				return check;
+			}
+
+			// 좋아요 눌렀는지 안눌렀는지 확인
+			public int checklike(int pno, String loginId) {
+				Connection conn = getConnection();
+				ResultSet rset = new PostDAO().selectLikePost(conn, pno, loginId);
+				
+				int check = 0;
+				
+				if(rset != null) {
+					check = 1;
+				}
+				
+				return check;
+			}
+
+	      
 }

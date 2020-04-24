@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import member.model.vo.Media;
 import post.model.service.PostService;
+import post.model.vo.CAns;
 import post.model.vo.PageInfo;
 import post.model.vo.Post;
+import post.model.vo.PostComment;
 
 /**
  * Servlet implementation class CmAllListServlet
@@ -70,6 +72,13 @@ public class CmAllListServlet extends HttpServlet {
 		
 		ArrayList<Media> AllMList = pservice.selectAllMList();
 		
+		ArrayList<Media> ProList = pservice.selectAllproimg();
+		
+		ArrayList<PostComment> pclist = pservice.selectAllpc();
+	
+		ArrayList<CAns> calist = pservice.selectAllca();
+		
+		
 		String page = "";
 		
 
@@ -77,6 +86,9 @@ public class CmAllListServlet extends HttpServlet {
 			page = "views/community/all_search.jsp";
 			request.setAttribute("AllList", AllList);
 			request.setAttribute("AllMList", AllMList);
+			request.setAttribute("ProList", ProList);
+			request.setAttribute("pclist", pclist);
+			request.setAttribute("calist", calist);
 			request.setAttribute("pi", pi);
 		} else {
 			page ="views/common/errorPage.jsp";
