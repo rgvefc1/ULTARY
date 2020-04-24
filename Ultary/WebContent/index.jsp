@@ -10,7 +10,7 @@
 <body>
 <script>
 	$(function(){
-		location.href = "<%= request.getContextPath() %>/main.ini"
+		location.href = "<%= request.getContextPath() %>/main.ini";
 	});
 </script>
 </body>
