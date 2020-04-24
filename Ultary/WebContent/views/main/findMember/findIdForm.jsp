@@ -32,17 +32,14 @@
 				<table>
 					<tr>
 						<td>
-							<button id="fineEmail" class="find_link" onclick="location.href='<%= request.getContextPath() %>/views/main/findMember/findIdEmailForm.jsp'">이메일로 아이디 찾기</button>
+							<a href='<%= request.getContextPath() %>/views/main/findMember/findIdEmailForm.jsp' target="_self">
+							<img id=fineEmail class="find_link" src="<%= request.getContextPath() %>/image/find_email_id.png" /></a>
+<%-- 							<button id="fineEmail" class="find_link" onclick="location.href='<%= request.getContextPath() %>/views/main/findMember/findIdEmailForm.jsp'">이메일로 아이디 찾기</button> --%>
 						</td>
-					</tr>
-					<tr>
 						<td>
-							<br>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<button id="finePhone" class="find_link" onclick="location.href='<%= request.getContextPath() %>/views/main/findMember/findIdPhoneForm.jsp'">전화번호로 아이디 찾기</button>
+							<a href='<%= request.getContextPath() %>/views/main/findMember/findIdPhoneForm.jsp' target="_self">
+							<img id="finePhone" class="find_link" src="<%= request.getContextPath() %>/image/find_phone_id.png" style="margin-left: 25px;"/></a>
+<%-- 							<button id="finePhone" class="find_link" onclick="location.href='<%= request.getContextPath() %>/views/main/findMember/findIdPhoneForm.jsp'">전화번호로 아이디 찾기</button> --%>
 						</td>
 					</tr>
 				</table>
@@ -59,13 +56,13 @@
 		<table id="footer">
 			<tbody>
 				<tr>
-					<td><div class="footer_link" onclick="goNotice();">공지사항</div></td>
+					<td><div class="footer_link" onclick="goNotice();">&nbsp공 지 사 항 </div></td>
 					<td>|</td>
-					<td><div class="footer_link" onclick="goUltaryLoginMain();">로그인</div></td>
+					<td><div class="footer_link" onclick="goUltaryLoginMain();">&nbsp로 &nbsp그 &nbsp인&nbsp</div></td>
 					<td>|</td>
 					<td><div class="footer_link" onclick="gofindPwd();">비밀번호 찾기</div></td>
 					<td>|</td>
-					<td><div class="footer_link" onclick="gomemberJoin();">회원가입</div></td>
+					<td><div class="footer_link" onclick="gomemberJoin();"> 회 원 가 입 &nbsp</div></td>
 				</tr>
 			</tbody>
 		</table>

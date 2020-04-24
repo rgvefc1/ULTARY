@@ -3,7 +3,6 @@ package member.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,35 +34,40 @@ public class FindPwdEmailServlet extends HttpServlet {
 		
 		//아이디 받아오기
 		String memberId = request.getParameter("userId");
-		System.out.println("서블릿에서 뽑은 userId :"+memberId);
+		System.out.println("FindPwdEmailServlet 서블릿에서 뽑은 userId :"+memberId);
 		
 		//email 받기
 		String email = request.getParameter("email");
-		System.out.println("서블릿에서 뽑은 email :"+email);
+		System.out.println("FindPwdEmailServlet 서블릿에서 뽑은 email :"+email);
 		
 		//디비에서 아이디와 비번이 일치하는 회원이 있는지만 확인.
 		int findPwdMember = new MemberService().findPwdMember(memberId, email);
 		
-		PrintWriter out = response.getWriter();
-		if(findPwdMember > 0) { //회원정보가 있으면 인증메일 하고 비번업데이트하기
+//		String page = null;
+		
+		if(findPwdMember > 0) {
+//			page ="WebContent/views/main/findMember/newPwdForm.jsp";
+//			request.setAttribute("memberId", memberId);
+//			request.setAttribute("email", email);
+			
+			PrintWriter out = response.getWriter();
 			out.append("success");
+			out.flush();
+			out.close();
 			
-			//패드워드 업데이트에 아이디 보내주기
-			String page ="WebContent/views/main/findMember/newPwdForm.jsp";
-			request.setAttribute("memberId", memberId);
-			request.setAttribute("email", email);
-			
-			RequestDispatcher view = request.getRequestDispatcher(page);
-			view.forward(request, response);
-			
-			System.out.println("idcheck서블릿에서 확인하는 기존 아이디 있으면 1=>"+findPwdMember);
+			System.out.println("FindPwdEmailServlet 서블릿에서 확인하는 기존 아이디 있으면 1=>"+findPwdMember);
+		
 		}else {
+			PrintWriter out = response.getWriter();
 			out.append("fail"); ////회원정보가 없으면 없다고 알려주기
-			System.out.println("idcheck서블릿에서 확인하는 기존 아이디 없으면 0 =>"+findPwdMember);
+			out.flush();
+			out.close();
+			
+			System.out.println("FindPwdEmailServlet 서블릿에서 확인하는 기존 아이디 없으면 0 =>"+findPwdMember);
 		}
-		out.flush();
-		out.close();
-
+		
+//		RequestDispatcher view = request.getRequestDispatcher(page);
+//		view.forward(request, response);
 	}
 
 	/**

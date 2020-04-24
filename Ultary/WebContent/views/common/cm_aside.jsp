@@ -10,12 +10,12 @@
 <body>z
 	<aside>
 		<ul>
-			<li><a href='<%= request.getContextPath() %>/cmnlist.po'>공지사항</a></li>
+			<li><a href='<%= request.getContextPath() %>/cmList.po?cnum=1'>공지사항</a></li>
             <li><a href='<%= request.getContextPath() %>/cmAllList.po'>모아보기</a></li>
-            <li><a href='<%= request.getContextPath() %>/cmdlist.po'>펫일상</a></li>
-            <li><a href='<%= request.getContextPath() %>/cmklist.po'>펫지식</a></li>
-            <li><a href='<%= request.getContextPath() %>/cmrlist.po'>펫리뷰</a></li>
-            <li><a href='<%= request.getContextPath() %>/cmrelist.po'>펫분양</a></li>
+            <li><a href='<%= request.getContextPath() %>/cmList.po?cnum=2'>펫일상</a></li>
+            <li><a href='<%= request.getContextPath() %>/cmList.po?cnum=3'>펫지식</a></li>
+            <li><a href='<%= request.getContextPath() %>/cmList.po?cnum=4'>펫리뷰</a></li>
+            <li><a href='<%= request.getContextPath() %>/cmList.po?cnum=5'>펫분양</a></li>
 		</ul>
 	</aside>
 </body>

@@ -39,8 +39,8 @@ $("#self").change(function() {
 .text{font-family: 'Nanum Gothic Coding', monospace;}
 
 	#mypage{
-		width:900px;
-		height:1500px;
+		width: 900px;
+   	 	height: 600px;
 	}
 	
 	#myForm2{border: 1px solid hsla(197, 62%, 74%, 0.603); border-width: 20px; background: white; margin: 20px;}

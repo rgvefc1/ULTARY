@@ -54,7 +54,7 @@
 					</div>
 					<div id= "page3">
 						<div id="page3-1">
-							<h3>반려동물 정보</h3>
+							<h3 style="text-align: center;">반려동물 정보</h3>
 						</div>
 						<div id="page3-2">
 							<table id="page3_table">

@@ -35,7 +35,7 @@
 					<tr>
 						<th style="padding-right:10px;">아이디</th>
 						<td>
-							<input type="text" id="fine_Pwd_Id" name="fine_Pwd_Id" class="input_find" autofocus style="width: 220px;" required> 
+							<input type="text" id="fine_Pwd_Id1" name="fine_Pwd_Id1" class="input_find" autofocus style="width: 220px;" required> 
 						</td>
 					</tr>
 					<tr>
@@ -85,13 +85,13 @@
 		<table id="footer">
 			<tbody>
 				<tr>
-					<td><div class="footer_link" onclick="goNotice();">공지사항</div></td>
+					<td><div class="footer_link" onclick="goNotice();">&nbsp공 지 사 항 </div></td>
 					<td>|</td>
-					<td><div class="footer_link" onclick="goUltaryLoginMain();">로그인</div></td>
+					<td><div class="footer_link" onclick="goUltaryLoginMain();">&nbsp로 &nbsp그 &nbsp인&nbsp</div></td>
 					<td>|</td>
 					<td><div class="footer_link" onclick="gofindId();">아이디 찾기</div></td>
 					<td>|</td>
-					<td><div class="footer_link" onclick="gomemberJoin();">회원가입</div></td>
+					<td><div class="footer_link" onclick="gomemberJoin();"> 회 원 가 입 &nbsp</div></td>
 				</tr>
 			</tbody>
 		</table>
@@ -120,7 +120,7 @@
 	});
 	
 	function sendMail(){
-		var userId = $('#fine_Pwd_Id'); 
+		var userId = $('#fine_Pwd_Id1'); 
 		
 		var email_1 = $('#email_1'); 
 		var email_2 = $('#email_2'); 
@@ -135,11 +135,10 @@
 			
 				
 				if(userId.val() != "" && email_1.val() != "" && email_2.val() != null && data == 'success'){ //중복아니라면 success =>인증메일 발송 가능
-					
 					$.ajax({ //<메일 보내기 서블릿 >
 						url: '<%= request.getContextPath() %>/send.do',
 						data: {email:email},
-						success: function(data2){ //data1는 랜덤키
+						success: function(data){ //data1는 랜덤키
 							alert('입력하신 이메일로 인증메일이 발송되었습니다.');
 							
 							if($('#emailResult_check').css("display")=="none"){ //파란버튼
@@ -148,7 +147,7 @@
 							}
 							
 							$('#chkNum').click(function(){ //인증확인 버튼을 눌렀을 때
-								if(data2.trim() == email_Confirm.val().trim()){ //인증번호와 사용자 입력이 일치하면
+								if(data.trim() == email_Confirm.val().trim()){ //인증번호와 사용자 입력이 일치하면
 									ismailUsable = true;
 									if($('#emailChkResult_check').css("display")=="none"){ //파란버튼
 								 		$('#emailChkResult_check').show();
@@ -215,7 +214,7 @@
 		location.href='<%= request.getContextPath() %>/#';
 	}
 	function goUltaryLoginMain(){ //로그인으로 이동
-		location.href='<%= request.getContextPath() %>/views/main/ultaryLoginMain.jsp';
+		location.href='<%= request.getContextPath() %>/views/main/ultaryLoginMain.jsp'
 	}
 	function gofindId(){ //아이디 찾기로 이동
 		location.href='<%= request.getContextPath() %>/views/main/findMember/findIdForm.jsp';

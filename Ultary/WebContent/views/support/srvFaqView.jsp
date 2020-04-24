@@ -93,7 +93,7 @@ section {
 
 .fNum {
 	font-size: 40px;
-	background-color: black;
+	background-color:  rgba(0, 0, 0, 0.658);
 	color: white;
 	border-radius: 20px;
 	border: 5px 5px 5px 5px;
@@ -144,7 +144,7 @@ button:hover {
 }
 
 #numBtn {
-	background: black;
+	background: rgba(0, 0, 0, 0.658);
 	color:white;
 }
 
@@ -154,6 +154,25 @@ button:hover {
 
 #listArea {
 	margin: auto;
+}
+#answerC{
+	font-size: 25px;
+	color:rgba(0, 0, 0, 0.658);
+}
+#searchBtn{
+	width : 60px;
+	height: 40px;
+	border-radius: 15px;
+	font-size: 15px;
+	color : white;
+	background:  rgba(0, 0, 0, 0.658);
+	
+}
+#searchBtn:hover{
+   cursor: pointer;
+}
+#searchImg{
+	height: 25px;
 }
 </style>
 </head>
@@ -177,17 +196,20 @@ button:hover {
 								<li id="title"><img src="image/support/FAQ.png"></li>
 
 								<p style="color: gray;">궁금하신 사항을 선택해 주세요</p>
+								
 								<hr>
 								<!-- 검색 폼 영역 -->
 								<li id='liSearchOption'>
 
 									<form action='<%=request.getContextPath()%>/faq.sv'>
+									<img src = "<%=request.getContextPath()%>/image/검색.png" id ="searchImg">
 										<select id='selSearchOption' name="option">
 											<option value='A'>제목+내용</option>
 											<option value='T'>제목</option>
 											<option value='C'>내용</option>
-										</select> <input id='txtKeyWord' name="search" /> <input type='button'
-											value='검색' />
+										</select> <input id='txtKeyWord' name="search" />
+										 <input type='button' value='검색' id ="searchBtn"/>
+										
 									</form>
 								</li>
 							</div>
@@ -217,7 +239,7 @@ button:hover {
 								</tr>
 
 								<tr class="content-area">
-									<td></td>
+									<td><p id ="answerC">▶</p></td>
 									<td class="contentD"><%=n.getqContent()%></td>
 								</tr>
 

@@ -48,7 +48,7 @@ public class NaverLoginServlet extends HttpServlet {
 		// 네이버 로그인 접근 토큰 access_token에 개인정보 들어가 있음.
 		String token = (String)session.getAttribute("access_token");
 		String header = "Bearer " + token; // Bearer 다음에 공백 추가
-		System.out.println(token);
+		System.out.println("네이버로그인서블릿에서 뽑아보는 토큰"+token);
 		
 	   //네이버 제공 코드 시작-------------------------------------------------------------
 	  		String apiurl = "https://openapi.naver.com/v1/nid/me";
@@ -99,7 +99,7 @@ public class NaverLoginServlet extends HttpServlet {
 				System.out.println("네이버에서 받아와서 멤버에 담은 정보:"+NaverUser);
 				
 				String page = "";
-				String msg = "";
+				
 				//1. 이메일이 우리 사이트에 가입되어 있으면, 메인으로 이동.
 				//2. 이메일이 우리 사이트에 가입이 안되어 있으면, 울타리 회원가입으로 이동
 				//	  (기존정보 들어와 있는 상태에서) 추가 정보 입력 후에 가입완료. -> 메인으로
@@ -135,24 +135,8 @@ public class NaverLoginServlet extends HttpServlet {
 					request.setAttribute("NaverUser", NaverUser);
 					page ="views/main/memberjoinNaverForm.jsp";
 					
-					
-					//위에서 받은 NaverUser 정보를 일단 저장하고,
-//					int result2 = new MemberService().insertNaverMember(NaverUser);
-					
-//					String page = null;
-//					if(result2 > 0) { 
-//						//가입페이지에서 네이버에서 받아온 멤버 정보 뿌려줘야함
-//						request.setAttribute("NaverUser", NaverUser);
-//						page ="views/main/memberjoinNaverForm.jsp";
-//					}else {
-//						page = "views/common/errorPage.jsp";
-//						request.setAttribute("msg", "네이버 로그인 정보 가져오기에 실패하였습니다.");
-//					}
 					RequestDispatcher view = request.getRequestDispatcher(page);
 					view.forward(request, response);
-					
-					
-					
 					
 				}
 			

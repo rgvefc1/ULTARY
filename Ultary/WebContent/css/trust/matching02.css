@@ -3,12 +3,24 @@
 	#title{text-align:left;font-family:Dotum,"돋움",Helvetica,"Apple SD Gothic Neo",sans-serif;float:left;
 			margin-top: 26px;  margin-bottom: 29px;}
 	#title-1{text-align: left; margin-top: 43px; display: block;margin-left: 115px;}
-	#page{width: 100%; height: 100%; background-color: hsla(197, 62%, 74%, 0.603); float: left; margin-left: 4px;}
-	#top-bar{width: 60%; height: 38px; text-align: center; background-color: gray; margin: 0 auto;cursor:pointer;	}
-	
+	#page{width: 100%; height: 100%; float: left; margin-left: 4px;}
+	#top-bar{width: 60%;
+    height: 27px;
+    text-align: center;
+    background-color: #5CD1E5;
+    margin: 0 auto;
+    cursor: pointer;
+    vertical-align: middle;
+    border-radius: 7px;
+    color: white;
+}
+ a:link { color: white; text-decoration: none;}
+ a:visited { color: white; text-decoration: none;}
+ a:hover { color: black; text-decoration: none;}
+
 	/*여기서부터가 팝업 css  */
 	#content-box{width:100%;height:500px;border-radius:30px;}
-    #matcontent{width:100%;height:490px;background-color:hsla(197, 62%, 74%, 0.603)}
+    #matcontent{width:100%;height:490px;background-color:#5CD1E5}
     table{border: groove;width:95%;margin-left:20px;background-color:white;}
     td{border: outset;}
     .bar{float: left; margin-left: 60px; width: 100px; height: 30px; background-color: hsla(197, 62%, 74%, 0.603);
@@ -23,17 +35,28 @@
    			margin-left:264px;margin-bottom: 35px; margin-top:30px;}
 /*여기까지가 팝업 css  */
 
-	.content-profile{margin:0 auto; width:80%;height:100px;	background-color:white;
-					border-radius:10px;	margin-top: 50px; box-shadow: 7px 10px;}
+	.content-profile{margin: 0 auto;
+    width: 80%;
+    height: 100px;
+    background-color: white;
+    border-radius: 10px;
+    margin-top: 50px;
+    box-shadow: #5CD1E5 7px 10px;
+    border: outset;
+    cursor: pointer;
+}
+	.content-profile:hover{background:#5CD1E5;}
 	.profile-photo{width:60px;height:60px;margin-left:30px;margin-top:20px;
 					border-radius:30px;	float:left;}
 	.name{margin-top:50px; margin-right: 97px;font-weight: bold;font-size: 25px;}
 	.address{display:inline-block; }
 	.infoDiv{padding-top: 10px;padding-left: 20px; float: left;}
-	.infobutton1{margin-top: 15px; width: 100px; height: 30px; margin-left: 248px; background: pink;
+	.infobutton1{margin-top: 15px; width: 100px; height: 30px; margin-left: 331px; background: #5CD1E5;
 	    		cursor: pointer; text-align: center;display: inline-block; border-radius:8px;color:white;}
-	.infobutton2{margin-top: 15px; width: 100px; height: 30px; margin-left: 249px; background: pink;
+	.infobutton2{margin-top: 15px; width: 100px; height: 30px; margin-left: 331px; background: #5CD1E5;
 	   			 cursor: pointer; text-align: center;  display: inline-block;border-radius:8px;color:white;}
+	.infobutton1:hover{background:gold;}
+	.infobutton2:hover{background:gold;}
 	#like{margin-left:15px;}
 	.footbutton{margin-top:50px;margin-left:10px;}
 	#back{margin-left:309px;}

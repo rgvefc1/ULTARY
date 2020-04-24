@@ -17,20 +17,21 @@
 	.name{margin-top:50px; margin-right: 97px;font-weight: bold;font-size: 25px;}
 	.address{display:inline-block; }
 	.infoDiv{padding-top: 10px;padding-left: 20px; float: left;}
-	.infobutton1{margin-top: 15px; width: 100px; height: 30px; margin-left: 248px; background: pink;
+	.infobutton1{margin-top: 15px; width: 100px; height: 30px; margin-left: 339px; background: hsla(197, 62%, 74%, 0.603);
 	    		cursor: pointer; text-align: center;display: inline-block; border-radius:8px;color:white;}
-	.infobutton2{margin-top: 15px; width: 100px; height: 30px; margin-left: 247px; background: pink;
+	.infobutton2{margin-top: 15px; width: 100px; height: 30px; margin-left: 339px; background: hsla(197, 62%, 74%, 0.603);
 	   			 cursor: pointer; text-align: center;  display: inline-block;border-radius:8px;color:white;}
 	#like{margin-left:15px;}
 	#review-box{width:100%;height:462px;}
-	#review-title{float: left;  width: 9%;text-aligh: left;    margin-left: 64px;
+	#review-title{float: left;  width: 9%;text-aligh: left;margin-left: 64px;    padding-top: 11px;
     text-align: start;}
-	#date{float:right;margin-top: 24px;}
+	#date{float:right;    margin-top: 48px;
+    margin-right: 71px;}
 	#review-box-top{width:100%;height:66px;}
 	#review{width:80%;    height: 269px;margin-left:97px;}
 	#point{display:inline-block;width:80%;height:50px;margin-left:50px}
-	#button{width:150px; height:40px;background:orange;    float: right;
-   			 margin-right: 114px; cursor:pointer; text-align:center;}
+	#button{width:150px; height:40px;background:hsla(197, 62%, 74%, 0.603);    float: right;
+   			 margin-right: 229px; cursor:pointer; text-align:center;}
 	
 .star-input>.input,
 .star-input>.input>label:hover,

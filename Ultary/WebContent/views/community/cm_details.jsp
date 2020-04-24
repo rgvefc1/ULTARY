@@ -116,11 +116,11 @@
 			<script>
 				$('#menuBtn').click(function(){
 					switch(<%= post.getCategorynum() %>){
-					case 1: location.href='<%= request.getContextPath()%>/cmnotice.po'; break;
-					case 2: location.href='<%= request.getContextPath()%>/cmdlist.po'; break;
-					case 3: location.href='<%= request.getContextPath()%>/cmklist.po'; break;
-					case 4: location.href='<%= request.getContextPath()%>/cmrlist.po'; break;
-					case 5: location.href='<%= request.getContentType()%>/cmrelist.po';break;
+					case 1: location.href='<%= request.getContextPath()%>/cmList.po?cnum=1'; break;
+					case 2: location.href='<%= request.getContextPath()%>/cmList.po?cnum=2'; break;
+					case 3: location.href='<%= request.getContextPath()%>/cmList.po?cnum=3'; break;
+					case 4: location.href='<%= request.getContextPath()%>/cmList.po?cnum=4'; break;
+					case 5: location.href='<%= request.getContentType()%>/cmList.po?cnum=5';break;
 					}
 				});
 				
@@ -171,6 +171,28 @@
 					$('.slideBtn').css("opacity", "0");
 				});
 			});
+			
+			$(function(){
+				var dbtn = "#deletebtn";
+				$(dbtn).click(function(){
+					var result = confirm("게시글을 삭제하시겠습니까?");
+					var pNum = <%= post.getPostNum() %>;
+					
+					if(result){
+						alert("삭제하였습니다.");
+						$.ajax({
+							url:'deletePost.tl',
+							data : {pNum:pNum},
+							success:function(data){
+								location.href="<%= request.getContextPath() %>/cmList.po?cnum=<%= post.getCategorynum()%>"
+							}
+						});
+					} else {
+						alert('삭제취소');
+					}
+				});
+			});
+			
 		</script>
 			</div>
 			<footer>from.hoseong</footer>

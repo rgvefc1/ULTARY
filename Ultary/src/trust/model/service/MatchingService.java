@@ -18,9 +18,9 @@ import trust.model.vo.TrustReview;
 
 public class MatchingService {
 
-	public int getListCount(Member member, String pet) {
+	public int getListCount(Member member, String pet, String loginId) {
 		Connection conn = getConnection();
-		int result = new MatchingDAO().getListCount(conn,member,pet);
+		int result = new MatchingDAO().getListCount(conn,member,pet,loginId);
 		close(conn);
 		return result;
 	}
@@ -145,18 +145,27 @@ public class MatchingService {
 		return m;
 	}
 
-	public int review(TrustReview tr) {
+	public int review(TrustReview tr, String user, int tpnum) {
 		Connection conn = getConnection();
 		
 		int result = new MatchingDAO().review(conn,tr);
-		
+		int result2 = 0;
 		if(result > 0) {
 			commit(conn);
+			int trnum = new MatchingDAO().gettrnum(conn,user);
+System.out.println(trnum);
+			result2= new MatchingDAO().insertTpnum(conn,tpnum,trnum);
+			
+			if(result2>0) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
 		}else {
 			rollback(conn);
 		}
 		close(conn);
-		return result;
+		return result2;
 	}
 
 	public ArrayList<TrustReview> trList(String loginUser) {
@@ -208,6 +217,35 @@ public class MatchingService {
 		}
 		close(conn);
 		return result;
+	}
+
+	public ArrayList<TrustReview> trReview(String memberid) {
+		Connection conn = getConnection();
+		
+		ArrayList<TrustReview> trList = new MatchingDAO().trReview(conn,memberid);
+		
+		if(trList != null) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return trList;
+	}
+
+	public TrustPost tpview(int tpnum) {
+		Connection conn = getConnection();
+		
+		TrustPost tp = new MatchingDAO().tpview(conn,tpnum);
+		
+		if(tp !=null) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return tp;
 	}
 
 

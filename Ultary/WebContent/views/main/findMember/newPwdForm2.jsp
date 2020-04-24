@@ -2,15 +2,18 @@
     pageEncoding="UTF-8"%>
 <%
 
-	//아이디
-	String memberId1 = request.getParameter("fine_Pwd_Id1");
-	System.out.println("newPassword에서 뽑아보는 findPwdEmailForm에서 받아온 id_1 : "+memberId1);
-	//이메일
-	String email_1 = request.getParameter("email_1");
-	String email_2 = request.getParameter("email_2");
-	String email = email_1 + "@" + email_2;
-	System.out.println("newPassword에서 뽑아보는 findPwdEmailForm에서 받아온 email : "+email);
+	//질문으로 찾는 아이디
+	String memberId2 = request.getParameter("fine_Pwd_Id2");
+	System.out.println("newPassword에서 뽑아보는 FindPwdQnaServlet 서블릿에서 뽑은 userId_2 :"+ memberId2);
 	
+	//비번질문 받기
+	int pwquery = Integer.parseInt(request.getParameter("pwquery"));
+	System.out.println("FindPwdQnaServlet 서블릿에서 뽑은 pwquery :"+pwquery);
+	
+	//비번 답 받기
+	String pwqans = request.getParameter("pwqans");
+	System.out.println("newPassword에서 뽑아보는 FindPwdQnaServlet 서블릿에서 뽑은 pwqans :"+pwqans);
+
 %>     
     
 <!DOCTYPE html>
@@ -62,8 +65,9 @@
 				</table>
 				<br>
 				<!-- 업데이트하기 위해 히든으로 숨겨줌 --------------------------------->
-				<input type="hidden" name="memberId1" value="<%= memberId1 %>">
-				<input type="hidden" name="email" value="<%= email %>">
+				<input type="hidden" name="memberId2" value="<%= memberId2 %>">
+				<input type="hidden" name="pwquery" value="<%= pwquery %>">
+				<input type="hidden" name="pwqans" value="<%= pwqans %>">
 				<!-- ------------------------------------------------------- -->
 				<button type=submit id="loginBtn_normal" class="loginBtn">변경하기</button>
 				<br>

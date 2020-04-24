@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.Member"%>
+    pageEncoding="UTF-8" import="member.model.vo.Member,java.util.ArrayList,trust.model.vo.*"%>
 <%
 	Member m = (Member)request.getAttribute("m");
 	String tpostnum = request.getParameter("tpostnum");
+	String user = m.getMemberId();
 %>
 <!DOCTYPE html>
 <html>
@@ -35,7 +36,7 @@
 			<%@ include file ="/views/common/tr_aside.jsp" %>
 				<section>
 					<div>
-            <form action="<%=request.getContextPath()%>/review.tu">
+            <form action="<%=request.getContextPath()%>/review.tu" onsubmit="return datacheck();">
             <div id="matching">
 				<h1 id="title">의뢰관리</h1>
 				<p id="title-1">위탁 내용 상세보기와 진행사항을 보여드립니다.</p>
@@ -52,7 +53,7 @@
 								<span class="name" id="name1"><%=m.getNickname() %></span><br><br>
 								<span class="address" id="class1"><%=m.getAddress() %></span>
 								</div>
-								<div class="infobutton1">관심등록</div><button id="like">좋아욤</button>
+									<div class="infobutton1" onclick="markmem('<%=m.getMemberId()%>','<%=loginUser.getMemberId()%>);">관심등록</div>
 								<div class="infobutton2" ><a href="/Ultary/views/trustMatch/matching03.jsp">상세보기</a></div>
 							</div>
 						</div>
@@ -61,9 +62,8 @@
 								<div id="review-box-top">
 									<h3 id="review-title">리뷰작성</h3>
 									<label id="date">2020-03-20</label>
-									<br>
-									<hr>
-									</div>
+								</div>
+								<hr>
 								<textarea id="review" name="review"></textarea>
 								<div id="point">
 								<h3 style="float:left; margin-left: 61px;">별점</h3>
@@ -74,8 +74,9 @@
 								        <a href="#" id="4star">★</a>
 								        <a href="#" id="5star">★</a>
 								</p>
-								<input type="hidden" id="score" name="score" value="">
-								
+								<input type="hidden" id="score" name="score" value="0">
+								<input type="hidden" id="tpnum" name="tpnum" value="<%=request.getParameter("tpostnum") %>">
+								<input type="hidden" id="user" name="user" value="<%=user %>">
 								<button id="button">리뷰등록</button>
 								
 							</div>
@@ -84,6 +85,9 @@
 					            $(this).parent().children("a").removeClass("on");  /* 별점의 on 클래스 전부 제거 */ 
 					            $(this).addClass("on").prevAll("a").addClass("on"); /* 클릭한 별과, 그 앞 까지 별점에 on 클래스 추가 */
 					            return false;
+					        });
+					        $(function(){
+					        	$('#score').val(0);
 					        });
 					        
 					        $('#1star').click(function(){
@@ -101,6 +105,14 @@
 					        $('#5star').click(function(){
 					        	$('#score').val(5);
 					        });
+					        function datacheck(){
+					        	if($('textarea#review').val() == ""){ 
+					        		alert("리뷰를 입력해주세요.");
+					        		return false;
+					        	}else{
+					        		return true;
+					        	 }
+					        }
 					</script>
 					
 					
