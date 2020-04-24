@@ -56,8 +56,8 @@
 			<%@ include file ="/views/common/tr_nav.jsp" %>
 			<div id="asidesection">
 			<%@ include file ="/views/common/tr_aside.jsp" %>
-				<section>
-					<div>
+			<section>
+			<div>
             <form>
             <div id="matching">
 				<h1 id="title">의뢰관리</h1>
@@ -102,27 +102,28 @@
 					<div id="page4-1-2" class="subtitle" onclick="sub();">수락</div>
 					<div id="page4-1-3" class="subtitle" onclick="no();">거절	</div>
 					
-					<div class="subcircle" id="subcircle1"><p id="no"><%=balsin0.size()+susin0.size() %>건</p></div>
-					<div class="subcircle" id="subcircle2"><p id="accept"><%=balsin1.size()+susin1.size() %>건</p></div>
-					<div class="subcircle" id="subcircle3"><p id="nono"><%=balsin2.size()+susin2.size() %>건</div>
+					<div class="subcircle" id="no"><%=balsin0.size()+susin0.size() %>건</div>
+					<div class="subcircle" id="accept"><%=balsin1.size()+susin1.size() %>건</div>
+					<div class="subcircle" id="nono"><%=balsin2.size()+susin2.size() %>건</div>
 				</div>
 				
 				<div id="no-popup1" style="display:none">
-					<div id="no-popup-1" >
 					<div id="myreq">
-							<div name ="req" id ="popup01" style="text-align:center; cursor:pointer;">내가보낸의뢰</div>
-			
-						</div>
-						<div id="myresp">
-							<div name ="req" id ="popup02" style="text-align:center; cursor:pointer;">내가받은의뢰</div>
-						</div>
-						
-					<div id = "mybalsin0"  style="display:none;">
+						<div name ="req" id ="popup01" style="text-align:center; cursor:pointer;">내가보낸의뢰</div>
+					</div>
+					<div id="myresp">
+						<div name ="req" id ="popup02" style="text-align:center; cursor:pointer;">내가받은의뢰</div>
+					</div>
+				</div>
+				<div id="no-popup-1" >		
+				<div id = "mybalsin0"  style="display:none;">	
 				<% if( balsin0.size()==0){ %>
-					내가 보낸의뢰가 없습니다.
+					<div id="reqcontent1" style="text-align:center;">
+					<h3>내가 보낸의뢰가 없습니다.</h3>
+					</div>
 				<%} else{%>
 					<%for( int i=0;i<balsin0.size();i++){ %>
-					<div id="reqcontent1">
+						<div id="reqcontent1" onclick="detailview('<%=balsin0.get(i).getSushin()%>','<%=balsin0.get(i).getTpostNum()%>');">
 						<div id ="req1">
 							<img src="/Ultary/views/trustMatch/photo.jpg" id="req-photo">
 							<h5 style="display:inline"><%= balsin0.get(i).getSushin() %></h5>
@@ -146,12 +147,14 @@
 					<%} }%>
 					</div>
 					
-					<div id = "mysusin0"  style="display:none;">
+				<div id = "mysusin0"  style="display:none;">
 				<% if(susin0.size()==0) {%>
-					내가 받은 의뢰가 없습니다.
+				<div id="reqcontent1" style="text-align:center;">
+					<h3>내가 받은 의뢰가 없습니다.</h3>
+				</div>
 				<%} else{ %>
 					<% for(int i=0;i<susin0.size();i++){ %>
-					<div id="reqcontent1">
+					<div id="reqcontent1" onclick="detailview('<%=susin0.get(i).getBalshin()%>','<%=susin0.get(i).getTpostNum()%>');">
 						<div id ="req1">
 							<img src="/Ultary/views/trustMatch/photo.jpg" id="req-photo">
 							<h5 style="display:inline"><%=susin0.get(i).getBalshin() %></h5>
@@ -169,23 +172,22 @@
 					</div>
 					</div>
 
-					</div>
-					
-					
 				<div id="no-popup2" style="display:none">
-					<div id="no-popup-1" >
 					<div id="myreq">
-						<div name ="req" id ="popup03" style="text-align:center; cursor:pointer;">내가보낸의뢰</div>
+							<div name ="req" id ="popup03" style="text-align:center; cursor:pointer;">내가보낸의뢰</div>
 					</div>
 					<div id="myresp">
-						<div name ="req" id ="popup04" style="text-align:center; cursor:pointer;">내가받은의뢰</div>
+							<div name ="req" id ="popup04" style="text-align:center; cursor:pointer;">내가받은의뢰</div>
 					</div>
-					<div id = "mybalsin1" style="display:none" >
+				</div>
+				<div id = "mybalsin1" style="display:none" >
 				<%if(balsin1.size()==0){ %>
+				<div id="reqcontent1" style="text-align:center;">
 						<h4>수락받은 의뢰가 없습니다.</h4>
+				</div>
 				<%} else{ %>
 					<%for( int i=0;i<balsin1.size();i++){ %>
-					<div id="reqcontent1">
+					<div id="reqcontent1" onclick="detailview('<%=balsin1.get(i).getSushin()%>','<%=balsin1.get(i).getTpostNum()%>');">
 						<div id ="req1">
 							<img src="/Ultary/views/trustMatch/photo.jpg" id="req-photo">
 							<h5 style="display:inline"><%= balsin1.get(i).getSushin() %></h5>
@@ -196,16 +198,22 @@
 						<div id ="req3">
 							<p style="display:inline;"><%=balsin1.get(i).getTrustPS() %>	</p>
 						</div>
+						<%if(balsin1.get(i).getTrnum()==0){ %>
 						<button type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/insertReview.tu?user=<%= balsin1.get(i).getSushin() %>&tpostnum=<%=balsin1.get(i).getTpostNum()%>'">리뷰작성</button>
+						<%} else{ %>
+						<input type="button" class="btn" id="btn1" name="btn1" value="리뷰수정" onclick="location.href='<%=request.getContextPath()%>/trustcol.tu?trnum=<%=balsin1.get(i).getTrnum()%>'">
+						<%} %>
 					</div>
 					<%} }%>
 					</div>
 					<div id = "mysusin1" style="display:none" >
 				<%if(susin1.size()==0){ %>
-						받은 의뢰가 없습니다.
+				<div id="reqcontent1" style="text-align:center;">
+						<h4>받은 의뢰가 없습니다.</h4>
+				</div>
 				<%} else{ %>
 					<% for(int i=0;i<susin1.size();i++){ %>
-					<div id="reqcontent1">
+					<div id="reqcontent1" onclick="detailview('<%=susin1.get(i).getBalshin()%>','<%=susin1.get(i).getTpostNum()%>');">
 						<div id ="req1">
 							<img src="/Ultary/views/trustMatch/photo.jpg" id="req-photo">
 							<h5 style="display:inline"><%=susin1.get(i).getBalshin() %></h5>
@@ -216,51 +224,52 @@
 						<div id ="req3">
 							<p style="display:inline;"><%=susin1.get(i).getTrustPS() %>	</p>
 						</div>
-						<button type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/insertReview.tu?user=<%=susin1.get(i).getBalshin() %>&tpostnum=<%=susin1.get(i).getTpostNum()%>'">수락</button>
 						</div>
-					<%} %>
+					<%} }%>
 						</div>
 						</div>
-					<%} %>
-					</div>
 					
 					
-					<div id="no-popup3" style="display:none">
-					<div id="no-popup-1" >
+					
+				<div id="no-popup3" style="display:none">
 					<div id="myreq">
-							<div name ="req" id ="popup05" style="text-align:center; cursor:pointer;">내가보낸의뢰</div>
-			
-						</div>
-						<div id="myresp">
-							<div name ="req" id ="popup06" style="text-align:center; cursor:pointer;">내가받은의뢰</div>
-						</div>
-					<div id = "mybalsin2"  style="display:none;">
+						<div name ="req" id ="popup05" style="text-align:center; cursor:pointer;">내가보낸의뢰</div>
+					</div>
+					<div id="myresp">
+						<div name ="req" id ="popup06" style="text-align:center; cursor:pointer;">내가받은의뢰</div>
+					</div>
+				</div>
+				<div id="no-popup-1">
+				<div id = "mybalsin2"  style="display:none;">
 					<%if(balsin2.size()==0){ %>
+					<div id="reqcontent1" style="text-align:center;">
 						<h4>거절당한 의뢰가 없습니다.</h4>
+					</div>
 					<%}else{ %>
 					<%for( int i=0;i<balsin2.size();i++){ %>
-					<div id="reqcontent1">
-						<div id ="req1">
-							<img src="/Ultary/views/trustMatch/photo.jpg" id="req-photo">
-							<h5 style="display:inline"><%= balsin2.get(i).getSushin() %></h5>
+						<div id="reqcontent1" onclick="detailview('<%=balsin2.get(i).getSushin()%>','<%=balsin2.get(i).getTpostNum()%>');">
+							<div id ="req1">
+								<img src="/Ultary/views/trustMatch/photo.jpg" id="req-photo">
+								<h5 style="display:inline"><%= balsin2.get(i).getSushin() %></h5>
+							</div>
+							<div id ="req2">
+								의뢰일 | <%=balsin2.get(i).getTrustsDue() %> ~ <%=balsin2.get(i).getTrusteDue()%>
+							</div>
+							<div id ="req3">
+								<p style="display:inline;"><%=balsin2.get(i).getTrustPS() %>	</p>
+							</div>
 						</div>
-						<div id ="req2">
-							의뢰일 | <%=balsin2.get(i).getTrustsDue() %> ~ <%=balsin2.get(i).getTrusteDue()%>
-						</div>
-						<div id ="req3">
-							<p style="display:inline;"><%=balsin2.get(i).getTrustPS() %>	</p>
-						</div>
-						<button type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=1&tpostnum=<%=balsin2.get(i).getTpostNum()%>'">수락</button>
-					<button type="button" id="btn2" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=2&tpostnum=<%=balsin2.get(i).getTpostNum()%>'">거절</button>
-					</div>
 					<%} }%>
 					</div>
+					
 					<div id = "mysusin2"  style="display:none;">
 					<%if(susin2.size()==0) {%>
+					<div id="reqcontent1" style="text-align:center;">
 						<h4>거절한 의뢰가 없습니다.</h4>
+					</div>
 					<%}else{ %>
-					<% for(int i=0;i<susin2.size();i++){ %>
-					<div id="reqcontent1">
+						<% for(int i=0;i<susin2.size();i++){ %>
+						<div id="reqcontent1" onclick="detailview('<%=susin2.get(i).getSushin()%>','<%=susin2.get(i).getTpostNum()%>');">
 						<div id ="req1">
 							<img src="/Ultary/views/trustMatch/photo.jpg" id="req-photo">
 							<h5 style="display:inline"><%=susin2.get(i).getBalshin() %></h5>
@@ -271,75 +280,89 @@
 						<div id ="req3">
 							<p style="display:inline;"><%=susin2.get(i).getTrustPS() %>	</p>
 						</div>
-						<button type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=1&tpostnum=<%=susin2.get(i).getTpostNum()%>'">수락</button>
-					<button type="button" id="btn2" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=2&tpostnum=<%=susin2.get(i).getTpostNum()%>'">거절</button>
-					</div>
+						</div>
 					<%} }%>
 					</div>
 					</div>
-					</div>
+				</div>
 				
-<script>
+					
+			<script>
+			
+				function nosub(){
+					$('#no-popup1').show();
+					$('#no-popup2').hide();
+					$('#no-popup3').hide();
+					$('#mysusin0').hide();
+					$('#mybalsin0').hide();
+					$('#mybalsin1').hide();
+					$('#mysusin1').hide();
+					$('#mybalsin2').hide();
+					$('#mysusin2').hide();
+				}
+				function sub(){
+					$('#no-popup2').show();
+					$('#no-popup1').hide();
+					$('#no-popup3').hide();
+					$('#mysusin0').hide();
+					$('#mybalsin0').hide();
+					$('#mybalsin1').hide();
+					$('#mysusin1').hide();
+					$('#mybalsin2').hide();
+					$('#mysusin2').hide();
+				}
+				function no(){
+					$('#no-popup3').show();
+					$('#no-popup1').hide();
+					$('#no-popup2').hide();
+					$('#mysusin0').hide();
+					$('#mybalsin0').hide();
+					$('#mybalsin1').hide();
+					$('#mysusin1').hide();
+					$('#mybalsin2').hide();
+					$('#mysusin2').hide();
+				}
+				$('#popup01').click(function(){
+					$('#mybalsin0').show();
+					$('#mysusin0').hide();
+				});
+				$('#popup02').click(function(){
+					$('#mysusin0').show();
+					$('#mybalsin0').hide();
+			
+				});
+				$('#popup04').click(function(){
+					$('#mysusin1').show();
+					$('#mybalsin1').hide();
+			
+				});
+				$('#popup03').click(function(){
+					$('#mysusin1').hide();
+					$('#mybalsin1').show();
+				});
+				$('#popup06').click(function(){
+					$('#mysusin2').show();
+					$('#mybalsin2').hide();
+				});
+				$('#popup05').click(function(){
+					$('#mysusin2').hide();
+					$('#mybalsin2').show();
+				});
+				
+				function detailview(userid,tpnum){
+					
+					location.href="<%=request.getContextPath()%>/DetailTp.tu?memberid="+userid+"&tp="+tpnum;
+					
+				}
+	
+			</script>
 
-	$(function(){
-
-	});
-	function nosub(){
-		$('#no-popup1').show();
-		$('#no-popup2').hide();
-		$('#no-popup3').hide();
-	}
-	function sub(){
-		$('#no-popup2').show();
-		$('#no-popup1').hide();
-		$('#no-popup3').hide();
-	}
-	function no(){
-		$('#no-popup3').show();
-		$('#no-popup1').hide();
-		$('#no-popup2').hide();
-	}
-	$('#popup01').click(function(){
-		$('#mybalsin0').show();
-		$('#mysusin0').hide();
-	});
-	$('#popup02').click(function(){
-		$('#mysusin0').show();
-		$('#mybalsin0').hide();
-
-	});
-	$('#popup04').click(function(){
-		$('#mysusin1').show();
-		$('#mybalsin1').hide();
-
-	});
-	$('#popup03').click(function(){
-		$('#mysusin1').hide();
-		$('#mybalsin1').show();
-	});
-	$('#popup06').click(function(){
-		$('#mysusin2').show();
-		$('#mybalsin2').hide();
-	});
-	$('#popup05').click(function(){
-		$('#mysusin2').hide();
-		$('#mybalsin2').show();
-	});
-</script>
-
-			</div>
+			
             </form>
-         </div>
-				
-				
-				
-				
-				
-				
-				
-				</section>
+            </div>
+			</section>
 			</div>
-			<footer>from.hoseong</footer>
+			<footer style="height:100px;"></footer>
 		</div>
 	</div>
 </body>
