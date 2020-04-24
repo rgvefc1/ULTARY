@@ -48,7 +48,7 @@ public class NaverLoginServlet extends HttpServlet {
 		// 네이버 로그인 접근 토큰 access_token에 개인정보 들어가 있음.
 		String token = (String)session.getAttribute("access_token");
 		String header = "Bearer " + token; // Bearer 다음에 공백 추가
-		System.out.println(token);
+		System.out.println("네이버로그인서블릿에서 뽑아보는 토큰"+token);
 		
 	   //네이버 제공 코드 시작-------------------------------------------------------------
 	  		String apiurl = "https://openapi.naver.com/v1/nid/me";
