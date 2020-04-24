@@ -181,10 +181,10 @@
 							</th>
 							<td><input type="checkbox" id="trust_con1" name="trustfield" value="픽업여부" class="sittercon"><label>픽업여부</label> 
 								<input type="checkbox" id="trust_con2" name="trustfield" value="마당여부" class="sittercon"><label>마당여부</label> 
-								<input type="checkbox" id="trust_con3" name="trustfield" value="야외산책" class="sittercon"><label>야외산책</label><br> 
-								<input type="checkbox" id="trust_con4" name="trustfield" value="노령동물" class="sittercon"><label>노령동물</label> 
-								<input type="checkbox" id="trust_con5" name="trustfield" value="대형동물" class="sittercon"><label>대형동물</label> 
-								<input type="checkbox" id="trust_con6" name="trustfield" value="목욕가능" class="sittercon"><label>목욕가능</label>
+								<input type="checkbox" id="trust_con3" name="trustfield" value="산책" class="sittercon"><label>산책</label><br> 
+								<input type="checkbox" id="trust_con4" name="trustfield" value="목욕" class="sittercon"><label>목욕</label> 
+								<input type="checkbox" id="trust_con5" name="trustfield" value="온도" class="sittercon"><label>온도</label> 
+								<input type="checkbox" id="trust_con6" name="trustfield" value="대형동물" class="sittercon"><label>대형동물</label>
 							</td>
 						</tr>
 						<tr>
