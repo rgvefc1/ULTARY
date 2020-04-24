@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.service.MemberService;
 import member.model.vo.Member;
 import member.model.vo.Pet;
 import trust.model.service.MatchingService;
@@ -35,7 +36,7 @@ public class MSerchListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MatchingService service = new MatchingService();
-		request.setCharacterEncoding("UTF-8");
+		String loginId = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
 		
 		String h_area1 = request.getParameter("h_area1");
 		String h_area ="";
@@ -44,21 +45,21 @@ public class MSerchListServlet extends HttpServlet {
 		
 		switch(h_area1) {
 		case "1" :h_area ="서울시"; break;
-		case "2" :h_area ="부산시"; break;
-		case "3" :h_area ="대구시"; break;
-		case "4" :h_area ="인천시"; break;
-		case "5" :h_area ="광주시"; break;
-		case "6" :h_area ="대전시"; break;
-		case "7" :h_area ="울산시"; break;
-		case "8" :h_area ="강원시"; break;
-		case "9" :h_area ="경기시"; break;
-		case "10" :h_area ="경남"; break;
-		case "11" :h_area ="경북"; break;
-		case "12" :h_area ="전남"; break;
-		case "13" :h_area ="전북"; break;
-		case "14" :h_area ="제주"; break;
-		case "15" :h_area ="충남"; break;
-		case "16" :h_area ="충북"; break;
+		case "2" :h_area ="부산광역시"; break;
+		case "3" :h_area ="대구광역시"; break;
+		case "4" :h_area ="인천광역시"; break;
+		case "5" :h_area ="광주광역시"; break;
+		case "6" :h_area ="대전광역시"; break;
+		case "7" :h_area ="울산광역시"; break;
+		case "8" :h_area ="강원도"; break;
+		case "9" :h_area ="경기도"; break;
+		case "10" :h_area ="경상남도"; break;
+		case "11" :h_area ="경상북도"; break;
+		case "12" :h_area ="전라남도"; break;
+		case "13" :h_area ="전라북도"; break;
+		case "14" :h_area ="제주특별자치도"; break;
+		case "15" :h_area ="충청남도"; break;
+		case "16" :h_area ="충청북도"; break;
 		}
 		
 		String address = h_area+" "+h_area2+" "+h_area3;
@@ -80,6 +81,7 @@ public class MSerchListServlet extends HttpServlet {
 			serch2 = check2[0];
 		} 
 		Member member = new Member();
+		member.setMemberId(loginId);
 		member.setAddress(address);
 		member.setTrustfield(serch1);
 		member.setTrustmeans(check01);
@@ -88,7 +90,7 @@ public class MSerchListServlet extends HttpServlet {
 		
 		
 		
-		int listCount = service.getListCount(member,pet);
+		int listCount = service.getListCount(member,pet,loginId);
 		System.out.println("listcount:"+listCount);
 		int currentPage;	// 현재 페이지
 		int pageLimit = 10;		// 한페이지의 표시된 페이징 수
@@ -116,10 +118,15 @@ public class MSerchListServlet extends HttpServlet {
 		
 		String page= null;
 		if(list != null) {
+			
+			ArrayList<Member> markList = new MemberService().selectMarkMember(loginId);
+			
 			page="views/trustMatch/matching02.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 			request.setAttribute("check1", check1);
+			request.setAttribute("mark", markList);
+			
 		} else {
 			page= "views/common/errorPage.jsp";
 			request.setAttribute("msg","게시판 조회에 실패하였습니다");

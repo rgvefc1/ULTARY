@@ -1,7 +1,6 @@
 package trust.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,23 +10,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import member.model.service.MemberService;
 import member.model.vo.Member;
+import member.model.vo.Pet;
 import trust.model.service.MatchingService;
 import trust.model.vo.TrustPost;
-import trust.model.vo.TrustReview;
 
 /**
- * Servlet implementation class InsertReview
+ * Servlet implementation class DetailTpVIewSurvlet
  */
-@WebServlet("/insertReview.tu")
-public class InsertReview extends HttpServlet {
+@WebServlet("/DetailTp.tu")
+public class DetailTpVIewSurvlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertReview() {
+    public DetailTpVIewSurvlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,22 +34,41 @@ public class InsertReview extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int tpostnum = Integer.parseInt(request.getParameter("tpostnum"));
-		String loginId = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
-		Member m  = new MatchingService().RwriteView(tpostnum);
+		HttpSession session = request.getSession();
+		Member sessionMember =(Member)session.getAttribute("loginUser");
+		String loginUser = sessionMember.getMemberId();
+	
+		String memberid = request.getParameter("memberid");
+		Member m = new MatchingService().DetailView(memberid);
 		
-		String page = "";
+		int tpnum = Integer.parseInt(request.getParameter("tp"));
+		
+		String page = null;
 		if(m != null) {
-			page="views/trustMatch/matching06.jsp";
-			request.setAttribute("m", m);
+			Pet pet = new MatchingService().DetailPet(loginUser);
+			if(pet != null) {
+				TrustPost tp = new MatchingService().tpview(tpnum);
+				if(tp!=null) {
+					page="views/trustMatch/postview.jsp";
+					request.setAttribute("m",m);
+					request.setAttribute("pet",pet);
+					request.setAttribute("tp", tp);
+				}
+			}else {
+				page="views/common/errorPage.jsp";
+				request.setAttribute("msg","pet이 없습니다");
+			}
 		}else {
-			page="views/common/erroPage.jsp";
-			request.setAttribute("msg", "조회 실패");
+			page="views/common/errorPage.jsp";
+			request.setAttribute("msg","실패! DetailMatchServelt 확인");
 		}
+		
 		RequestDispatcher view = request.getRequestDispatcher(page);
 		view.forward(request, response);
-		
+	
+	
 	}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

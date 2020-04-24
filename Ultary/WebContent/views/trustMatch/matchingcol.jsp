@@ -52,7 +52,7 @@
 								<span class="name" id="name1"><%=m.getNickname() %></span><br><br>
 								<span class="address" id="class1"><%=m.getAddress() %></span>
 								</div>
-								<div class="infobutton1">관심등록</div><button id="like">좋아욤</button>
+								<div class="infobutton1">관심등록</div>
 								<div class="infobutton2" ><a href="/Ultary/views/trustMatch/matching03.jsp">상세보기</a></div>
 							</div>
 						</div>

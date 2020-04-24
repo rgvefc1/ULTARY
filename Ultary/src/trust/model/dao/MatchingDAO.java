@@ -39,7 +39,7 @@ public class MatchingDAO {
 	
 	}
 	
-	public int getListCount(Connection conn, Member member, String pet) {
+	public int getListCount(Connection conn, Member member, String pet, String loginId) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result=0;
@@ -56,15 +56,6 @@ public class MatchingDAO {
 				li[i]="%%";
 			}
 		}
-System.out.println(li[0]);
-System.out.println(li[1]);
-System.out.println(li[2]);
-System.out.println(li[3]);
-System.out.println(li[4]);
-System.out.println(li[5]);
-System.out.println(member.getTrustmeans());
-System.out.println(member.getAddress());
-System.out.println(pet);
 		try {
 			pstmt= conn.prepareStatement(query);
 			pstmt.setString(1, li[0]);
@@ -76,13 +67,13 @@ System.out.println(pet);
 			pstmt.setInt(7,member.getTrustmeans());
 			pstmt.setString(8,member.getAddress());
 			pstmt.setString(9,pet);
+			pstmt.setString(10, loginId);
 			
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
 				result= rset.getInt(1);
 			}
-System.out.println("result="+result);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -209,8 +200,9 @@ System.out.println("result="+result);
 			pstmt.setInt(7, member.getTrustmeans());
 			pstmt.setString(8,member.getAddress());
 			pstmt.setString(9,pet);
-			pstmt.setInt(10, startRow);
-			pstmt.setInt(11, endRow);
+			pstmt.setString(10, member.getMemberId());
+			pstmt.setInt(11, startRow);
+			pstmt.setInt(12, endRow);
 			
 			rset=pstmt.executeQuery();
 			list=new ArrayList<Member>();
@@ -420,7 +412,9 @@ System.out.println("result="+result);
 											 rset.getString("trustps"),
 											 rset.getString("susin"),
 											 rset.getString("balsin"),
-											 rset.getInt("position"));
+											 rset.getInt("position"),
+											 rset.getInt("petnum"),
+											 rset.getInt("tr_num"));
 				tpArr.add(tp);
 			}
 		} catch (SQLException e) {
@@ -456,7 +450,9 @@ System.out.println("result="+result);
 											 rset.getString("trustps"),
 											 rset.getString("susin"),
 											 rset.getString("balsin"),
-											 rset.getInt("position"));
+											 rset.getInt("position"),
+											 rset.getInt("petnum"),
+											 rset.getInt("tr_num"));
 				tpArr.add(tp);
 			}
 		} catch (SQLException e) {
@@ -722,6 +718,75 @@ System.out.println(trnum);
 		
 		
 		return trnum;
+	}
+
+	public ArrayList<TrustReview> trReview(Connection conn, String memberid) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<TrustReview> trList = new ArrayList<TrustReview>();
+		
+		String query= prop.getProperty("trReview");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1,memberid);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				TrustReview tr = new TrustReview(rset.getInt("tr_num"),
+												 rset.getInt("tr_score"),
+												 rset.getString("tr_content"),
+												 rset.getString("memberid"),
+												 rset.getDate("tr_uploaddate"));
+				trList.add(tr);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return trList;
+	}
+
+	public TrustPost tpview(Connection conn, int tpnum) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		TrustPost tp = null;
+		
+		String query = "select * from trustpost where TPOSTNUM = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, tpnum);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				tp = new TrustPost(rset.getInt("tpostnum"),
+								   rset.getDate("trustsdue"),
+								   rset.getDate("trustedue"),
+								   rset.getInt("trustmeans"),
+								   rset.getString("trustphone"),
+								   rset.getString("trustps"),
+								   rset.getString("susin"),
+								   rset.getString("balsin"),
+								   rset.getInt("position"),
+								   rset.getInt("petnum"),
+								   rset.getInt("tr_num"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return tp;
 	}
 
 }
