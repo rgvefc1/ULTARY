@@ -3,7 +3,7 @@
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	String msg = (String)request.getAttribute("msg");
-	String absroute = request.getContextPath();
+	String absroute = request.getContextPath(); 
 %>
 <!DOCTYPE html>
 <html>
