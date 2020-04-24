@@ -445,7 +445,6 @@
 											var $div2 = $('<div>');
 											var $div4 = $('<div>');
 											var $comment1 = $('<div>').attr('class','comment1');
-											var $comment2 = $('<div>').attr('class','comment2');
 											var $commentans1 = $('<div>').attr('class', 'commentans1');
 											var memberid = data[key].memberid;
 											cNum = data[key].cNum;
@@ -454,11 +453,6 @@
 											$div2.text(data[key].cContent);
 											$comment1.append($div1);
 											$comment1.append($div2);
-											$div4.text(data[key].cLike+" like");
-											$comment2.append($div4);
-											if(login == memberid){
-											$comment2.append('<div id="pcDelete">삭제</div>');
-											}
 							/* --------------------답글----------------------- */
 											$.ajax({
 												url: 'selectCAns.tl',
@@ -475,9 +469,6 @@
 															$commentans1.append('<div>ㄴ</div>');
 															$commentans1.append($div5);
 															$commentans1.append($div6);
-															if(login == da[k].memberid){
-																$commentans1.append('<div id="caDelete">삭제<div>');
-															}
 															$li2.append($commentans1);
 															$ul.append($li2);
 															
