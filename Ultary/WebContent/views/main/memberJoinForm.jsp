@@ -21,6 +21,9 @@
 			document.joinForm.roadAddrPart1.value = roadAddrPart1; //도로명주소(참고항목 제외)  
 			document.joinForm.roadAddrPart2.value = roadAddrPart2; //도로명주소 참고항목
 			document.joinForm.addrDetail.value = addrDetail;       //고객 입력 상세 주소
+			document.joinForm.siNm.value = siNm;       	 //위탁검색용 시도명
+			document.joinForm.sggNm.value = sggNm;       //위탁검색용 시군구명
+			document.joinForm.emdNm.value = emdNm;       //위탁검색용 읍면동명
 			
 		}
 </script>	
@@ -207,6 +210,11 @@
 							<td>
 			<!-- 3참고주소 -->	    <input type="text" id="roadAddrPart2" name="roadAddrPart2" width="115px" required />
 			<!-- 4고객입력 상세주소 --><input type="text" id="addrDetail" name="addrDetail" width="115px" required /><br>
+			<!-- --------------------------------------------------------------------------------------- -->
+			<!-- 위탁검색용 시도명 --><input type="hidden" id="siNm" name="siNm" width="115px" />
+			<!-- 위탁검색용 시군구명 --><input type="hidden" id="sggNm" name="sggNm" width="115px" />
+			<!-- 위탁검색용 읍면동명--><input type="hidden" id="emdNm" name="emdNm" width="115px"/>
+			<!-- --------------------------------------------------------------------------------------- -->
 							</td>
 						</tr>
 <!--도로명주소 API 적용하기 --------------------------------------------------------------------------->							
@@ -296,9 +304,9 @@
 		<table id="footer">
 			<tbody>
 				<tr>
-					<td><div class="footer_link" onclick="goNotice();">공지사항</div></td>
+					<td><div class="footer_link" onclick="goNotice();">&nbsp공 지 사 항 </div></td>
 					<td>|</td>
-					<td><div class="footer_link" onclick="goUltaryLoginMain();">로그인</div></td>
+					<td><div class="footer_link" onclick="goUltaryLoginMain();">&nbsp로 &nbsp그 &nbsp인&nbsp</div></td>
 					<td>|</td>
 					<td><div class="footer_link" onclick="gofindId();">아이디 찾기</div></td>
 					<td>|</td>

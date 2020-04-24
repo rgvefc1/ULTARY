@@ -16,10 +16,12 @@ import common.wrapper.EncryptWrapper;
 /**
  * Servlet Filter implementation class EncryptFilter
  */
-/*
- * @WebFilter( servletNames = { "InsertMemberServlet", "LoginServlet",
- * "PwdUpdateServlet" })
- */
+@WebFilter(
+		servletNames = { //아래 메소드 들에 있는 비번 파라미터들이 암호화 됩니다.
+				"FindPwdUpdateServlet", 
+				"insertMemberServlet", 
+				"LoginServlet"
+		})
 public class EncryptFilter implements Filter {
 
     /**

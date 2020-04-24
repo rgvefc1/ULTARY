@@ -82,6 +82,7 @@
 					<input id="chatsearchtext" type="search" placeholder="검색할 회원이나 채팅방을 입력해주세요.">
 				</div>
 			</div>
+			<!-- 채팅방들!!! -->
 			<div class="chatcontent">
 				<div class="chatcontentprofile">
 					<div class="chatcontentprofileimg">
@@ -103,111 +104,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="chatcontent">
-				<div class="chatcontentprofile">
-					<div class="chatcontentprofileimg">
-						<img class="chatcontentimg" src="image/프로필.png">
-					</div>
-					<div class="chatcontentprofilename">
-						닉네임
-					</div>
-				</div>
-				<div class="chatcontentright">
-					<div class="chatcontentrightL">
-						<div class="chatcontent1">대화내용1</div>
-						<div class="chatcontent2">대화내용2</div>
-						<div class="chatcontent3">대화내용3</div>
-					</div>
-					<div class="chatcontentrightR">
-						<div class="chatcontentnum">5</div>
-						<div class="chatcontentfix">☆</div>
-					</div>
-				</div>
-			</div>
-			<div class="chatcontent">
-				<div class="chatcontentprofile">
-					<div class="chatcontentprofileimg">
-						<img class="chatcontentimg" src="image/프로필.png">
-					</div>
-					<div class="chatcontentprofilename">
-						닉네임
-					</div>
-				</div>
-				<div class="chatcontentright">
-					<div class="chatcontentrightL">
-						<div class="chatcontent1">대화내용1</div>
-						<div class="chatcontent2">대화내용2</div>
-						<div class="chatcontent3">대화내용3</div>
-					</div>
-					<div class="chatcontentrightR">
-						<div class="chatcontentnum">5</div>
-						<div class="chatcontentfix">☆</div>
-					</div>
-				</div>
-			</div>
-			<div class="chatcontent">
-				<div class="chatcontentprofile">
-					<div class="chatcontentprofileimg">
-						<img class="chatcontentimg" src="image/프로필.png">
-					</div>
-					<div class="chatcontentprofilename">
-						닉네임
-					</div>
-				</div>
-				<div class="chatcontentright">
-					<div class="chatcontentrightL">
-						<div class="chatcontent1">대화내용1</div>
-						<div class="chatcontent2">대화내용2</div>
-						<div class="chatcontent3">대화내용3</div>
-					</div>
-					<div class="chatcontentrightR">
-						<div class="chatcontentnum">5</div>
-						<div class="chatcontentfix">☆</div>
-					</div>
-				</div>
-			</div>
-			<div class="chatcontent">
-				<div class="chatcontentprofile">
-					<div class="chatcontentprofileimg">
-						<img class="chatcontentimg" src="<%= request.getContextPath() %>/image/프로필.png">
-					</div>
-					<div class="chatcontentprofilename">
-						닉네임
-					</div>
-				</div>
-				<div class="chatcontentright">
-					<div class="chatcontentrightL">
-						<div class="chatcontent1">대화내용1</div>
-						<div class="chatcontent2">대화내용2</div>
-						<div class="chatcontent3">대화내용3</div>
-					</div>
-					<div class="chatcontentrightR">
-						<div class="chatcontentnum">5</div>
-						<div class="chatcontentfix">☆</div>
-					</div>
-				</div>
-			</div>
-			<div class="chatcontent">
-				<div class="chatcontentprofile">
-					<div class="chatcontentprofileimg">
-						<img class="chatcontentimg" src="<%= request.getContextPath() %>/image/프로필.png">
-					</div>
-					<div class="chatcontentprofilename">
-						닉네임
-					</div>
-				</div>
-				<div class="chatcontentright">
-					<div class="chatcontentrightL">
-						<div class="chatcontent1">대화내용1</div>
-						<div class="chatcontent2">대화내용2</div>
-						<div class="chatcontent3">대화내용3</div>
-					</div>
-					<div class="chatcontentrightR">
-						<div class="chatcontentnum">5</div>
-						<div class="chatcontentfix">☆</div>
-					</div>
-				</div>
-			</div>
+			<!-- 채팅방들!!! -->
 		</div>
 	</div>
 <script>
@@ -219,8 +116,12 @@
 		} else if($('#chatdiv').css('display') == 'none'){
 			if($('#chatbtn').has(e.target).length) {
 				$('#chatdiv').show();
+				<%-- location.href = "<%=request.getContextPath()%>/views/main/chatEX.jsp"; --%>
 			}
 		}
+	});
+	$(".chatcontent").click(function(){
+		window.open('<%= request.getContextPath() %>/views/main/chatEX.jsp', '채팅창', "width=300, height=500, top=200, left=300", true);
 	});
 </script>
 </body>

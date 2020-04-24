@@ -1,24 +1,30 @@
-package member.controller;
+package post.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
+
+import post.model.service.PostService;
+import post.model.vo.CAns;
 
 /**
- * Servlet implementation class logoutServlet
+ * Servlet implementation class selectCAnsServlet
  */
-@WebServlet("/logout.me")
-public class logoutServlet extends HttpServlet {
+@WebServlet("/selectCAns.tl")
+public class selectCAnsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public logoutServlet() {
+    public selectCAnsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,15 +33,19 @@ public class logoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		session.invalidate();
-		response.sendRedirect("main.ini");
+		int cNum = Integer.parseInt(request.getParameter("cNum"));
+		
+		ArrayList<CAns> list = new PostService().selectCAnsCnum(cNum);
+		
+		response.setContentType("application/json");
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

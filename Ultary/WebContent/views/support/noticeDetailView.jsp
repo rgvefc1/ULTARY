@@ -12,22 +12,23 @@
 <style type="text/css">
 #content {
 	background: whitesmoke;
-	height: 750px;
+	height: 800px;
 }
 
 .tableArea {
 	width: 500px;
-	height: 350px;
-	margin-left: auto;
+	height: 400px;
+	margin-left: 80px;
 	margin-right: auto;
 }
 
 #updateNoBtn, #cancelBtn, #deleteNoBtn {
-	background: #B2CCFF;
+	background: skyblue;
 	color: white;
 	border-radius: 15px;
 	width: 80px;
-	heigth: 25px;
+	heigth: 40px;
+	font-size: 18px;
 	text-align: center;
 	display: inline-block;
 }
@@ -37,7 +38,7 @@
 }
 
 #cancelBtn {
-	background: #D1B2FF;
+	background: rgba(0, 0, 0, 0.658);
 }
 
 #deleteNoBtn {
@@ -45,12 +46,17 @@
 }
 
 #dTable {
-	border: 3px solid skyblue;
+	border: 15px solid skyblue;
+	border-radius: 20px;
 }
 
 #head {
 	font-size: 20px;
 	color: blue;
+}
+#textCon{
+	font-size: 20px;
+	height: 400px;
 }
 </style>
 </head>
@@ -94,7 +100,7 @@
 										<th>내용</th>
 									</tr>
 									<tr>
-										<td colspan="4"><textarea name="content" cols="70"
+										<td colspan="4"><textarea id ="textCon" name="content" cols="70"
 												rows="25" style="resize: none;" readonly><%=notice.getN_content()%></textarea>
 										</td>
 									</tr>
