@@ -16,12 +16,10 @@ import common.wrapper.EncryptWrapper;
 /**
  * Servlet Filter implementation class EncryptFilter
  */
-@WebFilter(
-		servletNames = { 
-				"InsertMemberServlet", 
-				"LoginServlet", 
-				"PwdUpdateServlet"
-		})
+/*
+ * @WebFilter( servletNames = { "InsertMemberServlet", "LoginServlet",
+ * "PwdUpdateServlet" })
+ */
 public class EncryptFilter implements Filter {
 
     /**
