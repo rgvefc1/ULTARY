@@ -30,7 +30,7 @@ header{
 	width:100%;
 	cursor: pointer;
 }
-#top-right{ 
+#top-right{
 	overflow: hidden;
 	height:100%;
 	float:right;
@@ -445,7 +445,8 @@ section{
     height: 120px;
     cursor: pointer;
 }
-.memimg>img{
+.memimg img{
+	border-radius: 50px;
 	width:100%;
 	height:100%;
 }

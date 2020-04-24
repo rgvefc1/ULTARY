@@ -2,16 +2,18 @@
     pageEncoding="UTF-8" import="member.model.vo.*, post.model.vo.*, java.util.ArrayList"%>
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
+	ArrayList<String> markMemList = (ArrayList<String>)request.getAttribute("markMemList"); // 관심회원 목록
 	ArrayList<Post> allHpost = (ArrayList<Post>)request.getAttribute("allHPost"); // 모든 게시글 좋아요순
 	ArrayList<PostComment> allpc = (ArrayList<PostComment>)request.getAttribute("allpc"); // 모든 댓글목록
 	ArrayList<CAns> allca = (ArrayList<CAns>)request.getAttribute("allca"); // 모든 답글목록
 	ArrayList<Media> postImg = (ArrayList<Media>)request.getAttribute("postImg"); // 모든 프사,게시글사진
+	ArrayList<MarkPost> mpList = (ArrayList<MarkPost>)request.getAttribute("mpList"); // 관심글 목록
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>메인화면</title>
+<title>로그인화면</title>
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/main.css">
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<link rel="stylesheet"  href="https://han3283.cafe24.com/js/lightslider/css/lightslider.css"/>
@@ -42,8 +44,8 @@
 					<div id="expansionexit">X</div>
 					<div id="expansionRheader">
 						<div id="expansionWriter">
-							<img id="expansionimg" src="<%= request.getContextPath() %>/image/프로필.png">
-							<span id="expansionWri">닉네임</span>
+							<a class="other"><img id="expansionimg" src="<%= request.getContextPath() %>/image/프로필.png"></a>
+							<a class="other"><span id="expansionWri">닉네임</span></a>
 						</div>
 						<div id="expansiondate">게시일 | 2020. 03. 29 (SUN) 17:55</div>
 					</div>
@@ -52,7 +54,18 @@
 						<div id="expansioncontent">
 						</div>
 						<div id="expansioncomment">
-							<h2>로그인이 필요한 서비스입니다.</h2>
+							<ul>
+								<li>
+									<div class="comment1"><div>닉네임</div><div>댓글내용댓글내용댓글내용</div></div>
+									<div class="comment2"><div>답글달기</div><div>0 like</div><div>삭제</div></div>
+									<ul>
+										<li>
+											<div class="commentans1"><div>ㄴ</div><div>닉네임</div><div>답글내용</div><div>삭제</div></div>
+										</li>
+									</ul>
+								</li>
+								
+							</ul>
 						</div>
 					</div>
 				</div>
@@ -60,9 +73,11 @@
 			<div id="expansionbottom">
 				<div id="expansioncategory" class="expansionbox">카테고리</div>
 				<div id="petlife"></div>
+				<div id="markpostBtn" class="expansionbox"></div>
 				<div id="like">♡</div>
 				<div id="likescore" class="expansionbox"></div>
 				<div id="commenttextdiv">
+					<input id="commentsubmit" type="button" value="상세보기">
 				</div>
 			</div>
 		</div>
@@ -71,8 +86,34 @@
 	$(function(){
 		$('#expansionexit').click(function(){
 			$('#expansion').hide();
+			location.reload();
 		});
+		/* -----------관심글 등록 -------- */
+		$('#markpostBtn').click(function(){
+			$.ajax({
+				url: 'insertMarkPost.tl',
+				data: {postNum: item},
+				success: function(data){
+					if($('#markpostBtn').text()== "관심글 등록"){
+						$('#markpostBtn').text("관심글 취소");
+					} else{
+						$('#markpostBtn').text("관심글 등록");
+					}
+				}
+			});
+		});
+		/* ------------좋아요 올리기 ---------------- */
+    	$('#likescore').click(function(){
+    		$.ajax({
+    			url: 'postlike.up',
+    			data: {postNum:item},
+    			success: function(data){
+    				$('#likescore').text(data+" like");
+    			}
+    		});
+    	});
 	});
+	
 </script>
 	<header>
 		<div id="top-header">
@@ -254,7 +295,14 @@
 			<% } else{ %>
 				<% for(int a=0;a<allHpost.size();a++){ 
 					Post p = allHpost.get(a); 
-					 for(int b=0;b<postImg.size();b++){ 
+					String category = "";
+					switch(p.getCategorynum()){
+					case 2: category = "펫일상"; break;
+					case 3: category = "펫지식"; break;
+					case 4: category = "펫리뷰"; break;
+					case 5: category = "펫분양"; break;
+					} %>
+					<% for(int b=0;b<postImg.size();b++){ 
 						Media m = postImg.get(b); 
 						if(p.getPostNum() == m.getPostNum()) {%>
                 <li id="item<%= a %>" class="item1">
@@ -270,6 +318,18 @@
 		var itemBtn = "#item"+<%= a %>;
 		$(itemBtn).click(function(){
 			item = <%= p.getPostNum() %>;
+			/* -----------관심글 글자 --------*/
+			<% for(int q=0;q<=mpList.size();q++){
+				if(q==mpList.size()){ %>
+				$('#markpostBtn').text("관심글 등록");
+			<% break;
+				}
+				MarkPost mp = mpList.get(q); 
+				if(mp.getPostNum() == p.getPostNum()) {%>
+				$('#markpostBtn').text("관심글 취소");
+				<% break;
+				} %>
+			<% } %>
 		});
 		
 	});
@@ -278,37 +338,9 @@
             <% } %>
             </ul>
 		</div>
-	</section>
-	
-	<form onsubmit="return search();" action="<%= request.getContextPath() %>/search.mem">
-		<div id="search">
-			<div id="search-wrap">
-				<div id="search-left"></div>
-				<select id="searchselect" name="searchselect">
-					<option value="1">회원</option>
-					<option value="2">게시글</option>
-				</select>
-				<input id="searchtext" name="searchtext" type="search" placeholder="검색">
-				<input id="searchbutton" type="submit" value="검색">
-			</div>
-		</div>
-	</form>
 <script>
-	function search(){
-		<% if((loginUser) == null){ %>
-		alert('로그인을 해주세요.');
-		return false;
-		<% } else{ %>
-			if($('#searchtext').val() == ""){
-				alert('검색어를 입력해주세요');
-				return false;
-			} else{
-				return true;
-			}
-		<% } %>
-	}
 	$(function(){
-		/* -------------디테일이미지 슬라이드-------------------------- */
+		/* -------------이미지 디테일 슬라이드-------------------------- */
 	
 	      var imgs;
 	      imgslide_count = 0;
@@ -346,7 +378,9 @@
 		$("body").click(function(e){
 			if($('#expansion').css('display') == 'block'){
 				if(!$('#expansion').has(e.target).length) {
+					$('#expansioncomment>ul').html("");
 					$('#expansion').hide();
+					location.reload();
 				}
 			} else if($('#expansion').css('display') == 'none'){
 				if($($item).has(e.target).length) {
@@ -356,15 +390,15 @@
 					img_position = 1;
 					<% if(!allHpost.isEmpty()){ %>
 						<% for(int c=0;c<allHpost.size();c++) { 
-							Post post = allHpost.get(c); 
+							Post p = allHpost.get(c); 
 							String category = "";
-							switch(post.getCategorynum()){
+							switch(p.getCategorynum()){
 							case 2: category = "펫일상"; break;
 							case 3: category = "펫지식"; break;
 							case 4: category = "펫리뷰"; break;
 							case 5: category = "펫분양"; break;
 							} %>
-							var pNum = <%= post.getPostNum() %>;
+							var pNum = <%= p.getPostNum() %>;
 							if(pNum == item){
 								/* 프로필 이미지 생성 */
 								<% for(int e=0;e<=postImg.size();e++){ %>
@@ -373,29 +407,96 @@
 								<% break;
 								} %>
 								<%	Media m = postImg.get(e); %>
-								<%	if(m.getMemberId().equals(post.getMemberid()) && m.getMediaUse() == 1){ %>
+								<%	if(m.getMemberId().equals(p.getMemberid()) && m.getMediaUse() == 1){ %>
 									$('#expansionimg').attr('src', '<%= request.getContextPath() %>/uploadFiles/<%= m.getWebName() %>');
+									$('.other').attr('href', '<%= request.getContextPath() %>/otherpost.tl?nickname=<%= p.getMemberid() %>');
 									<% break;
 									} %>
 								<% } %>
 								/* 게시글 닉네임 */
-								$('#expansionWri').text("<%= post.getMemberid() %>");
+								$('#expansionWri').text("<%= p.getMemberid() %>");
 								/* 게시글 게시일 */
-								$('#expansiondate').text("게시일 |   <%= post.getPostDate() %>");
+								$('#expansiondate').text("게시일 |   <%= p.getPostDate() %>");
 								/* 게시글 제목 */
-								$('#expansionTitle').text("Title | <%= post.getPostTitle() %>");
+								$('#expansionTitle').text("Title | <%= p.getPostTitle() %>");
 								$('#expansionTitle').append('<hr>');
 								/* 게시글 내용 */
-								$('#expansioncontent').text("<%= post.getPostContent() %>");
+								$('#expansioncontent').text("<%= p.getPostContent() %>");
 								/* 카테고리 */
 								$('#petlife').text("<%= category %>");
 								/* 좋아요 수 */
-								$('#likescore').text("<%= post.getPostLike() %> like")
+								$('#likescore').text("<%= p.getPostLike() %> like")
+								/* 댓글 답글 */
+								$('#expansioncomment>ul').html("");
+						// 댓글!!!!!!!!------------------------------------------------
+								$.ajax({
+									url: 'selectComment.tl',
+									data: {pNum:item},
+									async : false,
+									success: function(data){
+										var login = "<%= loginUser.getNickname() %>";
+										var cNum = 0;
+										
+										for(var key in data){
+											var $li = $('<li>');
+											var $li2 = $('<li>');
+											var $ul = $('<ul>');
+											var $div1 = $('<div>');
+											var $div2 = $('<div>');
+											var $div4 = $('<div>');
+											var $comment1 = $('<div>').attr('class','comment1');
+											var $comment2 = $('<div>').attr('class','comment2');
+											var $commentans1 = $('<div>').attr('class', 'commentans1');
+											var memberid = data[key].memberid;
+											cNum = data[key].cNum;
+											console.log(cNum);
+											$div1.text(data[key].memberid);
+											$div2.text(data[key].cContent);
+											$comment1.append($div1);
+											$comment1.append($div2);
+											$div4.text(data[key].cLike+" like");
+											$comment2.append($div4);
+											if(login == memberid){
+											$comment2.append('<div id="pcDelete">삭제</div>');
+											}
+							/* --------------------답글----------------------- */
+											$.ajax({
+												url: 'selectCAns.tl',
+												data: {cNum:cNum},
+												async : false,
+												success: function(da){
+													console.log(cNum);
+													//console.log(da.length);
+													if(da.length > 0){
+														for(var k in da){
+															var $div5 = $('<div>').text(da[k].memberid);
+															var $div6 = $('<div>').text(da[k].ansContent);
+															
+															$commentans1.append('<div>ㄴ</div>');
+															$commentans1.append($div5);
+															$commentans1.append($div6);
+															if(login == da[k].memberid){
+																$commentans1.append('<div id="caDelete">삭제<div>');
+															}
+															$li2.append($commentans1);
+															$ul.append($li2);
+															
+														}
+													}
+												}
+											});
+											$li.append($comment1);
+											$li.append($comment2);
+											$li.append($ul);
+											$('#expansioncomment>ul').append($li);
+										}
+									}
+								});
 								/* 이미지 생성!!!!! */
 								$('#imgslide>ul').html("");
 								<% for(int d=0;d<postImg.size();d++){ 
 									Media m = postImg.get(d); 
-									if(post.getPostNum() == m.getPostNum()) {%>
+									if(p.getPostNum() == m.getPostNum()) {%>
 								var $li = $('<li>');
 								var $img = $('<img>');
 								imgslide_count = imgslide_count + 1;
@@ -411,9 +512,9 @@
 			}
 		});
 	});
-	$(document).ready(function(){
+	$(document).ready(function() {
 		
-		/* -------------이미지 슬라이드-------------------------- */
+		/* ------------- 디테일 이미지 슬라이드-------------------------- */
 	      var imgs;
 	      var img_count;
 	      var img_position = 1;
@@ -431,20 +532,49 @@
 	      });
 
 	      function back() {
-	    	  if(imgs.offset().left<200){
+	    	  if(imgs.offset().left<450){
 	    		  imgs.animate({
 	  	            left:'+=450px'
 	  	          });
 	    	  }
 	      }
 	      function next() {
-	    	  if($("#slider>li:last").offset().left > 1200){
+	    	  if($("#slider>li:last").offset().left > 900){
 	    		  imgs.animate({
 	  	            left:'-=450px'
 	  	          });
 	    	  }
 	      }
 	});
+</script>
+	</section>
+	<form onsubmit="return search();" action="<%= request.getContextPath() %>/search.mem">
+		<div id="search">
+			<div id="search-wrap">
+				<div id="search-left"></div>
+				<select id="searchselect" name="searchselect">
+					<option value="1">회원</option>
+					<option value="2">게시글</option>
+				</select>
+				<input id="searchtext" name="searchtext" type="search" placeholder="검색">
+				<input id="searchbutton" type="submit" value="검색">
+			</div>
+		</div>
+	</form>
+<script>
+	function search(){
+		<% if((loginUser) == null){ %>
+		alert('로그인을 해주세요.');
+		return false;
+		<% } else{ %>
+			if($('#searchtext').val() == ""){
+				alert('검색어를 입력해주세요');
+				return false;
+			} else{
+				return true;
+			}
+		<% } %>
+	}
 </script>
 	
 	<article>

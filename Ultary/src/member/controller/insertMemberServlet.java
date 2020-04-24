@@ -103,7 +103,7 @@ public class insertMemberServlet extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("loginUser", loginUser);
 				session.setMaxInactiveInterval(600);
-				response.sendRedirect("views/main/main.jsp");
+				response.sendRedirect("main.login");
 			} else {
 				page= "views/common/errorPage.jsp";	
 				msg= "로그인에 실패헀습니다.";
