@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import member.model.service.MemberService;
+import member.model.vo.Media;
 import member.model.vo.Member;
+import post.model.service.PostService;
 
 /**
  * Servlet implementation class SearchMemServlet
@@ -37,11 +39,13 @@ public class SearchServlet extends HttpServlet {
 		
 		if(searchselect == 1) {
 			ArrayList<Member> list = new MemberService().selectMember(searchtext);
+			ArrayList<Media> allPro = new PostService().selectAllproimg();
 			
 			String page = "";
 			if(list != null) {
 				page = "views/main/mainmemsearch.jsp";
 				request.setAttribute("Mlist", list);
+				request.setAttribute("allPro", allPro);
 			} else {
 				page = "views/common/errorPage.jsp";
 				request.setAttribute("msg", "멤버 조회에 실패!");

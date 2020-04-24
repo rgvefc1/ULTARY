@@ -67,13 +67,13 @@
 		<table id="footer">
 			<tbody>
 				<tr>
-					<td><div class="footer_link" onclick="goNotice();">공지사항</div></td>
+					<td><div class="footer_link" onclick="goNotice();">&nbsp공 지 사 항 </div></td>
 					<td>|</td>
-					<td><div class="footer_link" onclick="goUltaryLoginMain();">로그인</div></td>
+					<td><div class="footer_link" onclick="goUltaryLoginMain();">&nbsp로 &nbsp그 &nbsp인&nbsp</div></td>
 					<td>|</td>
 					<td><div class="footer_link" onclick="gofindPwd();">비밀번호 찾기</div></td>
 					<td>|</td>
-					<td><div class="footer_link" onclick="gomemberJoin();">회원가입</div></td>
+					<td><div class="footer_link" onclick="gomemberJoin();"> 회 원 가 입 &nbsp</div></td>
 				</tr>
 			</tbody>
 		</table>

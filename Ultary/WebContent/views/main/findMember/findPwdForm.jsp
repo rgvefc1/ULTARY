@@ -32,17 +32,14 @@
 				<table>
 					<tr>
 						<td>
-							<button id="fineEmail" class="find_link" onclick="location.href='<%= request.getContextPath() %>/views/main/findMember/findPwdEmailForm.jsp'">이메일로 비밀번호 찾기</button>
+							<a href='<%= request.getContextPath() %>/views/main/findMember/findPwdEmailForm.jsp' target="_self">
+							<img id=fineEmail class="find_link" src="<%= request.getContextPath() %>/image/find_email_pwd.png" /></a>
+<%-- 							<button id="fineEmail" class="find_link" onclick="location.href='<%= request.getContextPath() %>/views/main/findMember/findPwdEmailForm.jsp'">이메일로 비밀번호 찾기</button> --%>
 						</td>
-					</tr>
-					<tr>
 						<td>
-							<br>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<button id="finePhone" class="find_link" onclick="location.href='<%= request.getContextPath() %>/views/main/findMember/findPwdQnaForm.jsp'">내 질문으로 비밀번호 찾기</button>
+							<a href='<%= request.getContextPath() %>/views/main/findMember/findPwdQnaForm.jsp' target="_self">
+							<img id="finePhone" class="find_link" src="<%= request.getContextPath() %>/image/find_qna_pwd.png" style="margin-left: 25px;"/></a>
+<%-- 							<button id="finePhone" class="find_link" onclick="location.href='<%= request.getContextPath() %>/views/main/findMember/findPwdQnaForm.jsp'">내 질문으로 비밀번호 찾기</button> --%>
 						</td>
 					</tr>
 				</table>
@@ -59,13 +56,13 @@
 		<table id="footer">
 			<tbody>
 				<tr>
-					<td><div class="footer_link" onclick="goNotice();">공지사항</div></td>
+					<td><div class="footer_link" onclick="goNotice();">&nbsp공 지 사 항 </div></td>
 					<td>|</td>
-					<td><div class="footer_link" onclick="goUltaryLoginMain();">로그인</div></td>
+					<td><div class="footer_link" onclick="goUltaryLoginMain();">&nbsp로 &nbsp그 &nbsp인&nbsp</div></td>
 					<td>|</td>
 					<td><div class="footer_link" onclick="gofindId();">아이디 찾기</div></td>
 					<td>|</td>
-					<td><div class="footer_link" onclick="gomemberJoin();">회원가입</div></td>
+					<td><div class="footer_link" onclick="gomemberJoin();"> 회 원 가 입 &nbsp</div></td>
 				</tr>
 			</tbody>
 		</table>

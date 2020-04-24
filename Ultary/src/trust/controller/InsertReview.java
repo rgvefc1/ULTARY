@@ -1,6 +1,7 @@
 package trust.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,9 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import member.model.service.MemberService;
 import member.model.vo.Member;
 import trust.model.service.MatchingService;
 import trust.model.vo.TrustPost;
+import trust.model.vo.TrustReview;
 
 /**
  * Servlet implementation class InsertReview
@@ -34,7 +37,7 @@ public class InsertReview extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int tpostnum = Integer.parseInt(request.getParameter("tpostnum"));
-	
+		String loginId = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
 		Member m  = new MatchingService().RwriteView(tpostnum);
 		
 		String page = "";

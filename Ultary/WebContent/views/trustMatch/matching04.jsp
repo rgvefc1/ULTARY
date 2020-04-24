@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.Member"%>
+    pageEncoding="UTF-8" import="member.model.vo.Member,java.util.ArrayList,trust.model.vo.*"%>
 <%
 	Member m = (Member)request.getAttribute("m");
+	ArrayList<Member> mark = (ArrayList<Member>)request.getAttribute("mark");
+	ArrayList<TrustReview> trList = (ArrayList<TrustReview>)request.getAttribute("trList");
 %>
 <!DOCTYPE html>
 <html>
@@ -56,23 +58,52 @@
 			<%@ include file ="/views/common/tr_nav.jsp" %>
 			<div id="asidesection">
 			<%@ include file ="/views/common/tr_aside.jsp" %>
-				<section>
-					 <div>
+	<section>
+		 <div>
             <form action="<%= request.getContextPath() %>/DetailMatch.tu">
             <div id="matching">
 			<h1 id="title">의뢰관리</h1>
 			<p id="title-1">위탁 내용 상세보기와 진행사항을 보여드립니다.</p>
 				<hr style="margin-left:10px;">
 			<br clear="all">
-	</div>
-	<div id="page">
+			</div>
+		<div id="page">
 		<div id="page1">
 			<img src="/Ultary/views/trustMatch/photo.jpg" id="profile" class="profile-photo">
 			<div id="page2">
 			<span id="name"><p><b><%=m.getNickname() %></b></p></span>
-			<div class="infobutton1">관심등록</div><button id="like">좋아욤</button>
+			<%boolean a = false; %>
+			<%for(int i=0;i<mark.size();i++){ %>
+				<%if(mark.get(i).getMemberId().equals(loginUser.getMemberId())) {
+					a = true;
+					break;
+				} else{
+					a=false;
+				}%>
+			<%} %>	
+			<%if(a){ %>
+				<div id="mark" class="infobutton1">관심회원</div>
+			<%} else{ %>
+				<div class="infobutton1" onclick="markmem('<%=m.getMemberId()%>','<%=loginUser.getMemberId()%>);">관심등록</div>
+			<%} %>
 			<span id="address"><p><b><%=m.getAddress() %></b><p></span>
 			</div>
+			<script>
+			function markmem(nick,memid){
+				
+				console.log(nick);
+				
+				$.ajax({
+					url: 'markmember.mark',
+					data: {markmem:nick, memberid:memid},
+					success: function(data){
+						console.log(data);
+						alert('관심등록이 완료되었습니다.');
+						location.reload(); 
+					}
+				});
+			}
+		</script>
 		<hr>
 		<h5 style="text-align:center;">상세내용</h5>
 		<div id="detail" class="detail">가정집이고요 현재는 펫시팅으로 여행이나 이사가실때 멸절기간(설날,추석 가능)이나 장기보육한 시간이 된지 15년 이상 경력이 되었네요</div>
@@ -86,7 +117,7 @@
 		<hr>
 		</form>
 		<div id="area">
-			<div id="map" style="width: 803px; height: 167px;"></div>
+			<div id="map" style="width: 803px; height: 250px;"></div>
 							
 			<div id="map"></div>
 			
@@ -101,7 +132,7 @@
 				
 			
 			</div>
-			<<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4aaf89e85083d844d407d2aefdb3b6e2&libraries=services"></script>
+			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4aaf89e85083d844d407d2aefdb3b6e2&libraries=services"></script>
 			<script>
 			
 			
@@ -191,8 +222,10 @@
 			</script>
 
 		</div>
-		<h5 style="text-align:center;">유의사항</h5>
+		<br>
 		<hr>
+		<br>
+		<h5 style="text-align:center;">유의사항</h5>
 		<div id="area1">
 		<% if(m.getTrustAdd() == null) {%>
 			유의 사항이 없습니다.
@@ -204,40 +237,37 @@
 		<h5 style="text-align:center;">위탁후기</h5>
 		<hr>
 		<div id="area2">
+			<%if(trList.isEmpty()) {%>
+				<div class="review">
+					<h4 style="text-align:center">아직 받은 리뷰가 없습니다.</h4>
+				</div>
+			<%} else{ %>
+			<%for(int i=0;i<trList.size();i++){ %>
 			<div class="review">
 				<img src="/Ultary/views/trustMatch/photo.jpg" id="profile" class="review-photo">
-				<span class="point">☆☆☆☆☆</span>
+				<span class="point">
+				<%for(int j=0;j<trList.get(i).getTrScore();j++){ %>
+				★
+				<%} %>
+				</span>
 				<br>
 				<p class="review1">
-				필요한물품들은 직접 가져와주시기도하는 등 여러부분에서 도움을 많이 받았습니다! 다음번에도 펫시터님께 아가를 부탁드려도되겠다고 생각할만큼 신뢰도
+				<%=trList.get(i).getTrContent() %>
 				</p>			
 			</div>
-			<div class="review">
-				<img src="/Ultary/views/trustMatch/photo.jpg" id="profile" class="review-photo">
-				<span class="point">☆☆☆☆☆</span>
-				<br>
-				<p class="review1">
-				필요한물품들은 직접 가져와주시기도하는 등 여러부분에서 도움을 많이 받았습니다! 다음번에도 펫시터님께 아가를 부탁드려도되겠다고 생각할만큼 신뢰도
-				</p>
-			</div>
+			<%} %>
+			<%} %>
+			
 			<h5 style="text-align:center;cursor: pointer;">더보기</h5>
 			<input type="hidden" id="memberid" name="memberid" value=<%=m.getMemberId() %>>
 		</div>
 		<button id="submit">위탁요청하기</button>
 		</div>
 	</div>
-            
          </div>
-				
-				
-				
-				
-				
-				
-				
 				</section>
 			</div>
-			<footer>from.hoseong</footer>
+			<footer style="height:100px"></footer>
 		</div>
 	</div>
 </body>

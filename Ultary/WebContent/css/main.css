@@ -25,6 +25,7 @@ header{
 	width:30px;
 	float:left;
 }
+
 .top-buttonimg{
 	height:100%;
 	width:100%;
@@ -34,7 +35,7 @@ header{
 	overflow: hidden;
 	height:100%;
 	float:right;
-	width:240px;
+	width: 310px;
 }
 #proimgdiv{
 	margin-left: 150px;
@@ -57,7 +58,7 @@ header{
 	font-size:25px;
 	color: red;
 	text-align: right;
-    width: 90px;
+    width: 160px;
 }
 #nim{
 	margin-top: -3.5px;
@@ -400,34 +401,48 @@ section{
 	z-index: 800;
 }
 
-/* ------------------------------------------------------------------------------ */
+/* -------------슬라이더---------------------------------------------------- */
 #main{
-	width:1200px;
-	margin:0 auto;
-	height:100%;
-	overflow: hidden;
-	margin-top:20px;
+	width: 1830px;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    top: 14.4px;
+    left: 7px;
+    margin: 0px auto;
 }
-
-#slider{
-    list-style: none outside none;
-    padding-left: 0;
-    margin: 0;
+#main ul{
+	min-width: 50000000000000000000000000000px;
+    position: absolute;
+    top: 0;
+    left: -40px;
+    font-size: 0;
+    padding: 0;
 }
 .slider li{
-    background-size:cover;
+	background-size: cover;
     background-position: center;
-    float:left;
-    width:450px;
-    height:450px;
+    float: left;
+    width: 450px;
+    height: 450px;
+    margin-right: 20px;
+    cursor : pointer;
 }
-.item1{background-image:url('../image/10.jpg');}
-.item2{background-image:url('../image/11.jpg');}
-.item3{background-image:url('../image/12.jpg');}
-.item4{background-image:url('../image/13.jpg');}
-.item5{background-image:url('../image/14.jpg');}
-.item6{background-image:url('../image/15.jpg');}
-
+#main img{
+    width:100%;
+    height:100%;
+}
+.slideLike{
+	width: 410px;
+    height: 30px;
+    position: relative;
+    font-size: 30px;
+    right: -40px;
+    top: -40px;
+    text-align: right;
+    font-weight: 800;
+    color: white;
+}
 /* ------검색창----------------------------------------- */
 
 #search{
@@ -445,18 +460,24 @@ section{
 	border-bottom-width: 10px;
 }
 #search-left{
-	float:left;
-	overflow: hidden;
-	width:70px;
-	height:100%;
+	float: left;
+    overflow: hidden;
+    width: 110px;
+    height: 100%;
+}
+#searchselect{
+	float: left;
+    height: 50px;
+    font-size: 20px;
+    margin-top: 10px;
 }
 #searchtext{
-	float:left;
-	margin-top:10px;
-	margin-left:100px;
-	height:50px;
-	width:400px;
-	font-size:20px;
+	float: left;
+    margin-top: 10px;
+    margin-left: 10px;
+    height: 50px;
+    width: 400px;
+    font-size: 20px;
 }
 #searchbutton{
 	float:left;
@@ -474,10 +495,10 @@ article{
 	height:700px;
 }
 #articlewrap{
-	width:1500px;
-	margin:0 auto;
-	height:100%;
-	overflow: hidden;
+	width: 1110px;
+    margin: 0 auto;
+    height: 100%;
+    overflow: hidden;
 }
 .article{
 	margin-top: 10px;
@@ -549,11 +570,7 @@ footer{
 	width: 860px;
 	height: 450px;
 }
-#expansionL{
-	float:left;
-	height:100%;
-	width:502.1px;
-}
+
 #mainimg{
 	width:100%;
 	height:100%;
@@ -571,6 +588,7 @@ footer{
 	color: black;
 	font-size: 60px;
 	font-weight: 900;
+	cursor:pointer;
 }
 #expansionRheader{
 	width:100%;
@@ -604,30 +622,50 @@ footer{
 	height:30px;
 }
 #expansioncontent{
-	width:100%;
-	min-height:100px;
+	width: 100%;
+    height: 100px;
+    overflow: hidden;
 }
 #expansioncomment{
-	width:100%;
-	height:185px;
-	overflow:scroll;
+	border: 1px solid black;
+    width: 100%;
+    height: 225px;
+    overflow: scroll;
 }
-.comment{
-	margin:10px;
-	width:300px;
-	height:30px;
-	background: #FFDF24;
-	border-radius: 20px;
-}
-.commentans{
-	margin:5px;
-	margin-left: 90px;
-	width:200px;
-	height:20px;
-	background: #FFFFA1;
-	border-radius: 20px;
+#expansioncomment>ul{
+	padding: 0px;
 }
 
+.comment1{
+	width: 100%;
+    height: 25.4px;
+}
+.comment1 div{
+	float:left;
+}
+.comment2{
+	margin-left: 50px;
+    width: 100%;
+    height: 20px;
+    font-size: 13px;
+}
+.comment2 div{
+	float:left;
+}
+#expansioncomment>ul>li>ul{
+	padding: 0px;
+}
+.commentans1{
+	width: 100%;
+    height: 25.4px;
+    font-size: 13px;
+}
+.commentans1>div:first-child{
+	margin-left: 55.5px;
+}
+.commentans1>div{
+	float:left;
+}
 .expansionbox{
 	margin-top:5px;
 	margin-left:5px;
@@ -640,6 +678,7 @@ footer{
 	line-height: 40px;
 	font-weight: 800;
 	color:white;
+	cursor: pointer;
 }
 #petlife{
 	float:left;
@@ -681,6 +720,59 @@ footer{
 	background:#FFDF24;
 	color: white;
 }
+#commentansdiv{
+	position:absolute;
+	
+}
 
-/* ---------------------------------------------------------------------- */
-
+/* -------------디테일 슬라이드----------------------------------------------------- */
+#expansionL{
+	float: left;
+    height: 440px;
+    width: 492.1px;
+    border: 1px solid black;
+    overflow: hidden;
+}
+#imgslide{
+	overflow: hidden;
+    position: relative;
+    height: 440px;
+    width: 492.1px;
+}
+#back{
+	position: absolute;
+    top: 189px;
+    left: -5.1px;
+    cursor: pointer;
+    z-index: 1;
+    opacity: 0;
+}
+#back:hover{
+	opacity:1;
+}
+#next{
+	position: absolute;
+    top: 189PX;
+    right: -5.5px;
+    cursor: pointer;
+    z-index: 1;
+    opacity: 0;
+}
+#next:hover{
+	opacity:1;
+}
+#imgslide ul{
+	width: 3000px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-size: 0;
+    padding: 0;
+}
+#imgslide ul li{
+	display: inline-block;
+}
+#imgslide>ul>li img{
+	height: 440px;
+    width: 492.1px
+}

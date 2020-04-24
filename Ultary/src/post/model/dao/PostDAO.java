@@ -1126,8 +1126,180 @@ public class PostDAO {
 		
 		return list;
 	}
+	public ArrayList<Post> selectAllHPost(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Post> list = new ArrayList<Post>();
+		
+		String query = prop.getProperty("selectAllHPost");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				list.add(new Post(rset.getInt("postnum"),
+								  rset.getString("posttitle"),
+								  rset.getString("postcontent"),
+								  rset.getInt("postlike"),
+								  rset.getDate("postdate"),
+								  rset.getInt("postclick"),
+								  rset.getInt("postrange"),
+								  rset.getInt("categorynum"),
+								  rset.getString("nickname")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<String> selectMarkMem(Connection conn, String loginId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<String> list = new ArrayList<String>();
+		
+		String query = prop.getProperty("selectMarkMem");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, loginId);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(rset.getString("nickname"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return list;
+	}
+
+	public ArrayList<PostComment> selectAllpc(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<PostComment> list = new ArrayList<PostComment>();
+		
+		String query = prop.getProperty("selectAllpc");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				list.add(new PostComment(rset.getInt("c_num"),
+										 rset.getString("c_content"),
+										 rset.getDate("c_date"),
+										 rset.getInt("c_like"),
+										 rset.getInt("c_range"),
+										 rset.getInt("postnum"),
+										 rset.getString("nickname")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<CAns> selectAllca(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<CAns> list = new ArrayList<CAns>();
+		
+		String query = prop.getProperty("selectAllca");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				list.add(new CAns(rset.getInt("ans_num"),
+								  rset.getString("ans_content"),
+								  rset.getDate("ans_date"),
+								  rset.getInt("c_num"),
+								  rset.getString("nickname")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
+	}
+
+	public ArrayList<Media> selectAllPostImg(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Media> list = new ArrayList<Media>();
+		
+		String query = prop.getProperty("selectAllPostImg");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				list.add(new Media(rset.getInt("medianum"),
+								   rset.getString("webname"),
+								   rset.getInt("mediause"),
+								   rset.getString("nickname"),
+								   rset.getInt("postnum")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return list;
+	}
+
+	public ArrayList<CAns> selectCAnsCnum(Connection conn, int cNum) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<CAns> list = new ArrayList<CAns>();
+		
+		String query = prop.getProperty("selectCAnsCnum");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, cNum);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new CAns(rset.getInt("ans_num"),
+						  rset.getString("ans_content"),
+						  rset.getDate("ans_date"),
+						  rset.getInt("c_num"),
+						  rset.getString("nickname")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
 	
-	// 커뮤니티 파트 /////////////////////////////////////////////////////
+	// 커뮤니티 파트 후ㅏ운!!!!!!!!!!!!!!!!!!!!!!!!!!! /////////////////////////////////////////////////////
 	public int getListCount(Connection conn,int categorynum) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;

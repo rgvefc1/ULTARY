@@ -378,7 +378,60 @@ public class PostService {
 		close(conn);
 		return list;
 	}
-	//커뮤니티 부분--------------- ---------- ---------- ---------- ---------- ---------- 
+	public ArrayList<Post> selectAllHPost() {
+		Connection conn = getConnection();
+		
+		ArrayList<Post> list = new PostDAO().selectAllHPost(conn);
+		
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<String> selectMarkMem(String loginId) {
+		Connection conn = getConnection();
+		
+		ArrayList<String> list = new PostDAO().selectMarkMem(conn, loginId);
+		
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<PostComment> selectAllpc() {
+		Connection conn = getConnection();
+		
+		ArrayList<PostComment> list = new PostDAO().selectAllpc(conn);
+		
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<CAns> selectAllca() {
+		Connection conn = getConnection();
+		
+		ArrayList<CAns> list = new PostDAO().selectAllca(conn);
+		
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<Media> selectAllPostImg() {
+		Connection conn = getConnection();
+		
+		ArrayList<Media> list = new PostDAO().selectAllPostImg(conn);
+		
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<CAns> selectCAnsCnum(int cNum) {
+		Connection conn =getConnection();
+		
+		ArrayList<CAns> list = new PostDAO().selectCAnsCnum(conn, cNum);
+		
+		close(conn);
+		return list;
+	}
+	//커뮤니티 부분 휘은!!!!!!!!!!!!!!!!--------------- ---------- ---------- ---------- ---------- ---------- 
 	//게시판 별 글 목록 조회
 	public int getListCount(int categorynum) {
 		Connection conn = getConnection();

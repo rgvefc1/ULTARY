@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.Member"%>
+    pageEncoding="UTF-8" import="member.model.vo.*, post.model.vo.*, java.util.ArrayList"%>
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
-	String msg = (String)request.getAttribute("msg");
-	String absroute = request.getContextPath();
+	ArrayList<Post> allHpost = (ArrayList<Post>)request.getAttribute("allHPost"); // 모든 게시글 좋아요순
+	ArrayList<PostComment> allpc = (ArrayList<PostComment>)request.getAttribute("allpc"); // 모든 댓글목록
+	ArrayList<CAns> allca = (ArrayList<CAns>)request.getAttribute("allca"); // 모든 답글목록
+	ArrayList<Media> postImg = (ArrayList<Media>)request.getAttribute("postImg"); // 모든 프사,게시글사진
 %>
 <!DOCTYPE html>
 <html>
@@ -17,12 +19,24 @@
     <script src="https://han3283.cafe24.com/js/lightslider/js/lightslider.js"></script>
 </head>
 <body>
+<script>
+	$(function(){
+		item = 0;
+		ansempty = false;
+		ansbull = true;
+	});
+</script>
 	<%@ include file="alertchat.jsp" %>
 	<div id="expansion">
 		<div id="expansionIn">
 			<div id="expansiontop">
 				<div id="expansionL">
-					<img id="mainimg"src="<%= request.getContextPath() %>/image/1.png">
+					<div id="imgslide" class="imgslide">
+						<div id="back" class="slideBtn"><img src="<%= request.getContextPath() %>/image/왼쪽 화살표.png" alt="" width="50"></div>
+						<ul>
+						</ul>
+						<div id="next" class="slideBtn"><img src="<%= request.getContextPath() %>/image/오른쪽 화살표.png" alt="" width="50"></div>
+					</div>
 				</div>
 				<div id="expansionR">
 					<div id="expansionexit">X</div>
@@ -36,54 +50,28 @@
 					<div id="expansionRsection">
 						<div id="expansionTitle">Title | 제목<hr></div>
 						<div id="expansioncontent">
-							내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-							내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-							내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-							<hr>
 						</div>
 						<div id="expansioncomment">
-							<div class="comment">댓글</div>
-								<div class="commentans">답글</div>
-								<div class="commentans">답글</div>
-								<div class="commentans">답글</div>
-								<div class="commentans">답글</div>
-							<div class="comment">댓글</div>
-							<div class="comment">댓글</div>
-							<div class="comment">댓글</div>
-							<div class="comment">댓글</div>
-							<div class="comment">댓글</div>
-							<div class="comment">댓글</div>
-							<div class="comment">댓글</div>
-							<div class="comment">댓글</div>
+							<h2>로그인이 필요한 서비스입니다.</h2>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div id="expansionbottom">
-				<div class="expansionbox">카테고리</div>
-				<div id="petlife">펫 일상</div>
-				<div class="expansionbox">관심글 등록</div>
+				<div id="expansioncategory" class="expansionbox">카테고리</div>
+				<div id="petlife"></div>
 				<div id="like">♡</div>
-				<div class="expansionbox">222 like</div>
-				<img id="likeimg" src="<%= request.getContextPath() %>/image/좋아요.png">
+				<div id="likescore" class="expansionbox"></div>
 				<div id="commenttextdiv">
-					<input id="commenttext" type="text" placeholder="내용을 입력해주세요">
-					<input id="commentsubmit" type="submit" value="댓글달기">
 				</div>
 			</div>
 		</div>
 	</div>
 <script>
-	$("body").click(function(e){
-		if($('#expansion').css('display') == 'block'){
-			if(!$('#expansion').has(e.target).length) {
-				$('#expansion').hide();
-			}
-		} else if($('#expansion').css('display') == 'none'){
-			if($('.exBtn').has(e.target).length) {
-				$('#expansion').show();
-			}
-		}
+	$(function(){
+		$('#expansionexit').click(function(){
+			$('#expansion').hide();
+		});
 	});
 </script>
 	<header>
@@ -113,7 +101,7 @@
 				<div id="logeleft1"></div>
 				<div id="logoleft2"></div>
 				<div id="logo">
-					<a href='<%= request.getContextPath() %>/views/main/main.jsp'><img id="logoimg" src="<%= request.getContextPath() %>/image/logo.png"></a>
+					<a href='<%= request.getContextPath() %>/main.login'><img id="logoimg" src="<%= request.getContextPath() %>/image/logo.png"></a>
 				</div>
 			</div>
 		</div>
@@ -169,87 +157,87 @@
 		</div>
 	</header>
 <script>
-	<% if((loginUser) == null){ %>
-	$('#cssmenu>ul a').click(function(){
-		window.alert('로그인을 해주세요.');
-	});
-	<% } else{ %>
-	$('#cssmenu>ul>li:eq(0)>a').click(function(){
-		location.href="<%= request.getContextPath() %>/post.tl";
-	});
-	$('#menu1>li:eq(0) a').click(function(){
-		location.href="<%= request.getContextPath() %>/post.tl";
-	});
-	$('#menu1>li:eq(1) a').click(function(){
-		location.href="<%= request.getContextPath() %>/views/myUltary/postWrite.jsp";
-	});
-	$('#menu1>li:eq(2) a').click(function(){
-		location.href="<%= request.getContextPath() %>/markmember.mem";
-	});
-	$('#menu1>li:eq(3) a').click(function(){
-		location.href="<%= request.getContextPath() %>/markpost.tl";
-	});
-	$('#menu1>li:eq(4) a').click(function(){
-		location.href="<%= request.getContextPath() %>/views/myUltary/trustEvm.jsp";
-	});
-	$('#cssmenu>ul>li:eq(1)>a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmAllList.po";
-	});
-	$('#menu2>li:eq(0) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmList.po?cnum=1";
-	});
-	$('#menu2>li:eq(1) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmAllList.po";
-	});
-	$('#menu2>li:eq(2) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmList.po?cnum=2";
-	});
-	$('#menu2>li:eq(3) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmList.po?cnum=3";
-	});
-	$('#menu2>li:eq(4) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmList.po?cnum=4";
-	});
-	$('#menu2>li:eq(5) a').click(function(){
-		location.href="<%= request.getContextPath() %>/cmList.po?cnum=5";
-	});
-	$('#cssmenu>ul>li:eq(2)>a').click(function(){
-		location.href="<%= request.getContextPath() %>/views/trustMatch/matching01.jsp";
-	});
-	$('#menu3>li:eq(0) a').click(function(){
-		location.href="<%= request.getContextPath() %>/views/trustMatch/matching01.jsp";
-	});
-	$('#menu3>li:eq(1) a').click(function(){
-		location.href="<%= request.getContextPath() %>/TpostView.tu";
-	});
-	$('#menu3>li:eq(2) a').click(function(){
-		location.href="<%= request.getContextPath() %>/myreview.tu";
-	});
-	$('#cssmenu>ul>li:eq(3)>a').click(function(){
-		location.href="<%= request.getContextPath() %>/views/myPage/memberUpdate.jsp";
-	});
-	$('#menu4>li:eq(0) a').click(function(){
-		location.href="<%= request.getContextPath() %>/views/myPage/memberUpdate.jsp";
-	});
-	$('#menu4>li:eq(1) a').click(function(){
-		location.href="<%= request.getContextPath() %>/views/myPage/pwdUpdate.jsp";
-	});
-	$('#menu4>li:eq(2) a').click(function(){
-		location.href="<%= request.getContextPath() %>/views/myPage/memberDelete.jsp";
-	});
-	$('#cssmenu>ul>li:eq(4)>a').click(function(){
-		location.href="<%= request.getContextPath() %>/slist.no'";
-	});
-	$('#menu5>li:eq(0) a').click(function(){
-		location.href="<%= request.getContextPath() %>/slist.no";
-	});
-	$('#menu5>li:eq(1) a').click(function(){
-		location.href="<%= request.getContextPath() %>/faq.sv";
-	});
-	$('#menu5>li:eq(2) a').click(function(){
-		location.href="<%= request.getContextPath() %>/views/support/InquirySend.jsp";
-	});
-	<% } %>
+   <% if((loginUser) == null){ %>
+   $('#cssmenu>ul a').click(function(){
+      window.alert('로그인을 해주세요.');
+   });
+   <% } else{ %>
+   $('#cssmenu>ul>li:eq(0)>a').click(function(){
+      location.href="<%= request.getContextPath() %>/post.tl";
+   });
+   $('#menu1>li:eq(0) a').click(function(){
+      location.href="<%= request.getContextPath() %>/post.tl";
+   });
+   $('#menu1>li:eq(1) a').click(function(){
+      location.href="<%= request.getContextPath() %>/views/myUltary/postWrite.jsp";
+   });
+   $('#menu1>li:eq(2) a').click(function(){
+      location.href="<%= request.getContextPath() %>/markmember.mem";
+   });
+   $('#menu1>li:eq(3) a').click(function(){
+      location.href="<%= request.getContextPath() %>/markpost.tl";
+   });
+   $('#menu1>li:eq(4) a').click(function(){
+      location.href="<%= request.getContextPath() %>/views/myUltary/trustEvm.jsp";
+   });
+   $('#cssmenu>ul>li:eq(1)>a').click(function(){
+      location.href="<%= request.getContextPath() %>/cmAllList.po";
+   });
+   $('#menu2>li:eq(0) a').click(function(){
+      location.href="<%= request.getContextPath() %>/cmList.po?cnum=1";
+   });
+   $('#menu2>li:eq(1) a').click(function(){
+      location.href="<%= request.getContextPath() %>/cmAllList.po";
+   });
+   $('#menu2>li:eq(2) a').click(function(){
+      location.href="<%= request.getContextPath() %>/cmList.po?cnum=2";
+   });
+   $('#menu2>li:eq(3) a').click(function(){
+      location.href="<%= request.getContextPath() %>/cmList.po?cnum=3";
+   });
+   $('#menu2>li:eq(4) a').click(function(){
+      location.href="<%= request.getContextPath() %>/cmList.po?cnum=4";
+   });
+   $('#menu2>li:eq(5) a').click(function(){
+      location.href="<%= request.getContextPath() %>/cmList.po?cnum=5";
+   });
+   $('#cssmenu>ul>li:eq(2)>a').click(function(){
+      location.href="<%= request.getContextPath() %>/views/trustMatch/matching01.jsp";
+   });
+   $('#menu3>li:eq(0) a').click(function(){
+      location.href="<%= request.getContextPath() %>/views/trustMatch/matching01.jsp";
+   });
+   $('#menu3>li:eq(1) a').click(function(){
+      location.href="<%= request.getContextPath() %>/TpostView.tu";
+   });
+   $('#menu3>li:eq(2) a').click(function(){
+      location.href="<%= request.getContextPath() %>/myreview.tu";
+   });
+   $('#cssmenu>ul>li:eq(3)>a').click(function(){
+      location.href="<%= request.getContextPath() %>/views/myPage/memberUpdate.jsp";
+   });
+   $('#menu4>li:eq(0) a').click(function(){
+      location.href="<%= request.getContextPath() %>/views/myPage/memberUpdate.jsp";
+   });
+   $('#menu4>li:eq(1) a').click(function(){
+      location.href="<%= request.getContextPath() %>/views/myPage/pwdUpdate.jsp";
+   });
+   $('#menu4>li:eq(2) a').click(function(){
+      location.href="<%= request.getContextPath() %>/views/myPage/memberDelete.jsp";
+   });
+   $('#cssmenu>ul>li:eq(4)>a').click(function(){
+      location.href="<%= request.getContextPath() %>/slist.no'";
+   });
+   $('#menu5>li:eq(0) a').click(function(){
+      location.href="<%= request.getContextPath() %>/slist.no";
+   });
+   $('#menu5>li:eq(1) a').click(function(){
+      location.href="<%= request.getContextPath() %>/faq.sv";
+   });
+   $('#menu5>li:eq(2) a').click(function(){
+      location.href="<%= request.getContextPath() %>/views/support/InquirySend.jsp";
+   });
+   <% } %>
 </script>
 	
 	<section>
@@ -261,33 +249,35 @@
 		</div>
 		<div id="main">
 			<ul id="slider" class="slider">
-                <li class="item1">
+			<% if(allHpost.isEmpty()){ %>
+				<li><h1>실행할께 없어염!!!</h1></li>
+			<% } else{ %>
+				<% for(int a=0;a<allHpost.size();a++){ 
+					Post p = allHpost.get(a); 
+					 for(int b=0;b<postImg.size();b++){ 
+						Media m = postImg.get(b); 
+						if(p.getPostNum() == m.getPostNum()) {%>
+                <li id="item<%= a %>" class="item1">
+                	<img src="<%= request.getContextPath() %>/uploadFiles/<%= m.getWebName() %>">
+                	<div class="slideLike"><%= p.getPostLike() %> like</div>
                 </li>
-                <li class="item2">
-                </li>
-                <li class="item3">
-                </li>
-                <li class="item4">
-                </li>
-                <li class="item5">
-                </li>
-                <li class="item6">
-                </li>
-            </ul>
-		</div>
+
+                	<% break;
+                		 } %>
+                	<% } %>
 <script>
-	$(document).ready(function() {
-   		$("#slider").lightSlider({
-			mode:'slide',    // 이미지가 표시되는 형식 (fade / slide)
-   	     	loop:true,       // 무한반복 할 것인지
-   	    	auto:true,       // 자동 슬라이드
-   	     	keyPress:true,   // 키보드 탐색 허용
-   	     	pager:false,     // 페이지 표시
-   	     	speed:1500,      // 슬라이드 되는 속도
-   	     	pause:3000       // 이미지가 머무는 시간
-   	 	});
+	$(function(){
+		var itemBtn = "#item"+<%= a %>;
+		$(itemBtn).click(function(){
+			item = <%= p.getPostNum() %>;
+		});
+		
 	});
 </script>
+                <% } %>
+            <% } %>
+            </ul>
+		</div>
 	</section>
 	
 	<form onsubmit="return search();" action="<%= request.getContextPath() %>/search.mem">
@@ -317,6 +307,144 @@
 			}
 		<% } %>
 	}
+	$(function(){
+		/* -------------디테일이미지 슬라이드-------------------------- */
+	
+	      var imgs;
+	      imgslide_count = 0;
+	      img_position = 1;
+	      var slide = "#imgslide ul";
+	      
+	      //버튼을 클릭했을 때 함수 실행
+	      $('#back').click(function () {
+	        back();
+	      });
+	      $('#next').click(function () {
+	        next();
+	      });
+	
+	      function back() {
+	    	  if(img_position>1){
+	          $('#imgslide ul').animate({
+	            left:'+=492.09px'
+	          });
+	          img_position--;
+	    	  }
+	      }
+	      function next() {
+	    	  if(img_position<imgslide_count){
+	        	$('#imgslide ul').animate({
+	            left:'-=492.09px'
+	          });
+	          img_position++;
+	    	  }
+	      }
+	});
+	$(function(){
+		/* ------------------이미지 슬라이드 디테일 -------------*/
+		var $item = ".item1";
+		$("body").click(function(e){
+			if($('#expansion').css('display') == 'block'){
+				if(!$('#expansion').has(e.target).length) {
+					$('#expansion').hide();
+				}
+			} else if($('#expansion').css('display') == 'none'){
+				if($($item).has(e.target).length) {
+					$('#expansion').show();
+					$('#imgslide ul').css('left', '0px');
+					imgslide_count = 0;
+					img_position = 1;
+					<% if(!allHpost.isEmpty()){ %>
+						<% for(int c=0;c<allHpost.size();c++) { 
+							Post post = allHpost.get(c); 
+							String category = "";
+							switch(post.getCategorynum()){
+							case 2: category = "펫일상"; break;
+							case 3: category = "펫지식"; break;
+							case 4: category = "펫리뷰"; break;
+							case 5: category = "펫분양"; break;
+							} %>
+							var pNum = <%= post.getPostNum() %>;
+							if(pNum == item){
+								/* 프로필 이미지 생성 */
+								<% for(int e=0;e<=postImg.size();e++){ %>
+								<% if(e==postImg.size()){ %>
+									$('#expansionimg').attr('src', '<%= request.getContextPath() %>/image/프로필.png');
+								<% break;
+								} %>
+								<%	Media m = postImg.get(e); %>
+								<%	if(m.getMemberId().equals(post.getMemberid()) && m.getMediaUse() == 1){ %>
+									$('#expansionimg').attr('src', '<%= request.getContextPath() %>/uploadFiles/<%= m.getWebName() %>');
+									<% break;
+									} %>
+								<% } %>
+								/* 게시글 닉네임 */
+								$('#expansionWri').text("<%= post.getMemberid() %>");
+								/* 게시글 게시일 */
+								$('#expansiondate').text("게시일 |   <%= post.getPostDate() %>");
+								/* 게시글 제목 */
+								$('#expansionTitle').text("Title | <%= post.getPostTitle() %>");
+								$('#expansionTitle').append('<hr>');
+								/* 게시글 내용 */
+								$('#expansioncontent').text("<%= post.getPostContent() %>");
+								/* 카테고리 */
+								$('#petlife').text("<%= category %>");
+								/* 좋아요 수 */
+								$('#likescore').text("<%= post.getPostLike() %> like")
+								/* 이미지 생성!!!!! */
+								$('#imgslide>ul').html("");
+								<% for(int d=0;d<postImg.size();d++){ 
+									Media m = postImg.get(d); 
+									if(post.getPostNum() == m.getPostNum()) {%>
+								var $li = $('<li>');
+								var $img = $('<img>');
+								imgslide_count = imgslide_count + 1;
+								$img.attr('src', '<%= request.getContextPath() %>/uploadFiles/<%= m.getWebName() %>');
+								$li.append($img);
+								$('#imgslide>ul').append($li);
+									<% } %>
+								<% } %>
+							}
+						<% } %>
+					<% } %>
+				}
+			}
+		});
+	});
+	$(document).ready(function(){
+		
+		/* -------------이미지 슬라이드-------------------------- */
+	      var imgs;
+	      var img_count;
+	      var img_position = 1;
+	      var slide = "#main ul";
+
+	      imgs = $("#slider");
+	      img_count = imgs.children().length;
+
+	      //버튼을 클릭했을 때 함수 실행
+	      $('#mainleft').click(function () {
+	        back();
+	      });
+	      $('#mainright').click(function () {
+	        next();
+	      });
+
+	      function back() {
+	    	  if(imgs.offset().left<200){
+	    		  imgs.animate({
+	  	            left:'+=450px'
+	  	          });
+	    	  }
+	      }
+	      function next() {
+	    	  if($("#slider>li:last").offset().left > 1200){
+	    		  imgs.animate({
+	  	            left:'-=450px'
+	  	          });
+	    	  }
+	      }
+	});
 </script>
 	
 	<article>
@@ -349,19 +477,6 @@
 			</div>
 			<div id="article3" class="article">
 				<div class="articleTitle">인기글</div>
-				<div class="articlecontent">
-					<div class="articleinner">
-						<ul>
-							<li>게시글 제목</li>
-							<li>게시글 제목</li>
-							<li>게시글 제목</li>
-							<li>게시글 제목</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div id="article4" class="article">
-				<div class="articleTitle">반려동물 행사</div>
 				<div class="articlecontent">
 					<div class="articleinner">
 						<ul>
