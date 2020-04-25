@@ -284,16 +284,20 @@ button:hover {
 				</section>
 		
 			<div class="admin" align="center">
-
+			
 				<%
-					if (loginUser != null && loginUser.getMemberId().equals("admin")) {
+					System.out.println(loginUser);
+					System.out.println(loginUser.getMemberId());
+					if (loginUser != null && loginUser.getMemberId().trim().equals("admin")) {
 				%>
-				<button onclick="location.href='views/support/noticeInsertForm.jsp'"
+				<button type="button" onclick="location.href='<%= request.getContextPath() %>/views/support/noticeInsertForm.jsp'"
 					id="writeNoBtn">글쓰기(admin으로 접속시만)</button>
 				<%
 					} else {
+						System.out.println(loginUser);
+						
 				%>
-
+					
 				<%
 					}
 				%>
