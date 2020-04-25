@@ -13,6 +13,7 @@ import member.model.dao.MemberDAO;
 import member.model.vo.Media;
 import member.model.vo.Member;
 import member.model.vo.Pet;
+import trust.model.vo.TrustReview;
 
 public class MemberService {
 
@@ -297,6 +298,7 @@ public class MemberService {
 		return result;
 	}
 	//////////////호성 끝
+
 	public int deletePet(int petNum) {
 		Connection conn = getConnection();
 
