@@ -431,16 +431,16 @@
 	      });
 
 	      function back() {
-	    	  if(imgs.offset().left<200){
+	    	  if(imgs.offset().left<64.5999984741211){
 	    		  imgs.animate({
-	  	            left:'+=450px'
+	  	            left:'+=470px'
 	  	          });
 	    	  }
 	      }
 	      function next() {
-	    	  if($("#slider>li:last").offset().left > 1200){
+	    	  if($("#slider>li:last").offset().left > 1100){
 	    		  imgs.animate({
-	  	            left:'-=450px'
+	  	            left:'-=470px'
 	  	          });
 	    	  }
 	      }
