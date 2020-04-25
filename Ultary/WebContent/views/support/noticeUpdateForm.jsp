@@ -27,7 +27,7 @@
     }
 	.outer{
 		width: 600px; height: 500px; background-color: white; 
-		border: 3px solid skyblue;
+		border: 15px solid skyblue; border-radius:20px;
 		margin-left: auto; margin-right: auto; margin-top: 50px;
 	}
 	.tableArea {width:450px; height:350px; margin-left:auto; margin-right:auto;}
