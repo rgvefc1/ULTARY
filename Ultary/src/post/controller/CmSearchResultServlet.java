@@ -39,14 +39,12 @@ public class CmSearchResultServlet extends HttpServlet {
 		String searchtext = request.getParameter("searchtext"); // 검색내용
 		int categorynum = Integer.parseInt(request.getParameter("categorynum")); // 검색범위 
 		String searchcon = request.getParameter("searchcon"); // 검색조건
-		int date = Integer.parseInt(request.getParameter("date")); // 날짜 범위?
 		
 		System.out.println(searchtext);
 		System.out.println(categorynum);
 		System.out.println(searchcon);
-		System.out.println(date);
 		
-		int listCount = service.getSearchListCount(searchtext,categorynum,searchcon,date);
+		int listCount = service.getSearchListCount(searchtext,categorynum,searchcon);
 		
 		int currentPage;			// 현재 페이지
 		int pageLimit = 10;				// 한 페이지에 표시될 페이징 수
@@ -72,13 +70,16 @@ public class CmSearchResultServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage,listCount,pageLimit,maxPage,startPage,endPage,boardLimit);
 		
-		ArrayList<Post> list = service.selectSearchList(searchtext,categorynum,searchcon,date,currentPage,boardLimit);
+		ArrayList<Post> list = service.selectSearchList(searchtext,categorynum,searchcon,currentPage,boardLimit);
 		
 		String page ="";
 		if(list != null) {
 			page ="views/community/search_result.jsp";
 			request.setAttribute("pi", pi);
 			request.setAttribute("searchtext", searchtext);
+			request.setAttribute("lcount", listCount);
+			request.setAttribute("cnum", categorynum);
+			request.setAttribute("searchcon", searchcon);
 			request.setAttribute("list", list);
 		} else {
 			page="views/common/errerPage.jsp";
