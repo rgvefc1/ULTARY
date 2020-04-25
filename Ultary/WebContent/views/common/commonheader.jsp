@@ -240,7 +240,7 @@
 					</div>
 				</div>
 				<div id="header-bottom">
-					<a href='<%= request.getContextPath() %>/views/main/main.jsp'><img id="logoimg" src="<%= request.getContextPath() %>/image/logo.png"></a>
+					<a href='<%= request.getContextPath() %>/main.login'><img id="logoimg" src="<%= request.getContextPath() %>/image/logo.png"></a>
 				</div>
 			</header>
 </body>
