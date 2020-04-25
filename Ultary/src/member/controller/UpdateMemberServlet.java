@@ -34,11 +34,20 @@ public class UpdateMemberServlet extends HttpServlet {
 		String nickname = request.getParameter("nickname");
 		String email = request.getParameter("email");
 		String phone = request.getParameter("phone");
+		
 		String zipNo = request.getParameter("zipNo");
 		String roadAddrPart1 = request.getParameter("roadAddrPart1");
 		String roadAddrPart2 = request.getParameter("roadAddrPart2");
 		String addrDetail = request.getParameter("addrDetail");
-		String address = zipNo+"/"+roadAddrPart1+"/"+roadAddrPart2+"/"+addrDetail;
+		
+		//위탁매칭전용 주소명
+		String siNm = request.getParameter("siNm"); //위탁검색용 시도명
+		String sggNm = request.getParameter("sggNm"); //위탁검색용 시군구명
+		String emdNm = request.getParameter("emdNm"); //위탁검색용 읍면동명
+		
+		//회원조회 시 도로명주소 3번째 배열까지. + 위탁검색용 동까지 주소 
+		String address = zipNo+"/"+roadAddrPart1+"/"+roadAddrPart2+"/"+addrDetail+"/"+siNm+" "+sggNm+" "+emdNm;
+		
 		String pwquery = request.getParameter("pwquery");
 		String pwqans = request.getParameter("pwqans");
 		String trust = request.getParameter("trust");
