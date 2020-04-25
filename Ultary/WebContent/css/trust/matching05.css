@@ -65,4 +65,8 @@
 	#no-popup3{width: 89%; height: 42px; margin-left: 56px;}
 	#no-popup-3{width:100%;height:34px;}
 	 #reqcontent2{width: 692px;height: 180px; margin-left: 48px; margin-top: 40px;background: white;}
-	 
+	 img#petaddbutton {
+    width: 167px;
+    margin-left: 94px;
+    cursor:pointer;
+}

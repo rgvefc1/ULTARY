@@ -1,4 +1,20 @@
+
 package member.model.service;
+
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import member.model.dao.MemberDAO;
+import member.model.vo.Media;
+import member.model.vo.Member;
+import member.model.vo.Pet;
+import trust.model.vo.TrustReview;
 
 import static common.JDBCTemplate.close;
 import static common.JDBCTemplate.commit;

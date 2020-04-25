@@ -56,6 +56,7 @@ public class MatchingDAO {
 				li[i]="%%";
 			}
 		}
+		System.out.println(member.getAddress());
 		try {
 			pstmt= conn.prepareStatement(query);
 			pstmt.setString(1, li[0]);
@@ -66,8 +67,7 @@ public class MatchingDAO {
 			pstmt.setString(6, li[5]);
 			pstmt.setInt(7,member.getTrustmeans());
 			pstmt.setString(8,member.getAddress());
-			pstmt.setString(9,pet);
-			pstmt.setString(10, loginId);
+			pstmt.setString(9, loginId);
 			
 			rset = pstmt.executeQuery();
 			
@@ -199,15 +199,17 @@ public class MatchingDAO {
 			pstmt.setString(6, li[5]);
 			pstmt.setInt(7, member.getTrustmeans());
 			pstmt.setString(8,member.getAddress());
-			pstmt.setString(9,pet);
-			pstmt.setString(10, member.getMemberId());
-			pstmt.setInt(11, startRow);
-			pstmt.setInt(12, endRow);
+			pstmt.setString(9, member.getMemberId());
+			pstmt.setInt(10, startRow);
+			pstmt.setInt(11, endRow);
 			
 			rset=pstmt.executeQuery();
 			list=new ArrayList<Member>();
 
 			while(rset.next()) {
+				String[] addressA = rset.getString("address").split("/");
+				String address = addressA[addressA.length-1];
+				
 				Member m = new Member(rset.getString("memberid"),
 						  rset.getString("nickname"),
 						  rset.getString("memberName"),
@@ -217,7 +219,7 @@ public class MatchingDAO {
 						  rset.getString("email"),
 						  rset.getString("phone"),
 						  rset.getDate("enrolldate"),
-						  rset.getString("address"),
+						  address,
 						  rset.getInt("pwquery"),
 						  rset.getString("pwqAns"),
 						  rset.getString("trust").charAt(0),
@@ -787,6 +789,24 @@ System.out.println(trnum);
 		
 		
 		return tp;
+	}
+
+	public int deletetp(Connection conn, int tpnum) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deletetp");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, tpnum);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 

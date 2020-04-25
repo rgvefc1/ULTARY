@@ -73,7 +73,28 @@
 							<h3>반려동물 정보</h3>
 						</div>
 						<div id="page3-2">
-							<table id="page3_table">
+						<table id="page3_table">
+							<%if(mypet == null) {%>
+								<tr>
+									<h3 style="text-align:center">등록된 애완동물 이없습니다.</h3>
+									<img id="petaddbutton"src="<%= request.getContextPath() %>/image/뼈다귀.png" alt="" width="50">
+								</tr>
+								<script>
+									$('#petaddbutton').mouseenter(function(){
+										$('#petaddbutton').attr("src","<%= request.getContextPath() %>/image/뼈다귀after.png")
+									});
+									$('#petaddbutton').mouseout(function(){
+										$('#petaddbutton').attr("src","<%= request.getContextPath() %>/image/뼈다귀.png")
+									});
+
+									
+									
+									$('#petaddbutton').click(function(){
+										window.open('<%= request.getContextPath()%>/views/myPage/petList.jsp', 'pop', 'width=950, height=650');
+									});
+								</script>
+							<%}else{ %>
+							
 								<tr>
 									<td class="page3_td"><div class="petname">반려동물 이름</div></td>
 									<td><label><%=mypet.getPetName() %></label></td>
@@ -90,11 +111,14 @@
 									<td class="page3_td"><div class="petname">반려동물 나이</div></td>
 									<td><label><%=mypet.getPetage() %></label></td>
 								</tr>
+							<%} %>
 							</table>
+							
 						</div>
 						<div id="page3-3">
 							<img src="/Ultary/views/trustMatch/photo.jpg" id="pet-photo">
 						</div>
+						
 					</div>
 				<div id="page4" >
 					<div id="page4-1">의뢰관리</div>

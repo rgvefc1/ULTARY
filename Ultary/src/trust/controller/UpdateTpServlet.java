@@ -2,6 +2,7 @@ package trust.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,8 +33,14 @@ public class UpdateTpServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int tpnum = Integer.parseInt(request.getParameter("tpnum"));
 		
-		TrustPost tp  = new MatchingService().tpview(tpnum);
-	
+		int result  = new MatchingService().removetp(tpnum);
+		
+		if(result > 0) {
+			response.sendRedirect("TpostView.tu");
+		}else {
+			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage/jsp");
+			request.setAttribute("msg", "리뷰수정 실패");
+		}
 	}
 
 	/**
