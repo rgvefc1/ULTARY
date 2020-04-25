@@ -174,16 +174,16 @@
 						</li>
 						<li><a href='#'>위탁매칭</a>
 							<ul id="menu3">
-								<li><a href='<%= request.getContextPath() %>/views/common/commonheader.jsp'>위탁검색</a></li>
-								<li><a href='#'>의뢰 관리</a></li>
-								<li><a href='#'>내가 남긴 리뷰</a></li>
+								<li><a>위탁검색</a></li>
+								<li><a>의뢰 관리</a></li>
+								<li><a>내가 남긴 리뷰</a></li>
 							</ul>
 						</li>
 						<li><a href='#'>마이페이지</a>
 							<ul id="menu4">
-								<li><a href='#'>내 정보 관리</a></li>
-								<li><a href='#'>비밀번호변경</a></li>
-								<li><a href='#'>회원 탈퇴</a></li>
+								<li><a>내 정보 관리</a></li>
+								<li><a>비밀번호변경</a></li>
+								<li><a>회원 탈퇴</a></li>
 							</ul>
 						</li>
 						<li><a href='#'>고객센터</a>
@@ -255,10 +255,10 @@
       location.href="<%= request.getContextPath() %>/myreview.tu";
    });
    $('#cssmenu>ul>li:eq(3)>a').click(function(){
-      location.href="<%= request.getContextPath() %>/views/myPage/memberUpdate.jsp";
+      location.href="<%= request.getContextPath() %>/Pet.view";
    });
    $('#menu4>li:eq(0) a').click(function(){
-      location.href="<%= request.getContextPath() %>/views/myPage/memberUpdate.jsp";
+      location.href="<%= request.getContextPath() %>/Pet.view";
    });
    $('#menu4>li:eq(1) a').click(function(){
       location.href="<%= request.getContextPath() %>/views/myPage/pwdUpdate.jsp";
@@ -267,7 +267,7 @@
       location.href="<%= request.getContextPath() %>/views/myPage/memberDelete.jsp";
    });
    $('#cssmenu>ul>li:eq(4)>a').click(function(){
-      location.href="<%= request.getContextPath() %>/slist.no'";
+      location.href="<%= request.getContextPath() %>/slist.no";
    });
    $('#menu5>li:eq(0) a').click(function(){
       location.href="<%= request.getContextPath() %>/slist.no";
