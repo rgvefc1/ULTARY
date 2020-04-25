@@ -15,7 +15,7 @@ import member.model.vo.Member;
 /**
  * Servlet implementation class UpdatePwdServlet
  */
-@WebServlet("/pwdupdate.mem")
+@WebServlet(urlPatterns = "/pwdupdate.mem", name="UpdatePwdServlet")
 public class UpdatePwdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,8 +33,8 @@ public class UpdatePwdServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String password = request.getParameter("password");//현재 비번 입력하세요 
 		String passwordN = request.getParameter("passwordN");// 새 비번
-		System.out.println("서블릿에서 받는  새비번"+passwordN);
 		System.out.println("서블릿에서 받는  올드비번"+password);
+		System.out.println("서블릿에서 받는  새비번"+passwordN);
 			
 		HttpSession session = request.getSession();
 		Member sessionMember = (Member)session.getAttribute("loginUser");
@@ -46,12 +46,13 @@ public class UpdatePwdServlet extends HttpServlet {
 		//1. 현재 비밀번호 체크
 		
 		//2.1 현재 비밀번호가 맞는 경우
-			sessionMember.setPassword(passwordN);
+//			sessionMember.setPassword(passwordN);
 			
 			//String password = request.getParameter("password");
 			int result = new MemberService().pwdUpdate(b, passwordN);
 			
 			if(result > 0) { //결과가 있어야, 메인으로간다.
+				sessionMember.setPassword(passwordN);
 				response.sendRedirect(request.getContextPath());
 			}else {
 				System.out.println("업데이트실패");

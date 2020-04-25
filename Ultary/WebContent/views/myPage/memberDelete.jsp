@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 탈퇴</title>
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/myPage_css/memberDelete.css">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/myPage_css/memberDelete.css">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
@@ -28,7 +28,7 @@
 </script>
 <style>
 #text{font-family: 'Nanum Gothic Coding', monospace;}
-
+#myForm{border: 1px solid hsla(197, 62%, 74%, 0.603); border-width: 20px; background: white; margin: 20px;}
 	#mypage{
 		width:900px;
 		height:1500px;
@@ -149,6 +149,7 @@
 				<section>
 				<body>
 	<div id="mypage">
+	
 		<div>
   		    <h2 align="center">현재 비밀번호를 입력해주세요</h2>
 	<div id="wow">
@@ -163,32 +164,31 @@
         <center><button id="memberD" style='cursor:pointer;'>확인</button></center>
         <br>
         <br>
+      
         </div>
   
 		<script>
-		$(function(){
-			$('#memberD').click(function(){
-				
-				var password = $('#password').val();
-				var loginPwd = '<%= loginUser.getPassword() %>';
-				var re =/^[a-zA-Z\d]{7,11}$/;
-				
-				if(password == loginPwd){
+		$('#memberD').click(function(){
+     		var password = $('#password').val();
+     		
+		$.ajax({  //현재 비밀번호를 보내서 비교해서 값을 받아오기
+			url: '<%= request.getContextPath() %>/updatePwdChk.do',
+			data: {password:password},
+			success: function(data){
+				console.log(data);
+				if(data == 'success'){
 					var result = window.confirm('정말 탈퇴하시겠습니까?');
 					if(result){
 						location.href="<%= request.getContextPath() %>/delete.mem";
-					} else {
-						alert("탈퇴 실패! 관리자에게 문의 바랍니다.");
+					} else{
+						alert("탈퇴 취소!");
 					}
 				} else{
 					alert("비밀번호가 옳지 않음");
-					location.href="<%= request.getContextPath() %>/views/myPage/memberDelete.jsp";
 				}
-				
-				//console.log("으아아ㅏㅇ");
+			}
 			});
 		});
-		
 		
 		</script>
 		

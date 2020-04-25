@@ -20,7 +20,7 @@ public class EncryptWrapper extends HttpServletRequestWrapper{ //울타리 회�
 		String value ="";
 		
 		//name 에 들어올수있는건? 회원가입, 로그인, 비밀번호변경 에 사용. 뷰에 있는 네임태그값 말하는것! 
-		if(name != null && (name.equals("password") || name.equals("fine_newPwd") || name.equals("passwordcheck")|| name.equals("fine_newPwd_Confirm"))) {
+		if(name != null && (name.equals("password") || name.equals("passwordN") || name.equals("passwordNC") || name.equals("fine_newPwd") || name.equals("passwordcheck")|| name.equals("fine_newPwd_Confirm"))) {
 			//내가 네임으로 받아온 값이 널이 아니면서 뒤의 이름 세개 중 하나면서 비어있지 않아야함
 			
 			value = getSha512(super.getParameter(name)); //암호화된 스트림이 반환되서 담김, 아래에 다시 메소드 만들어주기.
