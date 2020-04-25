@@ -10,9 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.vo.Media;
 import post.model.service.PostService;
+import post.model.vo.CAns;
 import post.model.vo.PageInfo;
 import post.model.vo.Post;
+import post.model.vo.PostComment;
 
 /**
  * Servlet implementation class CmNoticeServlet
@@ -69,12 +72,24 @@ public class CmListServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage,listCount,pageLimit,maxPage,startPage,endPage,boardLimit);
 		
 		ArrayList<Post> list = pservice.selectList(currentPage,boardLimit,categorynum);
+		
+		ArrayList<Media> AllMList = pservice.selectAllMList();
+		
+		ArrayList<Media> ProList = pservice.selectAllproimg();
+		
+		ArrayList<PostComment> pclist = pservice.selectAllpc();
+	
+		ArrayList<CAns> calist = pservice.selectAllca();
 	
 		String page = "";
 		if(list != null) {
 			page ="views/community/postlist.jsp";
 			request.setAttribute("cnum",categorynum);
 			request.setAttribute("list", list);
+			request.setAttribute("AllMList", AllMList);
+			request.setAttribute("ProList", ProList);
+			request.setAttribute("pclist", pclist);
+			request.setAttribute("calist", calist);
 			request.setAttribute("pi", pi);
 		} else {
 			page = "views/common/errorPage.jsp";

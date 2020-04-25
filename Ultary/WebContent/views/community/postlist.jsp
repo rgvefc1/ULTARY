@@ -1,9 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.Member,post.model.vo.*, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="member.model.vo.*,post.model.vo.*, java.util.ArrayList"%>
     <% 
     ArrayList<Post> list = (ArrayList)request.getAttribute("list"); 
     
     int cnum = (int)request.getAttribute("cnum");
+    
+    ArrayList<Media> allMList = (ArrayList)request.getAttribute("AllMList");
+    
+	ArrayList<Media> ProList = (ArrayList)request.getAttribute("ProList");
+	
+	ArrayList<PostComment> pclist = (ArrayList)request.getAttribute("pclist");
+	
+	ArrayList<CAns> calist = (ArrayList)request.getAttribute("calist");
     
    	String ctitle ="";
    	String cexplain="";
@@ -69,15 +77,19 @@
         			<form action="<%= request.getContextPath() %>/cmSearch.po" method="post" onsubmit="return check();">
         			<div class="search_wrap">
         			<div class="searchselect">
-		        		<select id="date">
-		        			<option value="all" selected>전체기간</option>
-		        			<option value="1day">1일</option>
-		        			<option value="1week">1주</option>
-		        			<option value="1month">1달</option>
-		        		</select>
-		        		<select id="searchcon">
+        				<% 
+        				int num = 0;
+        				switch(cnum) {
+        				case 2: num = 2; break;
+        				case 3: num = 3; break;
+        				case 4: num = 4;break;
+        				case 5: num = 5;break;
+        				}
+        				%>
+        				<input type="hidden" name="categorynum" value="<%= num %>">
+		        		<select name="searchcon">
 		        			<option value="ct" selected>제목+내용</option>
-		        			<option value="onlytitle">제목만</option>
+		        			<option value="title">제목만</option>
 		        			<option value="writer">작성자</option>
 		        		</select>
         				<input type="text" size=20 placeholder="검색할 내용을 입력하세요" class="textbox" name="searchtext">
@@ -91,7 +103,7 @@
         				<option>최신순</option>
         				<option>추천순</option>
         			</select>
-        			<% if(loginUser != null && loginUser.getMemberId().equals("admin")){ %>	
+        			<% if(loginUser != null && loginUser.getMemberId().equals("admin") && cnum == 1){ %>	
 	     		<div id="adminwritebtn" onclick="location.href='views/community/cmnpostWrite.jsp'">
 	     		<img src="<%= request.getContextPath() %>/image/연필.png">글쓰기
 	     		</div>
@@ -120,7 +132,8 @@
      				<% if(list.isEmpty()) { %>
      					<div>존재하는 글 없음</div>
      				<% } else { 
-     					for(Post n : list){
+     					for(int i=0;i<list.size();i++){
+     						Post n = list.get(i);
      				%>	
      					<div class="boardcontent">
      					<div class="num"><%= n.getPostNum() %></div>
@@ -132,18 +145,119 @@
      					</div>	
      					<% if(cnum != 1) {  %>
      					<div class="boardopen">
+	     				<div class="open_wrap">
 	     				<div class="oprofile">
-	     						<img src="image/account.PNG">
+	     					<div id="cdt_profile">
+								<% if(!ProList.isEmpty()) { 
+						  				for(int o=0;o<=ProList.size();o++){
+						  										if(o==ProList.size()){	%>
+							  						<img class="comment2-1img" src="<%= request.getContextPath() %>/image/프로필.png" width="45" height="45">
+							  							<% break; 
+						  									}
+							  								Media cProimg  = ProList.get(o);
+							  								if(cProimg.getMemberId().equals(n.getMemberid())){ %>
+							  						<img class="comment2-1img" src="<%= request.getContextPath() %>/uploadFiles/<%= cProimg.getWebName() %>" width="45" height="45">
+							  						<% break;
+							  							}
+							  						}
+							  					} else { %>
+							  						<img class="comment2-1img" src="<%= request.getContextPath() %>/image/프로필.png" width="45" height="45">
+							  					<% } %>
+						</div>
+						<div><%= n.getMemberid() %></div>
 	  					</div>
 	  						<div class="opencontent">
 	  						<div class="otitle"><a href="#"><%= n.getPostTitle() %></a></div>
-	  						<div class="odetail"><%= n.getPostContent() %></div>
-	  						<div class="commen"><label class="cwriter">댓글쓴</label><label>댓글댓글</label></div>
+	  			<% ArrayList<Media> imgList = new ArrayList<Media>();
+                       	for(int j =0;j<allMList.size();j++){
+                       		Media m = allMList.get(j);
+                         if(n.getPostNum() == m.getPostNum()){
+                       			imgList.add(m);
+                       		}
+                       	}  %>
+                       <% if(!imgList.isEmpty()){%>
+ 					<div class="media">
+						<div class="slide" id="slide<%= i %>">
+					      <div id="back<%= i %>" class="slideBtn"><img src="<%= request.getContextPath() %>/image/왼쪽 화살표.png" alt="" width="50"></div>
+					      <ul>
+					      <% for(int z=0;z<imgList.size();z++){
+					      	Media real = imgList.get(z); %>
+					        <li><img src="<%= request.getContextPath() %>/uploadFiles/<%= real.getWebName() %>" alt="" width="550" height="350"></li>
+					      <% } %>
+					      </ul>
+					      <div id="next<%= i %>" class="slideBtn"><img src="<%= request.getContextPath() %>/image/오른쪽 화살표.png" alt="" width="50"></div>
+					    </div>
+					</div>     
+				<script>
+                 // 이미지 슬라이드 
+                 $(document).ready(function(){
+                	 var imgs;
+                     var img_count;
+                     var img_position = 1;
+                     var slide = "#slide"+<%= i %>+" ul";
+                     var backbtn = "#back"+<%= i %>;
+                     var nextbtn = "#next"+<%= i %>;
+
+                     imgs = $(slide);
+                     $back = $(backbtn);
+                     $next = $(nextbtn);
+                     img_count = imgs.children().length;
+
+                     //버튼을 클릭했을 때 함수 실행
+                     $back.click(function () {
+                       back();
+                     });
+                     $next.click(function () {
+                       next();
+                     });
+
+                     function back() {
+                       if(1<img_position){
+                         imgs.animate({
+                           left:'+=550px'
+                         });
+                         img_position--;
+                       }
+                     }
+                     function next() {
+                       if(img_count>img_position){
+                         imgs.animate({
+                           left:'-=550px'
+                         });
+                         img_position++;
+                       }
+                     }
+                 });
+                 </script>                 
+                       <% } %>
+                       <% String contents = (n.getPostContent()).replace("\r\n", "<br>"); %>
+                       <div class="odetail"><%= contents %></div>
+                       <% if(!pclist.isEmpty())  {%>
+                       			<% for(int a = 0;a<2;a++){
+                       				PostComment pc = pclist.get(a); %>
+                       			<% if(pc.getPostNum() == n.getPostNum()) { %>
+                       			<div class="commen"> 
+                       				<label><%= pc.getMemberid() %></label>
+                       				<label><%= pc.getcContent() %></label>
+                       			</div>
+                       			<% if(!calist.isEmpty()) { %>
+                       			<% for(int b= 0;b<calist.size();b++) { 
+                       				CAns ca = calist.get(b);%>
+                       				<% if(pc.getcNum() == ca.getcNum()) { %>
+                       				<div class="cans">
+                       					ㄴ<label><%= ca.getMemberid() %></label>
+                       					<label><%= ca.getAnsContent() %></label>
+                       				</div>
+                       				<% break;} %>
+								<% } %>
+							<% } %>
+						  <% } %>
+						<% } %>
+					<% } %>  
 	  						</div>
 	  						<div class="likecount">
-	  						<img src="<%=request.getContextPath()%>/image/heart.png">&nbsp;32 &nbsp;&nbsp;
-	  						<img src="<%=request.getContextPath()%>/image/like.png">&nbsp;100
-	  					</div>
+	  						</div>
+	     			</div>
 	     			</div>
      				<%
      						}

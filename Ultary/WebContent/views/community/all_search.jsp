@@ -5,8 +5,13 @@
    	ArrayList<Post> allList = (ArrayList)request.getAttribute("AllList"); 
 
 	ArrayList<Media> allMList = (ArrayList)request.getAttribute("AllMList");
+	
+	ArrayList<Media> ProList = (ArrayList)request.getAttribute("ProList");
+	
+	ArrayList<PostComment> pclist = (ArrayList)request.getAttribute("pclist");
+	
+	ArrayList<CAns> calist = (ArrayList)request.getAttribute("calist");
    
-	Media proImg = (Media)session.getAttribute("proImg");
 
     PageInfo pi = (PageInfo)request.getAttribute("pi");
        
@@ -37,7 +42,7 @@
 			<%@ include file ="/views/common/cm_nav.jsp" %>
 			<div id="asidesection">
 			<%@ include file ="/views/common/cm_aside.jsp" %>
-				<section>
+			<section>
 					<form action="<%= request.getContextPath() %>/cmSearch.po" method="post" onsubmit="return check();">
            <div id="main">
               <p id="p1">너와 나의 울타리</p>
@@ -46,12 +51,6 @@
            </div>
               <div class="selecttop">
                  <div class="searchselect">
-                    <select name="date">
-                       <option value="0" selected>전체기간</option>
-                       <option value="1">1일</option>
-                       <option value="7">1주</option>
-                       <option value="30">1달</option>
-                    </select>
                     <select name="categorynum">
                        <option value="0" selected>전체게시판</option>
                        <option value="2">펫일상</option>
@@ -73,9 +72,9 @@
               <div class="open">
               <hr class="mainhr">
                  <div class="wrap_openbtn">
-                 <select>
-                    <option selected>추천순</option>
-                    <option>최신순</option>
+                 <select id="array_con">
+                    <option selected value="new">최신순</option>
+                    <option value="like">추천순</option>
                  </select>   
                  <label class="switch">
                  <input type="checkbox">
@@ -83,7 +82,6 @@
                </label>
                </div>
               </div>
-
         <div class="cmcontent">
            <div class="cm_wrap">
               <div class="board_all">
@@ -120,8 +118,26 @@
                       <div class="view"><%= p.getPostclick() %></div>
                       </div>      
                       <div class="boardopen">
+                      <div class="open_wrap">
                     <div class="oprofile">
-                   
+                 	<div id="cdt_profile">
+								<% if(!ProList.isEmpty()) { 
+						  				for(int o=0;o<=ProList.size();o++){
+						  										if(o==ProList.size()){	%>
+							  						<img class="comment2-1img" src="<%= request.getContextPath() %>/image/프로필.png">
+							  							<% break; 
+						  									}
+							  								Media cProimg  = ProList.get(o);
+							  								if(cProimg.getMemberId().equals(p.getMemberid())){ %>
+							  						<img class="comment2-1img" src="<%= request.getContextPath() %>/uploadFiles/<%= cProimg.getWebName() %>">
+							  						<% break;
+							  							}
+							  						}
+							  					} else { %>
+							  						<img class="comment2-1img" src="<%= request.getContextPath() %>/image/프로필.png">
+							  					<% } %>
+						</div>
+						<label><%= p.getMemberid() %></label>
                     </div>
                        <div class="opencontent">
                        <div class="otitle"><a href="#"><%= p.getPostTitle() %></a></div>
@@ -145,14 +161,35 @@
 					      <div id="next<%= i %>" class="slideBtn"><img src="<%= request.getContextPath() %>/image/오른쪽 화살표.png" alt="" width="50"></div>
 					    </div>
 					</div>                      
-                       <% } %>
-                       <div class="odetail"><%= p.getPostContent() %></div>
-                       <div class="commen"><label class="cwriter">댓글쓴</label><label>댓글댓글</label></div>
+                       <% }%>
+                       <% String contents = (p.getPostContent()).replace("\r\n", "<br>"); %>
+                       <div class="odetail"><%= contents %></div>
+                       <% if(!pclist.isEmpty())  {%>
+                       			<% for(int a = 0;a<pclist.size();a++){
+                       				PostComment pc = pclist.get(a); %>
+                       			<% if(pc.getPostNum() == p.getPostNum()) { %>
+                       			<div class="commen"> 
+                       				<label><%= pc.getMemberid() %></label>
+                       				<label><%= pc.getcContent() %></label>
+                       			</div>
+                       			<%  %>
+                       			<% if(!calist.isEmpty()) { %>
+                       			<% for(int b= 0;b<calist.size();b++) { 
+                       				CAns ca = calist.get(b);%>
+                       				<% if(pc.getcNum() == ca.getcNum()) { %>
+                       				<div class="cans">
+                       					<label><%= ca.getMemberid() %></label>
+                       					<label><%= ca.getAnsContent() %></label>
+                       				</div>
+                       				<% break;} %>
+								<% }%>
+							<% break;} %>
+						  <% } %>
+						<% } %>
+					<% } %>       						
                        </div>
-                       <div class="likecount">
-                       <img src="<%=request.getContextPath()%>/images/heart.png">&nbsp;32 &nbsp;&nbsp;
-                       <img src="<%=request.getContextPath()%>/images/like.png">&nbsp;100
-                    </div>
+                      
+                 </div>
                  </div>
                  <script>
                  // 이미지 슬라이드 
@@ -195,12 +232,12 @@
                      }
                  });
                  </script>
-                 <%
+                 <%		
                            }
                     }   
                     %>
+                    </div>
                  <div class="wbtn_wrap"><div class="wbtn"><img src="<%=request.getContextPath()%>/image/연필.png" id="pencil">글쓰기</div></div>
-              </div>
               </div>
               <!-- 페이징 -->
               <div class="pagingArea" align="center">
@@ -215,11 +252,11 @@
                }
          </script>
          <!-- 10개 페이지 목록 -->
-         <% for(int p = startPage; p<= endPage;p++){ %>
-            <% if(p ==currentPage){ %>
-         <button id="choosen" disabled><%= p %></button>
+         <% for(int pg = startPage; pg<= endPage;pg++){ %>
+            <% if(pg ==currentPage){ %>
+         <button id="choosen" disabled><%= pg %></button>
             <% } else {%>
-               <button id="numBtn" onclick="location.href='<%=request.getContextPath() %>/cmAllList.po?currentPage=<%= p %>'"><%= p %></button>
+               <button id="numBtn" onclick="location.href='<%=request.getContextPath() %>/cmAllList.po?currentPage=<%= pg %>'"><%= pg %></button>
             <% } %>
          <% } %>
          <!-- 다음 페이지로 -->   
@@ -235,8 +272,9 @@
               </div>
            </div>
          </div>
-				</section>
-				<script>
+	</section>
+	</div>
+	<script>
            var check = $("input[type='checkbox']");
          check.click(function(){
             $('.boardopen').slideToggle();
@@ -254,18 +292,18 @@
          $('.wbtn').click(function(){
         	location.href="<%= request.getContextPath() %>/views/community/cmpostWrite.jsp?cnum=0";
          });
-         function check() {
+        
+         $(".find").click(function check() {
 				if($('.textbox').val() == ""){
 					alert('검색어를 입력해주세요');
 					$('.textbox').focus();
 					return false;
 				}
 				return true;
-			}
+			});
       </script>
 			</div>
 			<footer>from.hoseong</footer>
 		</div>
-	</div>
 </body>
 </html>

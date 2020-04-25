@@ -14,7 +14,7 @@ import member.model.service.MemberService;
 /**
  * Servlet implementation class FindPwdUpdateServlet
  */
-@WebServlet("/findPwdUpdate.mem")
+@WebServlet(urlPatterns = "/findPwdUpdate.mem", name = "FindPwdUpdateServlet") // 암호화를 위해 맵핑
 public class FindPwdUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -45,16 +45,16 @@ public class FindPwdUpdateServlet extends HttpServlet {
 		String newPassword = request.getParameter("fine_newPwd_Confirm");
 		System.out.println("FindPwdUpdateServlet 에 새 비밀번호가 들어오는지?"+newPassword);
 		
-		//업데이트 1
+		//이메일로 업데이트 1
 		int result1 = new MemberService().findPwdUpdate1(memberId1, email, newPassword);
 		
-		//업데이트 2
+		//질문으로 업데이트 2
 		int result2 = new MemberService().findPwdUpdate2(memberId2, pwquery, pwqans, newPassword);
 		
 		if(result1 > 0 || result2 > 0) { // 업데이트 성공시
-			System.out.println("새 비밀번호 업데이트 성공이면 1 =>"+ result1);
-			System.out.println("새 비밀번호 업데이트 성공이면 1 =>"+ result2);
-			response.sendRedirect("views/main/main.jsp"); //메인으로
+			System.out.println("새 비밀번호 이메일로 업데이트 성공이면 1 =>"+ result1);
+			System.out.println("새 비밀번호 질문으로 업데이트 성공이면 1 =>"+ result2);
+			response.sendRedirect("views/main/findMember/newPwdview.jsp"); //메인으로
 		} else { //업데이트 실패시
 			request.setAttribute("msg", "새 비밀번호 설정 실패");
 			

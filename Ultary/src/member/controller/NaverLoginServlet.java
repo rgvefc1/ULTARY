@@ -121,7 +121,7 @@ public class NaverLoginServlet extends HttpServlet {
 						//10분동안 session 유지
 						
 						//로그인정보 메인으로 보내기
-						response.sendRedirect("views/main/main.jsp");
+						response.sendRedirect("main.login");
 					}else {
 						request.setAttribute("msg", "네이버 로그인정보를 디비에서 찾을 수 없어서 로그인 실패");
 						RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
