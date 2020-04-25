@@ -297,4 +297,18 @@ public class MemberService {
 		return result;
 	}
 	//////////////호성 끝
+	public int deletePet(int petNum) {
+		Connection conn = getConnection();
+
+		int result1 = new MemberDAO().deletePet(conn, petNum);
+		if(result1 >0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result1;
+		//병민끝!
+	}
 }

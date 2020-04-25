@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import="member.model.vo.Member"%>
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
+	String re = (String)request.getAttribute("re");
 %>
 <!DOCTYPE html>
 <html>
@@ -111,6 +112,37 @@ $("#self").change(function() {
 		input:focus {
 	    outline: none;
 		}
+		
+		#cancel{
+		width: 140px;
+		box-shadow: 0px 1px 0px 0px #f0f7fa;
+		background:linear-gradient(to bottom, #33bdef 5%, #019ad2 100%);
+		background-color:#33bdef;
+		border-radius:6px;
+		border:1px solid #057fd0;
+		display:inline-block;
+		cursor:pointer;
+		color:#ffffff;
+		font-family:Arial;
+		font-size:18px;
+		font-weight:bold;
+		padding:6px 24px;
+		text-decoration:none;
+		text-shadow:0px -1px 0px #5b6178;
+		}
+		#cancel:hover{
+		background:linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
+		background-color:#019ad2;
+		}
+		#cancel:active {
+		position:relative;
+		top:1px;
+		}
+		
+		input:focus {
+	    outline: none;
+		}
+		
 
 
 	th{background: hsla(197, 62%, 74%, 0.603); width: 120px; text-align: center;}
@@ -184,18 +216,34 @@ $("#self").change(function() {
 		</tr>
 		<tr>
 			<th>성별 </th>
-			<td><input type="radio" name="petgender" id="gender">여자
-				<input type="radio" name="petgender" id="gender">남자
+			<td><input type="radio" name="petgender" id="gender" value="F">여자
+				<input type="radio" name="petgender" id="gender" value="M">남자
 			</td>
 		</tr>
 		<tr>
 			<th>나이</th>
 			<td><input type="number" name="petage" id="petage" style="width: 50px;"></td>
 		</tr>
-		
 	</table>
-	<center><input id="retoch" type="submit" value="수정저장" style='cursor:pointer;'></button></center>
+		<center><input id="cancel" type="button" value="취소하기" style='cursor:pointer;'>
+		<input id="retoch" type="submit" value="수정저장" style='cursor:pointer;'></center><br>
+	
 	</form>
+	<script>
+		$('#retoch').click(function(){
+			location.href = "<%= request.getContextPath() %>/insert.pet";
+			//top.document.location.reload();
+			
+		//	window.opener.location.reload();
+			//history.go(0)();
+		});
+		
+	</script>
+	<script>
+	$("#cancel").click(function(){
+		history.go(-1)();
+	});
+	</script>
 	</div>
 </body>
 </html>
