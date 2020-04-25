@@ -34,7 +34,7 @@
                         <li><a href='<%= request.getContextPath() %>/cmList.po?cnum=5'>펫분양</a></li>
                      </ul>
                   </li>
-                  <li><a href='#'>위탁매칭</a>
+                  <li><a href='/Ultary/views/trustMatch/matching01.jsp'>위탁매칭</a>
                      <ul id="menu3">
                         <li><a href="/Ultary/views/trustMatch/matching01.jsp">위탁검색</a></li>
 						<li><a href="<%=request.getContextPath() %>/TpostView.tu">의뢰 관리</a></li>

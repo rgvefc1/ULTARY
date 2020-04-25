@@ -403,19 +403,17 @@ section{
 
 /* -------------슬라이더---------------------------------------------------- */
 #main{
-	width: 1830px;
+	width: 1390px;
     height: 100%;
     overflow: hidden;
     position: relative;
     top: 14.4px;
-    left: 7px;
     margin: 0px auto;
 }
 #main ul{
 	min-width: 50000000000000000000000000000px;
     position: absolute;
     top: 0;
-    left: -40px;
     font-size: 0;
     padding: 0;
 }
