@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import member.model.service.MemberService;
+import member.model.vo.Media;
 import member.model.vo.Member;
+import post.model.service.PostService;
 import trust.model.service.MatchingService;
 import trust.model.vo.TrustReview;
 
@@ -43,12 +45,13 @@ public class MemberDetailServlet extends HttpServlet {
 		if(m != null) {
 			ArrayList<Member> markList = new MemberService().selectMarkMember(loginId);
 			ArrayList<TrustReview> trList = new MatchingService().trReview(memberid);
-			
+			Media proImg = new PostService().selectProImg(memberid); 
 			
 			page="views/trustMatch/matching04.jsp";
 			request.setAttribute("m",m);
 			request.setAttribute("mark", markList);
 			request.setAttribute("trList", trList);
+			request.setAttribute("proImg", proImg);
 		}else {
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg","해당 member 없음");

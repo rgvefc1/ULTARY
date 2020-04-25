@@ -255,6 +255,8 @@ public class MatchingDAO {
 			pstmt.setString(1, memberid);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
+				String[] addressA = rset.getString("address").split("/");
+				String address = addressA[addressA.length-1];
 			m = new Member(rset.getString("memberid"),
 					  rset.getString("nickname"),
 					  rset.getString("memberName"),
@@ -264,7 +266,7 @@ public class MatchingDAO {
 					  rset.getString("email"),
 					  rset.getString("phone"),
 					  rset.getDate("enrolldate"),
-					  rset.getString("address"),
+					  address,
 					  rset.getInt("pwQuery"),
 					  rset.getString("pwqAns"),
 					  rset.getString("trust").charAt(0),
@@ -332,6 +334,8 @@ public class MatchingDAO {
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
+				String[] addressA = rset.getString("address").split("/");
+				String address = addressA[addressA.length-1];
 				m = new Member(rset.getString("memberid"),
 						  rset.getString("nickname"),
 						  rset.getString("memberName"),
@@ -341,7 +345,7 @@ public class MatchingDAO {
 						  rset.getString("email"),
 						  rset.getString("phone"),
 						  rset.getDate("enrolldate"),
-						  rset.getString("address"),
+						  address,
 						  rset.getInt("pwQuery"),
 						  rset.getString("pwqAns"),
 						  rset.getString("trust").charAt(0),

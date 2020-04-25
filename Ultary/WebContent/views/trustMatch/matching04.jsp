@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.Member,java.util.ArrayList,trust.model.vo.*"%>
+    pageEncoding="UTF-8" import="member.model.vo.*,java.util.ArrayList,trust.model.vo.*"%>
 <%
 	Member m = (Member)request.getAttribute("m");
 	ArrayList<Member> mark = (ArrayList<Member>)request.getAttribute("mark");
 	ArrayList<TrustReview> trList = (ArrayList<TrustReview>)request.getAttribute("trList");
+	Media proImg = (Media)request.getAttribute("proImg");
 %>
 <!DOCTYPE html>
 <html>
@@ -69,7 +70,11 @@
 			</div>
 		<div id="page">
 		<div id="page1">
-			<img src="/Ultary/views/trustMatch/photo.jpg" id="profile" class="profile-photo">
+			 <%if(proImg == null){ %>
+			 	<img src="<%= request.getContextPath() %>/image/프로필.png" id="profile" class="profile-photo">
+			 <%} else{ %>
+			 	<img src="<%= request.getContextPath() %>/uploadFiles/<%=proImg.getWebName() %>" id="profile" class="profile-photo">
+			 <%} %>
 			<div id="page2">
 			<span id="name"><p><b><%=m.getNickname() %></b></p></span>
 			<%boolean a = false; %>

@@ -11,8 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import member.model.service.MemberService;
+import member.model.vo.Media;
 import member.model.vo.Member;
-import member.model.vo.Pet;
+import post.model.service.PostService;
 import trust.model.service.MatchingService;
 import trust.model.vo.PageInfo;
 
@@ -120,12 +121,13 @@ public class MSerchListServlet extends HttpServlet {
 		if(list != null) {
 			
 			ArrayList<Member> markList = new MemberService().selectMarkMember(loginId);
-			
+			ArrayList<Media> proImg = new PostService().selectAllproimg();
 			page="views/trustMatch/matching02.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 			request.setAttribute("check1", check1);
 			request.setAttribute("mark", markList);
+			request.setAttribute("proImg", proImg);
 			
 		} else {
 			page= "views/common/errorPage.jsp";
