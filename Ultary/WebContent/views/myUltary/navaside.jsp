@@ -24,36 +24,36 @@
 							</ul>
 						</li>
 						<li>
-							<a href='#'>커뮤니티</a>
-							<ul id="menu2">
-								<li><a href='#'>공지사항</a></li>
-								<li><a href='#'>모아보기</a></li>
-								<li><a href='#'>펫일상</a></li>
-								<li><a href='#'>펫지식</a></li>
-								<li><a href='#'>펫리뷰</a></li>
-								<li><a href='#'>펫분양</a></li>
-							</ul>
+							<a href='<%= request.getContextPath() %>/cmAllList.po'>커뮤니티</a>
+		                     <ul id="menu2">
+		                        <li><a href='<%= request.getContextPath() %>/cmnlist.po'>공지사항</a></li>
+		                        <li><a href='<%= request.getContextPath() %>/cmAllList.po'>모아보기</a></li>
+		                        <li><a href='<%= request.getContextPath() %>/cmdlist.po'>펫일상</a></li>
+		                        <li><a href='<%= request.getContextPath() %>/cmklist.po'>펫지식</a></li>
+		                        <li><a href='<%= request.getContextPath() %>/cmrlist.po'>펫리뷰</a></li>
+		                        <li><a href='<%= request.getContextPath() %>/cmrelist.po'>펫분양</a></li>
+		                     </ul>
 						</li>
 						<li><a href='#'>위탁매칭</a>
 							<ul id="menu3">
-								<li><a href='#'>위탁검색</a></li>
-								<li><a href='#'>의뢰 관리</a></li>
-								<li><a href='#'>내가 남긴 리뷰</a></li>
+								<li><a href="/Ultary/views/trustMatch/matching01.jsp">위탁검색</a></li>
+								<li><a href="<%=request.getContextPath() %>/TpostView.tu">의뢰 관리</a></li>
+								<li><a href="<%=request.getContextPath() %>/myreview.tu">내가 남긴 리뷰</a></li>
 							</ul>
 						</li>
-						<li><a href='#'>마이페이지</a>
+						<li><a href='<%= request.getContextPath() %>/Pet.view'>마이페이지</a>
 							<ul id="menu4">
-								<li><a href='#'>내 정보 관리</a></li>
-								<li><a href='#'>비밀번호변경</a></li>
-								<li><a href='#'>회원 탈퇴</a></li>
+								<li><a href='<%= request.getContextPath() %>/Pet.view'>내 정보 관리</a></li>
+								<li><a href='<%= request.getContextPath() %>/views/myPage/pwdUpdate.jsp'>비밀번호변경</a></li>
+								<li><a href='<%= request.getContextPath() %>/views/myPage/memberDelete.jsp'>회원 탈퇴</a></li>
 							</ul>
 						</li>
-						<li><a href='#'>고객센터</a>
+						<li><a href='<%= request.getContextPath() %>/slist.no'>고객센터</a>
 							<ul id="menu5">
-								<li><a href='#'>공지 사항</a></li>
-								<li><a href='#'>자주하는 질문</a></li>
-								<li><a href='#'>1:1 문의</a></li>
-							</ul>
+		                        <li><a href='<%= request.getContextPath() %>/slist.no'>공지 사항</a></li>
+		                        <li><a href='<%= request.getContextPath() %>/faq.sv'>자주하는 질문</a></li>
+		                        <li><a href='<%=request.getContextPath()%>/views/support/InquirySend.jsp'>1:1 문의</a></li>
+		                     </ul>
 						</li>
 					</ul>
 				</div>

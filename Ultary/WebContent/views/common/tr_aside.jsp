@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 	<link rel="stylesheet" href="<%= request.getContextPath()%>/css/common/tr_aside.css">
 </head>
-<body>z
+<body>
 	<aside>
 		<ul>
 			<li><a href="/Ultary/views/trustMatch/matching01.jsp">위탁검색</a></li>

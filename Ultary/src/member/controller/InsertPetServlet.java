@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
@@ -28,13 +29,13 @@ import post.model.vo.Post;
  * Servlet implementation class UpdatePetServlet
  */
 @WebServlet("/insert.pet")
-public class UpdatePetServlet extends HttpServlet {
+public class InsertPetServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdatePetServlet() {
+    public InsertPetServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -64,10 +65,6 @@ public class UpdatePetServlet extends HttpServlet {
 				}
 			}
 				
-			String title = multiRequest.getParameter("title");
-			String postRange = multiRequest.getParameter("postRange");
-			String postContent = multiRequest.getParameter("postContent");
-			String categorynum = multiRequest.getParameter("categorynum");
 			String memberid = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
 				
 			String petname = multiRequest.getParameter("petname");
@@ -79,8 +76,6 @@ public class UpdatePetServlet extends HttpServlet {
 			Pet pet = new Pet(petname, petage, petgender, petkind, memberid);
 		
 			Media m = new Media(savePath, originFiles, saveFiles, memberid); 
-			
-			System.out.println(pet);
 		
 			int result = new MemberService().insertPet(pet, m);
 		
@@ -88,15 +83,14 @@ public class UpdatePetServlet extends HttpServlet {
 			String msg = "";
 		
 			if(result > 0) {
-				//	response.sendRedirect("views/myPage/memberUpdate.jsp");
-				page= "views/common/SuccessPage.jsp";	
-				msg= "수정저장에 성공헀습니다.";
+				page= "views/common/petSuccessPage.jsp";
+				msg= "펫정보입력 완료";
 				request.setAttribute("msg", msg);
 				RequestDispatcher view = request.getRequestDispatcher(page);
 				view.forward(request, response);
 			} else {
-					page= "views/common/errorPage.jsp";	
-					msg= "수정저장에 실패헀습니다.";
+					page= "views/common/errorPage.jsp";
+					msg= "펫정보입력에 실패헀습니다.";
 					request.setAttribute("msg", msg);
 					RequestDispatcher view = request.getRequestDispatcher(page);
 					view.forward(request, response);

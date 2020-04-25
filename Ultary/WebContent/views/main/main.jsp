@@ -101,7 +101,7 @@
 				<div id="logeleft1"></div>
 				<div id="logoleft2"></div>
 				<div id="logo">
-					<a href='<%= request.getContextPath() %>/main.login'><img id="logoimg" src="<%= request.getContextPath() %>/image/logo.png"></a>
+					<a href='<%= request.getContextPath() %>/main.ini'><img id="logoimg" src="<%= request.getContextPath() %>/image/logo.png"></a>
 				</div>
 			</div>
 		</div>
@@ -133,23 +133,23 @@
 						</li>
 						<li><a href='#'>위탁매칭</a>
 							<ul id="menu3">
-								<li><a href='#'>위탁검색</a></li>
-								<li><a href='#'>의뢰 관리</a></li>
-								<li><a href='#'>내가 남긴 리뷰</a></li>
+								<li><a>위탁검색</a></li>
+								<li><a>의뢰 관리</a></li>
+								<li><a>내가 남긴 리뷰</a></li>
 							</ul>
 						</li>
 						<li><a href='#'>마이페이지</a>
 							<ul id="menu4">
-								<li><a href='<%= request.getContextPath() %>/views/myPage/memberUpdate.jsp'>내 정보 관리</a></li>
-								<li><a href='<%= request.getContextPath() %>/views/myPage/pwdUpdate.jsp'>비밀번호변경</a></li>
-								<li><a href='<%= request.getContextPath() %>/views/myPage/memberDelete.jsp'>회원 탈퇴</a></li>
+								<li><a>내 정보 관리</a></li>
+								<li><a>비밀번호변경</a></li>
+								<li><a>회원 탈퇴</a></li>
 							</ul>
 						</li>
 						<li><a href='#'>고객센터</a>
 							<ul id="menu5">
-								<li><a href='#'>공지 사항</a></li>
-								<li><a href='#'>자주하는 질문</a></li>
-								<li><a href='#'>1:1 문의</a></li>
+								<li><a>공지 사항</a></li>
+								<li><a>자주하는 질문</a></li>
+								<li><a>1:1 문의</a></li>
 							</ul>
 						</li>
 					</ul>

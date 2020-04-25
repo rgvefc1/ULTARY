@@ -509,25 +509,25 @@ public class PostService {
 		  /////// 추가한거 /////////
 		// 검색 결과 게시물 총 개수
 
-		public int getSearchListCount(String searchtext, int categorynum, String searchcon, int date) {
-			Connection conn = getConnection();
-			PostDAO dao = new PostDAO();
-			int result = dao.getSearchListCount(conn,searchtext,categorynum,searchcon,date);
+		   public int getSearchListCount(String searchtext, int categorynum, String searchcon) {
+				Connection conn = getConnection();
+				PostDAO dao = new PostDAO();
+				int result = dao.getSearchListCount(conn,searchtext,categorynum,searchcon);
+				
+				close(conn);
+				return result;
+			}
 			
-			close(conn);
-			return result;
-		}
-		
-		// 검색결과 게시판 목록
-		public ArrayList<Post> selectSearchList(String searchtext, int categorynum, String searchcon, int date,
-				int currentPage, int boardLimit) {
-			Connection conn = getConnection();
-			PostDAO dao = new PostDAO();
-			ArrayList<Post> list = dao.selectSearchList(conn,searchtext,categorynum,searchcon,date,currentPage,boardLimit);
-			
-			close(conn);
-			return list;
-		}
+			// 검색결과 게시판 목록
+			public ArrayList<Post> selectSearchList(String searchtext, int categorynum, String searchcon,
+					int currentPage, int boardLimit) {
+				Connection conn = getConnection();
+				PostDAO dao = new PostDAO();
+				ArrayList<Post> list = dao.selectSearchList(conn,searchtext,categorynum,searchcon,currentPage,boardLimit);
+				
+				close(conn);
+				return list;
+			}
 		
 		// 모아보기 게시판 사진 불러오기
 		public ArrayList<Media> selectAllMList() {
@@ -588,26 +588,6 @@ public class PostService {
 			close(conn);
 			return calist;
 		}
-		
-		//댓글,답글 전체 목록
-		public ArrayList<PostComment> selectAllpc() {
-	         Connection conn = getConnection();
-	         
-	         ArrayList<PostComment> list = new PostDAO().selectAllpc(conn);
-	         
-	         close(conn);
-	         return list;
-	      }
-
-	      public ArrayList<CAns> selectAllca() {
-	         Connection conn = getConnection();
-	         
-	         ArrayList<CAns> list = new PostDAO().selectAllca(conn);
-	         
-	         close(conn);
-	         return list;
-	      }
-
 	   // 관심글 추가 했는지 않았는지 확인하는거
 			public int checklikepost(int pno, String loginId) {
 				Connection conn = getConnection();
@@ -635,6 +615,22 @@ public class PostService {
 				
 				return check;
 			}
+///////////////////////////호성
+			public Post selectPost(int pNum) {
+				Connection conn =getConnection();
+				
+				Post p = new PostDAO().selectPost(conn, pNum);
+				
+				close(conn);
+				return p;
+			}
 
+			public int updatePost(Post p) {
+				Connection conn = getConnection();
+				int result = new PostDAO().updatePost(conn, p);
+				
+				close(conn);
+				return result;
+			}
 	      
 }

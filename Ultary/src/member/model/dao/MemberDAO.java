@@ -361,37 +361,58 @@ public class MemberDAO {
 		
 		return findId2;
 	}
-
-	public int findPwdUpdate(Connection conn, String memberId, String email, String newPassword) {
+	
+	//////////20200425연화 업뎃
+	public int findPwdUpdate1(Connection conn, String memberId1, String email, String newPassword) {
 		//로그인 안한 상태임.
 		//회원이 입력한 아이디, 이메일로 검색해서 비번 업데이트하기.
 		PreparedStatement pstmt =null;
-		ResultSet rset = null;
 		int result = 0;
 		
-		//findPwdUpdate=update member set password=? where memberId=? and
-		String query = prop.getProperty("findPwdUpdate");
+		//findPwdUpdate1=update member set password=? where memberId=? and email =?
+		String query = prop.getProperty("findPwdUpdate1");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, newPassword);
-			pstmt.setString(2, memberId);
+			pstmt.setString(2, memberId1);
 			pstmt.setString(3, email);
 			
-			rset = pstmt.executeQuery();
-			if(rset.next()) {
-				result = rset.getInt(1);
-			}
+			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(rset);
 			close(pstmt);
 		}
 		return result;
 	}
-
+	public int findPwdUpdate2(Connection conn, String memberId2, String pwquery, String pwqans, String newPassword) {
+		//로그인 안한 상태임.
+		//회원이 입력한 아이디, 이메일로 검색해서 비번 업데이트하기.
+		PreparedStatement pstmt =null;
+		int result = 0;
+		
+		//findPwdUpdate2 = update member set password=? where MEMBERID=? and PWQUERY = ? and PWQANS = ?
+		String query = prop.getProperty("findPwdUpdate2");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, newPassword);
+			pstmt.setString(2, memberId2);
+			pstmt.setString(3, pwquery);
+			pstmt.setString(4, pwqans);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	public int findPwdQnaMember(Connection conn, String memberId, int pwquery, String pwqans) {
 		//로그인 안한 상태임.
 		//회원이 입력한 아이디, 비번질문, 비번답으로 검색해서 회원 확인
@@ -399,8 +420,8 @@ public class MemberDAO {
 		ResultSet rset = null;
 		int result = 0;
 		
-		//findPwdMember2 = select count(*) from member where PWQUERY = ? and PWQANS = ?
-		String query = prop.getProperty("findPwdQnaMember2");
+		//findPwdMember = select count(*) from member where PWQUERY = ? and PWQANS = ?
+		String query = prop.getProperty("findPwdQnaMember"); //0425 수정함
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -421,7 +442,7 @@ public class MemberDAO {
 		}
 		return result;
 	}
-	
+//////////20200425연화 업뎃끝
 	public int memberUpdate(Connection conn, Member m) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -858,9 +879,30 @@ public class MemberDAO {
 			close(pstmt);
 		}
 		return result;
+		/////////////호성 끝
 	}
+
+	public int deletePet(Connection conn, int petNum) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deletePet");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, petNum);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		return result;
+	}
+	// 병민끝!
 	
-	/////////////호성 끝
+
 
 
 }

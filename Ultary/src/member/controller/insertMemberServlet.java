@@ -16,7 +16,7 @@ import member.model.vo.Member;
 /**
  * Servlet implementation class insertMemberServlet
  */
-@WebServlet(urlPatterns = "/insert.mem", name = "insertMemberServlet")
+@WebServlet(urlPatterns = "/insert.mem", name = "insertMemberServlet") // 암호화를 위해 맵핑
 public class insertMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -67,7 +67,13 @@ public class insertMemberServlet extends HttpServlet {
 		String roadAddrPart2 = request.getParameter("roadAddrPart2");
 		String addrDetail = request.getParameter("addrDetail");
 		
-		String address = zipNo+"/"+roadAddrPart1+"/"+roadAddrPart2+"/"+addrDetail;
+		//위탁매칭전용 주소명
+		String siNm = request.getParameter("siNm"); //위탁검색용 시도명
+		String sggNm = request.getParameter("sggNm"); //위탁검색용 시군구명
+		String emdNm = request.getParameter("emdNm"); //위탁검색용 읍면동명
+		
+		 //회원조회 시 도로명주소 3번째 배열까지. + 위탁검색용 동까지 주소 
+		String address = zipNo+"/"+roadAddrPart1+"/"+roadAddrPart2+"/"+addrDetail+"/"+siNm+" "+sggNm+" "+emdNm;
 		
 		int pwquery = Integer.parseInt(request.getParameter("pwquery"));
 		String pwqans = request.getParameter("pwqans");

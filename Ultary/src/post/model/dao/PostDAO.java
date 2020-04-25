@@ -1529,7 +1529,7 @@ public class PostDAO {
 
 	 // 조건 검색
 	 //////////////////페이징 처리 하기/////////////////////////
-	   public int getSearchListCount(Connection conn, String searchtext, int categorynum, String searchcon, int date) {
+	   public int getSearchListCount(Connection conn, String searchtext, int categorynum, String searchcon) {
 		   PreparedStatement pstmt = null;
 		   ResultSet rset = null;
 		   int result=0;
@@ -1537,55 +1537,29 @@ public class PostDAO {
 		   String query ="";
 		   int num=0;
 		   
-		   if(date == 0) { // 전체 기간
-				if(categorynum == 0) { // 전체게시판
-					if(searchcon.equals("ct")) { // 제목 + 내용
-						query = prop.getProperty("result1Count");
-						num = 1;
-					} else if(searchcon.equals("title")) {
-						query = prop.getProperty("result2Count"); // 제목만
-						num = 2;
-					} else {
-						query = prop.getProperty("result3Count"); // 작성자
-						num = 3;
-					}
-				} else { // 전체 게시판 X
-					if(searchcon.equals("ct")) { // 제목 + 내용
-				         query = prop.getProperty("result4Count");
-				         num = 4;
-					} else if(searchcon.equals("title")) { // 제목만 
-						query = prop.getProperty("result5Count");
-						num = 5;
-					} else { // 작성자
-						query = prop.getProperty("result6Count");
-						num = 6;
-					}
+		   if(categorynum == 0) { // 전체 게시판 
+			   if(searchcon.equals("ct")) { // 제목 + 내용
+					query = prop.getProperty("s1count");
+					num = 1;
+				} else if(searchcon.equals("title")) {
+					query = prop.getProperty("s2count"); // 제목만
+					num = 2;
+				} else {
+					query = prop.getProperty("s3count"); // 작성자
+					num = 3;
 				}
-			} else { // 전체 기간 X
-				if(categorynum == 0) { // 전체게시판
-					if(searchcon.equals("ct")) { // 제목 + 내용
-						query = prop.getProperty("result7Count");
-						num=7;
-					} else if(searchcon.equals("title")) {
-						query = prop.getProperty("result8Count"); // 제목만
-						num=8;
-					} else {
-						query = prop.getProperty("result9Count"); // 작성자
-						num=9;
-					}
-				} else { // 전체 게시판 X
-					if(searchcon.equals("ct")) { // 제목 + 내용
-				         query = prop.getProperty("result10Count");
-				         num=10;
-					} else if(searchcon.equals("title")) { // 제목만 
-						query = prop.getProperty("result11Count");
-						num=11;
-					} else { // 작성자
-						query = prop.getProperty("result12Count");
-						num=12;
-					}
+		   } else { // 전체 게시판 X
+			   if(searchcon.equals("ct")) { // 제목 + 내용
+					query = prop.getProperty("s4count");
+					num = 4;
+				} else if(searchcon.equals("title")) {
+					query = prop.getProperty("s5count"); // 제목만
+					num = 5;
+				} else {
+					query = prop.getProperty("s6count"); // 작성자
+					num = 6;
 				}
-			}
+		   }
 		   
 		   try {
 				pstmt = conn.prepareStatement(query);
@@ -1607,26 +1581,6 @@ public class PostDAO {
 					pstmt.setInt(1, categorynum);
 					pstmt.setString(2, searchtext);
 				};break;
-				case 7: {
-					pstmt.setInt(1,date);
-					pstmt.setString(2, searchtext);
-					pstmt.setString(3, searchtext);
-				}break;
-				case 8: case 9: {
-					pstmt.setInt(1, date);
-					pstmt.setString(2, searchtext);
-				}break;
-				case 10 : {
-					pstmt.setInt(1, date);
-					pstmt.setInt(2, categorynum);
-					pstmt.setString(3, searchtext);
-					pstmt.setString(4, searchtext);
-				};break;
-				case 11:case 12: {
-					pstmt.setInt(1, date);
-					pstmt.setInt(2, categorynum);
-					pstmt.setString(3, searchtext);
-				};break;
 				}
 				
 				rset = pstmt.executeQuery();
@@ -1645,152 +1599,97 @@ public class PostDAO {
 		}
 	  
 	//////////////////////////검색 결과 불러오기/////////////////////////////////////
-	public ArrayList<Post> selectSearchList(Connection conn, String searchtext, int categorynum, String searchcon,
-			int date, int currentPage, int boardLimit) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<Post> list = null;
-		
-		int startRow = (currentPage - 1) * boardLimit + 1; 
-		int endRow = startRow + boardLimit -1;
-		
-		String query = "";
-		int num = 0;
-		
-		if(date == 0) { // 전체 기간
-			if(categorynum == 0) { // 전체게시판
-				if(searchcon.equals("ct")) { // 제목 + 내용
-					query = prop.getProperty("slist1");
-					num = 1;
-				} else if(searchcon.equals("title")) {
-					query = prop.getProperty("slist2"); // 제목만
-					num = 2;
-				} else {
-					query = prop.getProperty("slist3"); // 작성자
-					num = 3;
+	   public ArrayList<Post> selectSearchList(Connection conn, String searchtext, int categorynum, String searchcon,int currentPage, int boardLimit) {
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			ArrayList<Post> list = null;
+			
+			int startRow = (currentPage - 1) * boardLimit + 1; 
+			int endRow = startRow + boardLimit -1;
+			
+			String query = "";
+			int num = 0;
+			
+			if(categorynum == 0) { // 전체 게시판 
+				   if(searchcon.equals("ct")) { // 제목 + 내용
+						query = prop.getProperty("r1list");
+						num = 1;
+					} else if(searchcon.equals("title")) {
+						query = prop.getProperty("r2list"); // 제목만
+						num = 2;
+					} else {
+						query = prop.getProperty("r3list"); // 작성자
+						num = 3;
+					}
+			   } else { // 전체 게시판 X
+				   if(searchcon.equals("ct")) { // 제목 + 내용
+						query = prop.getProperty("r4list");
+						num = 4;
+					} else if(searchcon.equals("title")) {
+						query = prop.getProperty("r5list"); // 제목만
+						num = 5;
+					} else {
+						query = prop.getProperty("r6list"); // 작성자
+						num = 6;
+					}
+			   }
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				
+				switch(num) {
+				case 1:{
+					pstmt.setString(1, searchtext);
+					pstmt.setString(2, searchtext);
+					pstmt.setInt(3, startRow);
+					pstmt.setInt(4, endRow);
+				};break;
+				case 2 : case 3: {
+					pstmt.setString(1,searchtext);
+					pstmt.setInt(2, startRow);
+					pstmt.setInt(3, endRow);
+				};break;
+				case 4: {
+					pstmt.setInt(1, categorynum);
+					pstmt.setString(2,searchtext);
+					pstmt.setString(3,searchtext);
+					pstmt.setInt(4, startRow);
+					pstmt.setInt(5, endRow);
+				};break;
+				case 5: case 6: {
+					pstmt.setInt(1, categorynum);
+					pstmt.setString(2, searchtext);
+					pstmt.setInt(3, startRow);
+					pstmt.setInt(4, endRow);
+				};break;
 				}
-			} else { // 전체 게시판 X
-				if(searchcon.equals("ct")) { // 제목 + 내용
-			         query = prop.getProperty("slist4");
-			         num = 4;
-				} else if(searchcon.equals("title")) { // 제목만 
-					query = prop.getProperty("slist5");
-					num = 5;
-				} else { // 작성자
-					query = prop.getProperty("slist6");
-					num = 6;
+				
+				rset = pstmt.executeQuery();
+				
+				list = new ArrayList<Post>();
+				
+				while(rset.next()) {
+					Post p = new Post(rset.getInt("postnum"),
+										rset.getString("posttitle"),
+										rset.getString("postcontent"),
+										rset.getInt("postlike"),
+										rset.getDate("postdate"),
+										rset.getInt("postclick"),
+										rset.getInt("postrange"),
+										rset.getInt("categorynum"),
+										rset.getString("nickname"));
+					list.add(p);
 				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				close(rset);
+				close(pstmt);
 			}
-		} else { // 전체 기간 X
-			if(categorynum == 0) { // 전체게시판
-				if(searchcon.equals("ct")) { // 제목 + 내용
-					query = prop.getProperty("slist7");
-					num=7;
-				} else if(searchcon.equals("title")) {
-					query = prop.getProperty("slist8"); // 제목만
-					num=8;
-				} else {
-					query = prop.getProperty("slist9"); // 작성자
-					num=9;
-				}
-			} else { // 전체 게시판 X
-				if(searchcon.equals("ct")) { // 제목 + 내용
-			         query = prop.getProperty("slist10");
-			         num=10;
-				} else if(searchcon.equals("title")) { // 제목만 
-					query = prop.getProperty("slist11");
-					num=11;
-				} else { // 작성자
-					query = prop.getProperty("slist12");
-					num=12;
-				}
-			}
+			
+			return list;
 		}
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			
-			switch(num) {
-			case 1:{
-				pstmt.setString(1, searchtext);
-				pstmt.setString(2, searchtext);
-				pstmt.setInt(3, startRow);
-				pstmt.setInt(4, endRow);
-			};break;
-			case 2 : case 3: {
-				pstmt.setString(1,searchtext);
-				pstmt.setInt(2, startRow);
-				pstmt.setInt(3, endRow);
-			};break;
-			case 4: {
-				pstmt.setInt(1, categorynum);
-				pstmt.setString(2,searchtext);
-				pstmt.setString(3,searchtext);
-				pstmt.setInt(4, startRow);
-				pstmt.setInt(5, endRow);
-			};break;
-			case 5: case 6: {
-				pstmt.setInt(1, categorynum);
-				pstmt.setString(2, searchtext);
-				pstmt.setInt(3, startRow);
-				pstmt.setInt(4, endRow);
-			};break;
-			case 7: {
-				pstmt.setInt(1,date);
-				pstmt.setString(2, searchtext);
-				pstmt.setString(3, searchtext);
-				pstmt.setInt(4, startRow);
-				pstmt.setInt(5, endRow);
-			}break;
-			case 8: case 9: {
-				pstmt.setInt(1, date);
-				pstmt.setString(2, searchtext);
-				pstmt.setInt(3, startRow);
-				pstmt.setInt(4, endRow);
-			}break;
-			case 10 : {
-				pstmt.setInt(1, date);
-				pstmt.setInt(2, categorynum);
-				pstmt.setString(3, searchtext);
-				pstmt.setString(4, searchtext);
-				pstmt.setInt(5, startRow);
-				pstmt.setInt(6, endRow);
-			};break;
-			case 11:case 12: {
-				pstmt.setInt(1, date);
-				pstmt.setInt(2, categorynum);
-				pstmt.setString(3, searchtext);
-				pstmt.setInt(4, startRow);
-				pstmt.setInt(5, endRow);
-			};break;
-			}
-			
-			rset = pstmt.executeQuery();
-			
-			list = new ArrayList<Post>();
-			
-			while(rset.next()) {
-				Post p = new Post(rset.getInt("postnum"),
-									rset.getString("posttitle"),
-									rset.getString("postcontent"),
-									rset.getInt("postlike"),
-									rset.getDate("postdate"),
-									rset.getInt("postclick"),
-									rset.getInt("postrange"),
-									rset.getInt("categorynum"),
-									rset.getString("nickname"));
-				list.add(p);
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		
-		return list;
-	}
 	
 	// 모아보기 게시판 사진 가져오기
 	public ArrayList<Media> selectAllMList(Connection conn) {
@@ -1980,61 +1879,63 @@ public class PostDAO {
 		}
 		return list;
 	}
-	
-	public ArrayList<PostComment> selectAllpc(Connection conn) {
-	      Statement stmt = null;
-	      ResultSet rset = null;
-	      ArrayList<PostComment> list = new ArrayList<PostComment>();
-	      
-	      String query = prop.getProperty("selectAllpc");
-	      
-	      try {
-	         stmt = conn.createStatement();
-	         rset = stmt.executeQuery(query);
-	         
-	         while(rset.next()) {
-	            list.add(new PostComment(rset.getInt("c_num"),
-	                               rset.getString("c_content"),
-	                               rset.getDate("c_date"),
-	                               rset.getInt("c_like"),
-	                               rset.getInt("c_range"),
-	                               rset.getInt("postnum"),
-	                               rset.getString("nickname")));
-	         }
-	      } catch (SQLException e) {
-	         e.printStackTrace();
-	      } finally {
-	         close(rset);
-	         close(stmt);
-	      }
-	      
-	      return list;
-	   }
+	//////////////호성
+	public Post selectPost(Connection conn, int pNum) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Post p = null;
+		
+		String query = prop.getProperty("selectPost");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, pNum);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				p = new Post(rset.getInt("postnum"),
+							rset.getString("posttitle"),
+							rset.getString("postcontent"),
+							rset.getInt("postlike"),
+							rset.getDate("postdate"),
+							rset.getInt("postclick"),
+							rset.getInt("postrange"),
+							rset.getInt("categorynum"),
+							rset.getString("memberid"));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return p;
+	}
 
-	   public ArrayList<CAns> selectAllca(Connection conn) {
-	      Statement stmt = null;
-	      ResultSet rset = null;
-	      ArrayList<CAns> list = new ArrayList<CAns>();
-	      
-	      String query = prop.getProperty("selectAllca");
-	      
-	      try {
-	         stmt = conn.createStatement();
-	         rset = stmt.executeQuery(query);
-	         
-	         while(rset.next()) {
-	            list.add(new CAns(rset.getInt("ans_num"),
-	                          rset.getString("ans_content"),
-	                          rset.getDate("ans_date"),
-	                          rset.getInt("c_num"),
-	                          rset.getString("nickname")));
-	         }
-	      } catch (SQLException e) {
-	         e.printStackTrace();
-	      } finally {
-	         close(rset);
-	         close(stmt);
-	      }
-	      return list;
-	   }
+	public int updatePost(Connection conn, Post p) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updatePost");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, p.getPostTitle());
+			pstmt.setString(2, p.getPostContent());
+			pstmt.setInt(3, p.getPostRange());
+			pstmt.setInt(4, p.getCategorynum());
+			pstmt.setInt(5, p.getPostNum());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 }

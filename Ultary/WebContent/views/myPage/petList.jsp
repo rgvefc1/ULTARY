@@ -2,12 +2,9 @@
     pageEncoding="UTF-8" import="member.model.vo.*, java.util.ArrayList"%>
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
-	ArrayList<Pet> loginPet = (ArrayList<Pet>)session.getAttribute("loginPet");
-	System.out.println(loginPet);
-	ArrayList<Media> loginMedia = (ArrayList<Media>)session.getAttribute("loginMedia");
-	System.out.println(loginMedia);
+	ArrayList<Pet> PetList = (ArrayList<Pet>)request.getAttribute("PetList");
+	ArrayList<Media> MediaList = (ArrayList<Media>)request.getAttribute("MediaList");
 	String petkind = "";
-	
 %>
 <!DOCTYPE html>
 <html>
@@ -21,6 +18,8 @@
     <script src="script.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
+
+
 function showPopup(){
 	var popup = window.open("", "POPup", "width=500 , height=300");
 	
@@ -149,7 +148,7 @@ $("#self").change(function() {
 	    outline: none;
 		}
 		
-		#ok{
+		.okBtn{
 		float: right;
 		width: 80px;
 		box-shadow: 0px 1px 0px 0px #f0f7fa;
@@ -167,11 +166,11 @@ $("#self").change(function() {
 		text-decoration:none;
 		text-shadow:0px -1px 0px #5b6178;
 		}
-		#ok:hover{
+		.okBtn:hover{
 		background:linear-gradient(to bottom, #019ad2 5%, #33bdef 100%);
 		background-color:#019ad2;
 		}
-		#ok:active {
+		.okBtn:active {
 		position:relative;
 		top:1px;
 		}
@@ -221,9 +220,9 @@ $("#self").change(function() {
 <body>
 	<div id="myForm2" action="<%= request.getContextPath() %>/insert.pet" method="post" encType="multipart/form-data">
 		<center><h2>반려동물 정보</h2></center>
-		<% if(!loginPet.isEmpty()){ %>
-		<% for(int i=0;i<loginPet.size();i++){ 
-			Pet p = loginPet.get(i);
+		<% if(!PetList.isEmpty()){ %>
+		<% for(int i=0;i<PetList.size();i++){ 
+			Pet p = PetList.get(i);
 			switch(p.getPetKind()){
 			case '1': petkind="강아지"; break;
 			case '2':	petkind="고양이"; break;
@@ -233,8 +232,8 @@ $("#self").change(function() {
 			case '6':	petkind="어류"; break;
 			case '7':	petkind="기타"; break;
 			} %>
-			<% for(int j=0;j<loginMedia.size();j++){
-				Media m = loginMedia.get(j); %>
+			<% for(int j=0;j<MediaList.size();j++){
+				Media m = MediaList.get(j); %>
 				<% if(p.getPetNum() == m.getPetNum()){ %> <!--펫정보랑 펫사진이랑 일치하는지 -->
 			<table class="petone" id="petone<%= p.getPetNum() %>">
 				<tr>
@@ -267,58 +266,80 @@ $("#self").change(function() {
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="button" id="pd<%= p.getPetNum() %>"  class="deleteBtn" style="cursor:pointer;" value="삭제">
-						<input type="button" id="pp<%= p.getPetNum() %>" class="updateBtn" style="cursor:pointer;" value="수정">
+						<input type="button" id="pd<%= j %>"  class="deleteBtn" style="cursor:pointer;" value="삭제">
+						<%-- <input type="button" id="pp<%= p.getPetNum() %>" class="updateBtn" style="cursor:pointer;" value="수정"> --%>
 					</td>
 				</tr>
 			</table>
+<script>
+	var deleteBtn = "#pd"+"<%= j %>";
+	$(deleteBtn).click(function(){ // 삭제버튼
+		var result = confirm("<%= p.getPetName() %>의 정보를 삭제하시곘습니까?");
+		
+		if(result){
+			var petNum = <%= p.getPetNum() %>;
+			var webname = "<%= m.getWebName() %>";
+			$.ajax({
+				url:'delete.pet',
+				data: {petNum:petNum, webname:webname},
+				success: function(data){
+					location.reload();
+				}
+			});
+		} else{
+			alert("삭제 취소");
+		}
+		
+	});
+</script>
 				<% } %>
 			<% } %>
 		<% } %>
 	<% } else{ %>
 	<h1>새로운 펫정보를 입력해주세요.</h1>
 	<% } %>
-	<input type="button" id="ok" style="cursor:pointer;" value="확인" onclick='javascript:self.close();'>
+	<input type="button" class="okBtn" style="cursor:pointer;" value="확인">
 	<input type="button" id="add" style="cursor:pointer;" value="추가">
-		<script>
-		
+		<%-- <script>
 			$('.updateBtn').click(function(){ // 수정버튼
 				var myId = this.id;
 				var myParentTableId = $('#' + myId).parent().parent().parent().parent()[0].id;
-
-				<%-- $('#' + myParentTableId).remove(); --%>
-				location.href = "<%= request.getContextPath() %>/viesws/myPage/petinsert_Popup.jsp"; 
-				 
 				
-				 
-				 
-		        
-		             
-		     
-		});
+				if(result > 0) {
+					HttpSession session = request.getSession();
+					session.setAttribute("loginUser", loginUser);
+					session.setAttribute("loginPet", loginPet);
+					session.setAttribute("loginMedia", loginMedia);
+					session.setMaxInactiveInterval(30000);
+					response.sendRedirect("views/myPage/petList.jsp");
 		
-/* ---------------------------------------------------------------- */	
-
-			$('.deleteBtn').click(function(){ // 삭제버튼
-				var myId = this.id;
-				var myParentTableId = $('#' + myId).parent().parent().parent().parent()[0].id;
-
+				//$("input[petname=first]").value();
+				//$(opener.document).find('#petinsert_popup').val(petList);
+			
 				$('#' + myParentTableId).remove();
-		
+				location.href = "<%= request.getContextPath() %>/viesws/myPage/petinsert_Popup.jsp"; 
+				}
 			});
-					
-/* ---------------------------------------------------------------- */	
-
+		</script> --%>
+ <!-- ---------------------------------------------------------------- -->
+		<script>
+			
+		</script>			
+ <!-- ---------------------------------------------------------------- -->
+		<script>
 			$('#add').click(function(){ // 추가버튼
 				location.href = "<%= request.getContextPath() %>/views/myPage/petinsert_Popup.jsp";
+				window.opener.location.reload();
+			});	
+		</script>	
+ <!-- ---------------------------------------------------------------- -->
+		<script>
+			$('.okBtn').click(function(){ // 확인버튼
+				
+				location.href = "<%= request.getContextPath() %>/insert.pet";			
+				self.close();
+				window.opener.location.reload();
 			});
-			
-/* ---------------------------------------------------------------- */	
-
-			$('#ok').click(function(){ // 확인버튼
-			
-			});			
-			
 		</script>
 	</div>
 </body>
