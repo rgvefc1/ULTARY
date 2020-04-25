@@ -1879,6 +1879,63 @@ public class PostDAO {
 		}
 		return list;
 	}
-	
+	//////////////호성
+	public Post selectPost(Connection conn, int pNum) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Post p = null;
+		
+		String query = prop.getProperty("selectPost");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, pNum);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				p = new Post(rset.getInt("postnum"),
+							rset.getString("posttitle"),
+							rset.getString("postcontent"),
+							rset.getInt("postlike"),
+							rset.getDate("postdate"),
+							rset.getInt("postclick"),
+							rset.getInt("postrange"),
+							rset.getInt("categorynum"),
+							rset.getString("memberid"));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return p;
+	}
+
+	public int updatePost(Connection conn, Post p) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updatePost");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, p.getPostTitle());
+			pstmt.setString(2, p.getPostContent());
+			pstmt.setInt(3, p.getPostRange());
+			pstmt.setInt(4, p.getCategorynum());
+			pstmt.setInt(5, p.getPostNum());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 }

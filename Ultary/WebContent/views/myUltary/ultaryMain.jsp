@@ -61,6 +61,7 @@
 							</div>
 							<div class="contentTitle"><%= p.getPostTitle() %></div>
 							<div id="cDelete<%= i %>" class="cDelete">삭제</div>
+							<div id="cModify<%= i %>" class="cDelete">수정</div>
 							<div class="writerR">게시일 | <%= p.getPostDate() %></div>
 						</div>
 						
@@ -277,6 +278,19 @@
 <script type="text/javascript">
 
 	$(function(){
+	/* ----------게시글 수정하기---------------------- */
+		var modifyBtn = "#cModify"+<%= i %>;
+		
+		$(modifyBtn).click(function(){
+			var result = confirm("게시글 수정하시겠습니까?");
+			
+			if(result){
+				location.href = "<%= request.getContextPath() %>/postview.tl?pNum=<%= p.getPostNum() %>";
+			} else{
+				alert("삭제 취소");
+			}
+		});
+		
 	/* ---------- 게시글 삭제하기 ------------ */
 		var deleteBtn = "#cDelete"+<%= i %>;
 		
