@@ -132,8 +132,7 @@
 						</div>
 						<textarea id="page5-textarea" cols="30" rows="30" name="trustAdd" readonly><%=tp.getTrustPS() %></textarea>
 					</div>
-						<input type="button" name="sub" id="sub" value="요청수정" onclick="">
-						<input type="button" name="cancel" id="cancel" value="요청취소">
+						<input type="button" name="sub" id="sub" value="요청취소" onclick="<%=request.getContextPath()%>/updateTp.tu?tpnum=<%=tp.getTpostNum()%>">
 					</div>
 				</div>
 			</div>

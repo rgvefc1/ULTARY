@@ -615,6 +615,22 @@ public class PostService {
 				
 				return check;
 			}
+///////////////////////////호성
+			public Post selectPost(int pNum) {
+				Connection conn =getConnection();
+				
+				Post p = new PostDAO().selectPost(conn, pNum);
+				
+				close(conn);
+				return p;
+			}
 
+			public int updatePost(Post p) {
+				Connection conn = getConnection();
+				int result = new PostDAO().updatePost(conn, p);
+				
+				close(conn);
+				return result;
+			}
 	      
 }

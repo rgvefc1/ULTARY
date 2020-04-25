@@ -879,9 +879,30 @@ public class MemberDAO {
 			close(pstmt);
 		}
 		return result;
+		/////////////호성 끝
 	}
+
+	public int deletePet(Connection conn, int petNum) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deletePet");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, petNum);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		return result;
+	}
+	// 병민끝!
 	
-	/////////////호성 끝
+
 
 
 }

@@ -789,6 +789,24 @@ System.out.println(trnum);
 		return tp;
 	}
 
+	public int deletetp(Connection conn, int tpnum) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deletetp");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, tpnum);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 
 
 }

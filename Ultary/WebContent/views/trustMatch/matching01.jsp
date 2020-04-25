@@ -107,10 +107,10 @@
 						<div id="serchfilter1">
 						<input type="checkbox" name="check1" class="check" value="픽업여부"><label>픽업여부</label>
 						<input type="checkbox" name="check1" class="check" value="마당여부"><label>마당여부</label>
-						<input type="checkbox" name="check1" class="check" value="야외산책"><label>야외산책</label><br>
-						<input type="checkbox" name="check1" class="check" value="노령동물"><label>노령동물</label>
+						<input type="checkbox" name="check1" class="check" value="산책"><label>산책</label><br>
+						<input type="checkbox" name="check1" class="check" value="목욕"><label>목욕</label>
+						<input type="checkbox" name="check1" class="check" value="온도"><label>온도</label>
 						<input type="checkbox" name="check1" class="check" value="대형동물"><label>대형동물</label>
-						<input type="checkbox" name="check1" class="check" value="목욕가능"><label>목욕가능</label>
 						</div>
 					</td>
 				</tr>

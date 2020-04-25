@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>비밀번호 변경</title>
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/myPage_css/pwdUpdate.css">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/myPage_css/pwdUpdate.css">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
@@ -58,7 +58,7 @@
 		top:1px;
 		}
 		
-		table {margin-left: auto; margin-right: auto;
+		table {margin-left: 160px; margin-right: auto;
  	 		   border-spacing: 35px;
  		   	   border-collapse: separate;
  		    
@@ -153,19 +153,19 @@
 			<td>
 				<input type="password" name="password" id="password">
 			</td>
-			<td align="left"><label id="pwdcheck"></label></td>
+			<td align="left" width ="200px"><label id="pwdcheck"></label></td>
 		</tr>
 		<tr>
 			<th>새 비밀번호</th>
 			<td>
 				<input type="password" name="passwordN" id="passwordN" placeholder="최소 7자 이상">
 			</td>
-			<td align="left"><label id="pwdcheck1"></label></td>
+			<td align="left" width ="200px"><label id="pwdcheck1"></label></td>
 		</tr>
 		<tr>
 			<th>새 비밀번호 확인</th>
 			<td><input type="password" name="passwordNC" id="passwordNC"></td>
-			<td align="left"><label id="pwdcheck2"></label></td>
+			<td align="left" width ="200px"><label id="pwdcheck2"></label></td>
 		</tr>
 	</table>
 		<center><input type="submit" id="retoch" value="변경하기" onclick="return test()" style='cursor:pointer;'></center><br>
@@ -197,13 +197,13 @@
 			     		var oldPwd = '<%= loginUser.getPassword() %>';
 			     		
 			     		if(password.val() == oldPwd){
-			     			$('#pwdcheck').text('현재 비밀번호와 일치합니다');
-			            	 $('#pwdcheck').css({'color':'green', 'float':'right','display':'inline-block','padding-right':'10px'});
+			     			 $('#pwdcheck').text('비밀번호가 일치합니다');
+			            	 $('#pwdcheck').css({'color':'#00FF00', 'float':'right','display':'inline-block','padding-right':'12px', 'font-weight':'bold'});
 			            	 pwdcheckUsable = true;
 		                     pwdcheckChecked= true;
 			     		}else{
 			     			 $('#pwdcheck').text('현재 비밀번호가 아닙니다');
-			                 $('#pwdcheck').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'10px'});
+			                 $('#pwdcheck').css({'color':'#FF0000', 'float':'right','display':'inline-block', 'padding-right':'12px', 'font-weight':'bold'});
 			                 pwdcheckUsable = false;
 			                 pwdcheckChecked= false;
 			     		}
@@ -219,11 +219,11 @@
 						
 				       if(passwordN.val() == passwordNC.val()){
 				          $('#pwdcheck2').text('비밀번호가 일치합니다');
-				          $('#pwdcheck2').css({'color':'green', 'float':'right','display':'inline-block','padding-right':'50px'});
+				          $('#pwdcheck2').css({'color':'#00FF00', 'float':'right','display':'inline-block','padding-right':'12px', 'font-weight':'bold'});
 				          newpwdcheck = true;
 				       }else{
-				          $('#pwdcheck2').text('비밀번호가 일치하지 않습니다');
-				          $('#pwdcheck2').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'50px'});
+				          $('#pwdcheck2').text('일치하지 않습니다');
+				          $('#pwdcheck2').css({'color':'#FF0000', 'float':'right','display':'inline-block', 'padding-right':'12px', 'font-weight':'bold'});
 				          newpwdcheck = false;
 				       }
 				    });

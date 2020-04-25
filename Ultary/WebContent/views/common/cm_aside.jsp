@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 	<link rel="stylesheet" href="<%= request.getContextPath()%>/css/common/cm_aside.css">
 </head>
-<body>z
+<body>
 	<aside>
 		<ul>
 			<li><a href='<%= request.getContextPath() %>/cmList.po?cnum=1'>공지사항</a></li>
