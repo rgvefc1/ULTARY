@@ -94,9 +94,9 @@
 							-->
 							</script>
 						<input type="text" placeholder="동/읍을 입력해주세요." name ="h_area3"class="pl1" id="text1">
-						<input type="radio" name="check01" class="check01" value="3" ><label>위탁</label>
+						<input type="radio" name="check01" class="check01" value="1" ><label>위탁</label>
 						<input type="radio" name="check01" class="check01" value="2"><label>방문</label>
-						<input type="radio" name="check01" class="check01" value="1" ><label>산책</label>
+						<input type="radio" name="check01" class="check01" value="3" ><label>산책</label>
 						
 						</div>
 					</td>

@@ -45,12 +45,13 @@ public class TpostView extends HttpServlet {
 		ArrayList<TrustPost> susin = new MatchingService().TpostSushin(loginUser);
 		
 		
-		RequestDispatcher view = request.getRequestDispatcher("views/trustMatch/matching05.jsp");
-		request.setAttribute("mypet",mypet);
-		request.setAttribute("balsin", balsin);
-		request.setAttribute("susin", susin);
-		view.forward(request, response);
 	
+			RequestDispatcher view = request.getRequestDispatcher("views/trustMatch/matching05.jsp");
+			request.setAttribute("mypet",mypet);
+			request.setAttribute("balsin", balsin);
+			request.setAttribute("susin", susin);
+			view.forward(request, response);
+		
 	}
 
 	/**
