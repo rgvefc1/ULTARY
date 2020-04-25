@@ -15,6 +15,17 @@ public class Post {
 	
 	public Post() {}
 
+
+	public Post(int postNum, String postTitle, String postContent, int postRange, int categorynum) {
+		super();
+		this.postNum = postNum;
+		this.postTitle = postTitle;
+		this.postContent = postContent;
+		this.postRange = postRange;
+		this.categorynum = categorynum;
+	}
+
+	
 	public Post(int postNum, String postTitle, String postContent, int postLike, Date postDate, int postclick,
 			int postRange, int categorynum, String memberid) {
 		super();
