@@ -288,7 +288,8 @@ button:hover {
 										<option value='C'>내용</option>
 									</select> <input id='txtKeyWord' name="search" /> <input type="submit"
 										value='검색' / id="searchBtn">
-									
+								</form>	
+								<br>
 									<div class="admin" align="center">
 
 										<%
@@ -304,7 +305,7 @@ button:hover {
 											}
 										%>
 									</div>
-								</form>
+								
 
 
 							</li>
