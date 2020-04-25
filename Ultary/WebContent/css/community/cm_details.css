@@ -15,11 +15,13 @@
 	/*맨 위에 카테고리 부분 나오는곳*/
 	#cm_detail_head{text-align:left;}
 	/* 제목 부분*/
-	#cdt_title{float:left;font-size:20px;font-weight:500;}
+	#cdt_title{float:left;font-size:20px;font-weight:600;display:inline;}
+	#cdt_cname{display:inline;float:left;}
 	#cdt_wdate{float:right;}
 	#cdt_border{height:10px;;border-bottom-color:lightgray;border-bottom-style:dashed;}
 	#cdt_detail_writer{text-align:left;margin-top:10px;margin-bottom:30px;}
-	#cdt_profile{width:40px;height:40px;border-radius:100%;}
+	#cdt_profile{display: inline;}
+	#cdt_profile img{width:45px;height:45px;border-radius:100%;display:inline;}
 	#cdt_detail_writer img,a{vertical-align: middle;}
 	#cdt_content{text-align:left;}
 	#cdt_img{width:500px;height:500px;}
@@ -54,7 +56,19 @@
 	#cdt_textarea{resize: none;border-color: white;}
 	#wrap_enbtn{padding:32px;border-style: solid;text-align: center;border-width: 1px;border-color:gray;}
 	#wrap_enbtn:hover{cursor:pointer;}
+	/* 내용부분 */
+	#cdt_wrap{
+	display:inline-block;
+	text-align:left;
+	margin-top:20px;
+	}
+	
 	/* 슬라이드 */
+.media{
+	width:100%;
+	height:320px;
+	vertical-align: middle;
+}
 .slide{
 width: 550px;
 height: 100%;
@@ -87,7 +101,73 @@ margin-left: 143.8px;
         cursor: pointer;
         z-index: 1;
       }
-.media{
+ /*  댓글    */
+ .comment{
+	background:#D5D5D5;
 	width:100%;
-	height:320px;
+	min-height:235.5px;
 }
+.comment0{
+	font-size:20px;
+	margin-left:20px;
+	font-weight: 800;
+}
+.comment1{
+	min-width:200px;
+	margin-left:20px;
+	height:45px;
+}
+.comment2-1{
+	border:1px solid black;
+	border-radius: 50px;
+	float:left;
+}
+.comment2-1img{
+	width:40px;
+	height:40px;
+}
+.comment2-2{
+	margin-left:5px;
+	background:white;
+	border-radius: 20px;
+	float:left;
+	padding:10px;
+}
+.commentans{
+	margin-left:135px;
+	background:white;
+	border-radius: 20px;
+	min-width:200px;
+	min-height:30px;
+	padding:5px;
+	float:left;
+}
+.commenttextdiv{
+	margin-top:10px;
+	margin-left:20px;
+	float:left;
+}
+.writercomment{
+	float:left;
+	border:1px solid black;
+	border-radius: 50px;
+}
+.writercommentimg{
+	width:50px;
+	height:50px;
+}
+.commenttext{
+	margin-top: 5.2px;
+    margin-left: 20px;
+    height: 40px;
+    width: 630px;
+}
+.commentsubmit{
+	width:100px;
+	height:35px;
+	font-size:15.9px;
+	font-weight: 900;
+	background:#FFDF24;
+	color: white;
+}
+ 

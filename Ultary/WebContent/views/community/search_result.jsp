@@ -5,9 +5,15 @@
 <% 
    ArrayList<Post> slist = (ArrayList)request.getAttribute("list"); 
   
+	int cnum = (int)request.getAttribute("cnum");
+
+	String searchcon = (String)request.getAttribute("searchcon");
+	
 	String searchtext = (String)request.getAttribute("searchtext");
 
 	Media proImg = (Media)session.getAttribute("proImg");
+	
+	int lcount =(int)request.getAttribute("lcount");
 
    	 PageInfo pi = (PageInfo)request.getAttribute("pi");
        
@@ -40,37 +46,48 @@
 			<div id="asidesection">
 			<%@ include file ="/views/common/cm_aside.jsp" %>
 				<section>
-			<form action="<%= request.getContextPath() %>/commnunity/cmSearch.po" method="post" onsubmit="return check();">
+			<form action="<%= request.getContextPath() %>/cmSearch.po" method="post" onsubmit="return check();">
            <div id="main">
               <p id="p1"><%= searchtext %>로 검색한 결과 입니다</p>
-              <p id="p2">검색 결과  : <%= slist.size() %>개의 결과가 나왔습니다<p>
+              <p id="p2">검색 결과  : <%= lcount %> 개의 결과가 나왔습니다<p>
               <hr class="hr">
            </div>
               <div class="selecttop">
-                 <div class="searchselect">
-                    <select>
-                       <option value="all" selected>전체기간</option>
-                       <option value="1day">1일</option>
-                       <option value="1week">1주</option>
-                       <option value="1month">1달</option>
+                 <div class="searchselect" id="searchselect">
+                     <select name="categorynum">
+                       <option value="0" selected id="0">전체게시판</option>
+                       <option value="2" id="2">펫일상</option>
+                       <option value="3" id="3">펫지식</option>
+                       <option value="4" id="4">펫리뷰</option>
+                        <option value="5" id="5">펫분양</option>
                     </select>
-                    <select>
-                       <option value="allboard" selected>전체게시판</option>
-                       <option value="daily">펫일상</option>
-                       <option value="knowledge">펫지식</option>
-                       <option value="review">펫리뷰</option>
+                    <select name="searchcon" id="searchcon">
+                       <option value="ct" selected id="ct">제목+내용</option>
+                       <option value="title" id="title" >제목만</option>
+                       <option value="writer" id="writer">작성자</option>
                     </select>
-                    <select>
-                       <option value="title+content" selected>제목+내용</option>
-                       <option value="onlytitle">제목만</option>
-                       <option value="writer">작성자</option>
-                    </select>
-                    <input type="text" size=20 placeholder="검색할 내용을 입력하세요" class="textbox">
+                    <input type="text" size=20 class="textbox" value="<%= searchtext %>" name="searchtext">
                     &nbsp;
                     <input type="submit" value="검색" class="find">
                  </div>
               </div>
                  </form>
+                 <script type="text/javascript">
+                 	var searchselect = $('#searchselect');
+                 	switch(<%= cnum %>){
+                 	case 0 : $('#0').attr('selected','selected');break;
+                 	case 2 : $('#2').attr('selected','selected');break;
+                 	case 3 : $('#3').attr('selected','selected');break;
+                 	case 4 : $('#4').attr('selected','selected');break;
+                 	case 5 : $('#5').attr('selected','selected');break;
+                 	}
+                 	var searchcon = $('searchcon')
+                 	switch(<%= searchcon %>){
+                 	case "ct": $('#ct').attr('selected','selected');break;
+                 	case "title": $('#title').attr('selected','selected');break;
+                 	case "writer": $('#writer').attr('selected','selected');break;
+                 	}
+                 </script>
               <div class="open">
               <hr class="mainhr">
                  <div class="wrap_openbtn">
@@ -122,7 +139,6 @@
                       </div>      
                       <div class="boardopen">
                     <div class="oprofile">
-                    <img class="sectionpic" src="<%= request.getContextPath() %>/uploadFiles/<%= proImg.getWebName() %>">
                     </div>
                        <div class="opencontent">
                        <div class="otitle"><a href="#"><%= p.getPostTitle() %></a></div>
@@ -149,7 +165,7 @@
                  <!-- 맨 처음으로 가는 버튼 -->
                     <button onclick="location.href='<%=request.getContextPath()%>/cmSearch.po?currentPage=1'">&lt;&lt;</button>
                  <!-- 이전 페이지로  -->
-            <button onclick="location.href='<%= request.getContextPath()%>/cmSearch.po?currentPage=<%= currentPage -1 %>'" id="beforeBtn">&lt;</button>
+            <button onclick="location.href='<%= request.getContextPath()%>/cmSearch.po?currentPage=<%= currentPage -1 %>&ca'" id="beforeBtn">&lt;</button>
             <script>
                if(<%= currentPage %> <= 1){
                $('#beforeBtn').attr('disabled','true');
@@ -160,18 +176,18 @@
             <% if(p ==currentPage){ %>
          <button id="choosen" disabled><%= p %></button>
             <% } else {%>
-               <button id="numBtn" onclick="location.href='<%=request.getContextPath() %>/cmSearch.po?currentPage=<%= p %>'"><%= p %></button>
+               <button id="numBtn" onclick="location.href='<%=request.getContextPath() %>/cmSearch.po?currentPage=<%= p %>&categorynum=<%=cnum %>&searchtext=<%=searchtext%>&searchcon=<%=searchcon%>'"><%= p %></button>
             <% } %>
          <% } %>
          <!-- 다음 페이지로 -->   
-         <button id="afterBtn" onclick="location.href='<%= request.getContextPath()%>/cmSearch.po?currentPage=<%= currentPage+1 %>'"   >&gt;</button>
+         <button id="afterBtn" onclick="location.href='<%= request.getContextPath()%>/cmSearch.po?currentPage=<%= currentPage+1 %>&categorynum=<%=cnum %>&searchtext=<%=searchtext%>&searchcon=<%=searchcon%>'"   >&gt;</button>
          <script>
             if(<%= currentPage %> >= <%= maxPage %>){
                $('#afterBtn').attr('disabled','true');
             }
          </script>
          <!-- 맨 끝으로 -->
-         <button onclick="location.href='<%= request.getContextPath() %>/cmSearch.po?currentPage=<%=maxPage %>'">&gt;&gt;</button>
+         <button onclick="location.href='<%= request.getContextPath() %>/cmSearch.po?currentPage=<%=maxPage %>&categorynum=<%=cnum %>&searchtext=<%=searchtext%>&searchcon=<%=searchcon%>'">&gt;&gt;</button>
       <% } %>
               </div>
            <script>
@@ -192,6 +208,14 @@
          $('.wbtn').click(function(){
         	location.href="<%= request.getContextPath() %>/views/commnunity/cmpostWrite.jsp"
          });
+         $(".find").click(function check() {
+				if($('.textbox').val() == ""){
+					alert('검색어를 입력해주세요');
+					$('.textbox').focus();
+					return false;
+				}
+				return true;
+			});
       </script>
          </div>
 				</section>
