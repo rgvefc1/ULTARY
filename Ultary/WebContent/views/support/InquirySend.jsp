@@ -162,7 +162,6 @@
 		}else if(content == ""){
 			alert('내용을 입력하세요');
 		}else{
-	
 			$.ajax({
 				url: "<%= request.getContextPath() %>/insert.inq",
 			

@@ -55,7 +55,7 @@ public class TrustUpdateServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
 			session.setMaxInactiveInterval(6000);
-			response.sendRedirect("post.tl");
+			response.sendRedirect("views/myUltary/trustEvm.jsp");
 		} else {
 			request.setAttribute("msg", "위탁 변경에 실패헀습니다.");
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");

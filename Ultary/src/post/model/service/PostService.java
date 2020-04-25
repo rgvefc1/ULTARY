@@ -63,10 +63,10 @@ public class PostService {
 	public int insertProfile(Media m) {
 		Connection conn = getConnection();
 		
-		int result2 = new PostDAO().deleteorigProfile(conn, m.getMemberId());
+		ResultSet rset = new PostDAO().selectprofile(conn, m.getMemberId());
 		int result1 = 0;
 		
-		if(result2 > 0) {
+		if(rset == null) {
 			result1 = new PostDAO().insertProfile(conn, m);
 			if(result1 > 0) {
 				commit(conn);
@@ -74,8 +74,20 @@ public class PostService {
 				rollback(conn);
 			}
 		} else {
-			rollback(conn);
+			int result2 = new PostDAO().deleteorigProfile(conn, m.getMemberId());
+			if(result2 > 0) {
+				result1 = new PostDAO().insertProfile(conn, m);
+				if(result1 > 0) {
+					commit(conn);
+				} else {
+					rollback(conn);
+				}
+			} else {
+				rollback(conn);
+			}
 		}
+		close(conn);
+		
 		return result1;
 	}
 

@@ -8,7 +8,13 @@
 	switch(pet.getPetKind()){
 	case '1' : petKind="강아지"; break;
 	case '2' : petKind ="고양이"; break;
+	case '3' : petKind ="설치류"; break;
+	case '4' : petKind ="물고기"; break;
+	case '5' : petKind ="파충류"; break;
+	case '6' : petKind ="조류"; break;
+	case '7' : petKind = "기타"; break;
 	}
+
 %>
 <!DOCTYPE html>
 <html>

@@ -44,7 +44,7 @@ public class MSerchListServlet extends HttpServlet {
 		String h_area3 = request.getParameter("h_area3");
 		
 		switch(h_area1) {
-		case "1" :h_area ="서울시"; break;
+		case "1" :h_area ="서울특별시"; break;
 		case "2" :h_area ="부산광역시"; break;
 		case "3" :h_area ="대구광역시"; break;
 		case "4" :h_area ="인천광역시"; break;
@@ -62,7 +62,7 @@ public class MSerchListServlet extends HttpServlet {
 		case "16" :h_area ="충청북도"; break;
 		}
 		
-		String address = h_area+" "+h_area2+" "+h_area3;
+		String address = "%"+h_area+" "+h_area2+" "+h_area3;
 		int check01 = Integer.parseInt(request.getParameter("check01"));
 		String[] check1 =	request.getParameterValues("check1");
 		String serch1 = "";

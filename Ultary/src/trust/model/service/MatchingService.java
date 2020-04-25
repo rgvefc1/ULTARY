@@ -248,6 +248,21 @@ System.out.println(trnum);
 		return tp;
 	}
 
+	public int removetp(int tpnum) {
+		Connection conn = getConnection();
+		
+		int result = new MatchingDAO().deletetp(conn,tpnum);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
+
 
 
 }

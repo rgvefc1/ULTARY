@@ -24,7 +24,6 @@ import common.wrapper.EncryptWrapper;
 				"LoginServlet",
 				"UpdatePwdServlet",
 				"UpdatePwdChk"
-				
 		})
 public class EncryptFilter implements Filter {
 

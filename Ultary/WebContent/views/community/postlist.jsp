@@ -130,8 +130,8 @@
      				</div>
      				<div class="boardbody">
      				<% if(list.isEmpty()) { %>
-     					<div>존재하는 글 없음</div>
-     				<% } else { 
+     					<div>존재하는 글이 없습니다.</div>
+     				<% } else {
      					for(int i=0;i<list.size();i++){
      						Post n = list.get(i);
      				%>	
@@ -232,14 +232,16 @@
                        <% } %>
                        <% String contents = (n.getPostContent()).replace("\r\n", "<br>"); %>
                        <div class="odetail"><%= contents %></div>
-                       <% if(!pclist.isEmpty())  {%>
-                       			<% for(int a = 0;a<2;a++){
+                       <% 	int count = 0;
+                       			if(!pclist.isEmpty())  {%>
+                       			<% for(int a = 0;a<pclist.size();a++){
                        				PostComment pc = pclist.get(a); %>
                        			<% if(pc.getPostNum() == n.getPostNum()) { %>
                        			<div class="commen"> 
                        				<label><%= pc.getMemberid() %></label>
                        				<label><%= pc.getcContent() %></label>
                        			</div>
+                       			<% count = 1; %>
                        			<% if(!calist.isEmpty()) { %>
                        			<% for(int b= 0;b<calist.size();b++) { 
                        				CAns ca = calist.get(b);%>
@@ -251,6 +253,7 @@
                        				<% break;} %>
 								<% } %>
 							<% } %>
+							<% if(count==1) break; %>
 						  <% } %>
 						<% } %>
 					<% } %>  

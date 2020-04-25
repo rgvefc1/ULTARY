@@ -1,3 +1,4 @@
+
 package member.model.service;
 
 import static common.JDBCTemplate.close;
@@ -13,6 +14,22 @@ import member.model.dao.MemberDAO;
 import member.model.vo.Media;
 import member.model.vo.Member;
 import member.model.vo.Pet;
+import trust.model.vo.TrustReview;
+
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import member.model.dao.MemberDAO;
+import member.model.vo.Media;
+import member.model.vo.Member;
+import member.model.vo.Pet;
+import trust.model.vo.TrustReview;
 
 public class MemberService {
 
@@ -297,6 +314,7 @@ public class MemberService {
 		return result;
 	}
 	//////////////호성 끝
+
 	public int deletePet(int petNum) {
 		Connection conn = getConnection();
 
@@ -311,20 +329,4 @@ public class MemberService {
 		return result1;
 		//병민끝!
 	}
-
-	public int pwdUpdateChk(Member b) {
-		Connection conn = getConnection();
-		
-		int result = new MemberDAO().pwdUpdateChk(conn, b);
-		if(result >0) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
-		
-		close(conn);
-		return result;
-	}
-
-	
 }

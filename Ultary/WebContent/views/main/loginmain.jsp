@@ -421,7 +421,8 @@
 								$('#expansionTitle').text("Title | <%= p.getPostTitle() %>");
 								$('#expansionTitle').append('<hr>');
 								/* 게시글 내용 */
-								$('#expansioncontent').text("<%= p.getPostContent() %>");
+								<% String contents = (p.getPostContent()).replace("\r\n", "<br>"); %>
+								$('#expansioncontent').text("<%= contents %>");
 								/* 카테고리 */
 								$('#petlife').text("<%= category %>");
 								/* 좋아요 수 */
@@ -518,23 +519,27 @@
 
 	      //버튼을 클릭했을 때 함수 실행
 	      $('#mainleft').click(function () {
+	    	  console.log(imgs.offset().left);
+	    	  console.log($("#slider>li:last").offset().left);
 	        back();
 	      });
 	      $('#mainright').click(function () {
+	    	  console.log(imgs.offset().left);
+	    	  console.log($("#slider>li:last").offset().left);
 	        next();
 	      });
 
 	      function back() {
-	    	  if(imgs.offset().left<450){
+	    	  if(imgs.offset().left<64.5999984741211){
 	    		  imgs.animate({
-	  	            left:'+=450px'
+	  	            left:'+=470px'
 	  	          });
 	    	  }
 	      }
 	      function next() {
-	    	  if($("#slider>li:last").offset().left > 900){
+	    	  if($("#slider>li:last").offset().left > 1100){
 	    		  imgs.animate({
-	  	            left:'-=450px'
+	  	            left:'-=470px'
 	  	          });
 	    	  }
 	      }

@@ -42,7 +42,7 @@ public class NoticeUpdateServlet extends HttpServlet {
 		int result = new NoticeService().updateNotice(n);
 		
 		String page = null;
-		
+			request.setAttribute("msg", "공지사항 수정에 실패하였습니다.");
 		if(result > 0) {
 			page = "/sdetail.no?no=" + no;
 		}else {

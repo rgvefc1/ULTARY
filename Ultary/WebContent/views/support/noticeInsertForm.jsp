@@ -25,11 +25,12 @@
         text-align: center;
     }
     .outer{
-		width: 600px; height: 500px; background-color: rgba(255, 255, 255, 0.4); border: 5px solid white;
+		width: 600px; height: 540px; background-color: rgba(255, 255, 255, 0.4); border: 15px solid skyblue;
 		margin-left: auto; margin-right: auto; margin-top: 50px;
+		border-radius: 15px;
 	}
 	.tableArea {width:450px; height:350px; margin-left:auto; margin-right:auto;}
-	#insertNoBtn, #cancelBtn{background: #B2CCFF; color: white; border-radius: 15px; width: 80px; heigth: 25px; text-align: center; display: inline-block;}
+	#insertNoBtn, #cancelBtn{background: skyblue; color: white; border-radius: 20px; width: 80px; heigth: 25px; text-align: center; display: inline-block;}
 	#insertNoBtn:hover, #cancelBtn:hover{cursor: pointer;}
 	#cancelBtn{background: #D1B2FF;}
 	
@@ -83,7 +84,7 @@
 				
 				<div align="center">
 					<button type="submit" id="insertNoBtn">등록</button>
-					<div onclick="location.href='javascript:history.go(-1);'" id="cancelBtn">취소</div>
+					<button onclick="location.href='javascript:history.go(-1);'" id="cancelBtn">취소</button>
 				</div>
 			</form>
 		</div>
