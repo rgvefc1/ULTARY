@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import member.model.vo.Media;
 import member.model.vo.Member;
 import member.model.vo.Pet;
+import post.model.service.PostService;
 import trust.model.service.MatchingService;
 
 /**
@@ -44,10 +46,12 @@ public class DetailMatchServlet extends HttpServlet {
 		String page = null;
 		if(m != null) {
 			Pet pet = new MatchingService().DetailPet(loginUser);
+			Media proImg = new PostService().selectProImg(memberid); 
 			if(pet != null) {
 				page="views/trustMatch/matching03.jsp";
 				request.setAttribute("m",m);
 				request.setAttribute("pet",pet);
+				request.setAttribute("proImg", proImg);
 			}else {
 				page="views/common/errorPage.jsp";
 				request.setAttribute("msg","pet이 없습니다");

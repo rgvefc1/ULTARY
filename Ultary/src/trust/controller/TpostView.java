@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import member.model.vo.Media;
 import member.model.vo.Member;
 import member.model.vo.Pet;
 import trust.model.service.MatchingService;
@@ -43,7 +44,7 @@ public class TpostView extends HttpServlet {
 		Pet mypet = new MatchingService().DetailPet(loginUser);
 		ArrayList<TrustPost> balsin = new MatchingService().TpostBalshin(loginUser);
 		ArrayList<TrustPost> susin = new MatchingService().TpostSushin(loginUser);
-		
+		/* ArrayList<Media> proImg = new */ 
 		
 	
 			RequestDispatcher view = request.getRequestDispatcher("views/trustMatch/matching05.jsp");

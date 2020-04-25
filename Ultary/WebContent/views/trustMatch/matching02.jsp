@@ -2,8 +2,7 @@
     pageEncoding="UTF-8" import = "java.util.ArrayList, member.model.vo.*, trust.model.vo.*"%>
 <%
 	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
-	/* Media proImg = (Media)session.getAttribute("proImg"); */
-	/* proImg.getWebName() */
+	ArrayList<Media> proImg =(ArrayList<Media>)request.getAttribute("proImg");
 	
 	ArrayList<Member> mark = (ArrayList<Member>)request.getAttribute("mark");
 	
@@ -182,7 +181,21 @@
 						Member m = list.get(i);
 				%>
 				<div id="content1" class="content-profile" onclick="location.href='<%=request.getContextPath() %>/MemberDetail.tu?memberid=<%=m.getMemberId()%>'">
-					<img src="/Ultary/views/trustMatch/photo.jpg" id="profile" class="profile-photo">
+					<% if(!proImg.isEmpty()){ 
+						for(int j=0;j<=proImg.size();j++){
+						 if(j==proImg.size()){%>
+						 <img id="profile" class="profile-photo" src="<%= request.getContextPath() %>/image/프로필.png">
+						 <%break;
+						   }
+						 Media cProimg = proImg.get(j);
+						 if(cProimg.getMemberId().equals(m.getNickname())){%>
+						  <img id="profile" class="profile-photo" src="<%= request.getContextPath() %>/uploadFiles/<%= cProimg.getWebName() %>">
+						 <%break; 
+						 } %>
+						<%} %>
+					<%} else{ %>
+						 <img id="profile" class="profile-photo" src="<%= request.getContextPath() %>/image/프로필.png">
+					<%} %>
 					<div class="infoDiv">
 					<span class="name" id="name1"><%=m.getNickname() %></span><br><br>
 					<span class="address" id="class1"><%=m.getAddress()%></span>

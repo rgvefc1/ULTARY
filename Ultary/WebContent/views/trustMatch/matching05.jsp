@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" import="trust.model.vo.*,java.util.ArrayList,member.model.vo.Pet"%>
 <%
 	Pet mypet = (Pet)request.getAttribute("mypet");
+	/* ArrayList<Media> proImg = (ArrayList<Media>)request.getAttribute("proImg"); */
 	ArrayList<TrustPost> balsin = (ArrayList<TrustPost>)request.getAttribute("balsin");
 	ArrayList<TrustPost> susin = (ArrayList<TrustPost>)request.getAttribute("susin");
 	
