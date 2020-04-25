@@ -9,7 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>반려동물 수정</title>
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/myPage_css/memberUpdate.css">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>css/myPage_css/memberUpdate.css">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
@@ -161,7 +161,7 @@ $("#self").change(function() {
 			<th>프로필  사진</th>
 			<td>
 				<input type=file name='file1' style='display: none;' id="petFileImg" multiple="multiple" onchange="LoadImg(this,1)">  
-				<img src='<%= request.getContextPath() %>/image/catprofile.png' border='0' class="fileInput" id="basicImg" width="400px" height="240px" style='cursor:pointer;'>
+				<img src='<%= request.getContextPath() %>/image/iwantpet.png' border='0' class="fileInput" id="basicImg" width="400px" height="240px" style='cursor:pointer;'>
 				<img border='0' id="inputImg" width="400px" height="240px" class="fileInput" style='cursor:pointer;'>
 				<!-- <div id=petFileImgDiv></div> -->
 				<!-- <input type="file" id="petFileImg" multiple="multiple" name="petFileImg" onchange="LoadImg(this,1)"> -->

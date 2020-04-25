@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>비밀번호 변경</title>
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/myPage_css/pwdUpdate.css">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/myPage_css/pwdUpdate.css">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
@@ -192,22 +192,30 @@
 					});
 			    
 					//기존비번과 현재비번이 일치하는지 확인
-			     	$('#password').keyup(function(){
-			     		var password = $('#password');
-			     		var oldPwd = '<%= loginUser.getPassword() %>';
+			     	$('#password').change(function(){
+			     		var password = $('#password').val();
 			     		
-			     		if(password.val() == oldPwd){
-			     			 $('#pwdcheck').text('비밀번호가 일치합니다');
+					$.ajax({  //현재 비밀번호를 보내서 비교해서 값을 받아오기
+						url: '<%= request.getContextPath() %>/updatePwdChk.do',
+						data: {password:password},
+						success: function(data){
+							console.log(data);
+						
+						if(data == 'success'){
+							 $('#pwdcheck').text('비밀번호가 일치합니다');
 			            	 $('#pwdcheck').css({'color':'#00FF00', 'float':'right','display':'inline-block','padding-right':'12px', 'font-weight':'bold'});
 			            	 pwdcheckUsable = true;
 		                     pwdcheckChecked= true;
-			     		}else{
-			     			 $('#pwdcheck').text('현재 비밀번호가 아닙니다');
+						}else{
+							$('#pwdcheck').text('현재 비밀번호가 아닙니다');
 			                 $('#pwdcheck').css({'color':'#FF0000', 'float':'right','display':'inline-block', 'padding-right':'12px', 'font-weight':'bold'});
 			                 pwdcheckUsable = false;
 			                 pwdcheckChecked= false;
-			     		}
+						}
+
+						}
 			        });
+			     });
 			     	
 					//새비번을 받아서 정규식확인, 정규식이 맞으면 디비에 보내서 저장
 					//새로 새비번, 비번확인 맞는지 확인

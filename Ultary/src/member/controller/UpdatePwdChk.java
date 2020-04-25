@@ -1,28 +1,29 @@
 package member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import member.model.service.MemberService;
 import member.model.vo.Member;
 
 /**
- * Servlet implementation class DeleteMemberServlet
+ * Servlet implementation class UpdatePwdChk
  */
-@WebServlet(urlPatterns = "/delete.mem", name="DeleteMemberServlet")
-public class DeleteMemberServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/updatePwdChk.do", name="UpdatePwdChk")
+public class UpdatePwdChk extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteMemberServlet() {
+    public UpdatePwdChk() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,27 +32,26 @@ public class DeleteMemberServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String MemberId = ((Member)request.getSession().getAttribute("loginUser")).getMemberId(); // Servlet--> Attribute
+		//마이페이지 현재 비밀번호를 가져와서 디비에있는 패스워드랑 비교
+		String password = request.getParameter("password");
+		System.out.println("암호화 되어있니???"+password);
+		HttpSession session = request.getSession();
+		Member sessionMember = (Member)session.getAttribute("loginUser");
+		Member b = new Member(sessionMember.getMemberId(), password);
 		
-		int result = new MemberService().deleteMember(MemberId);
+		int result = new MemberService().pwdUpdateChk(b);
 		
-		
+		PrintWriter out = response.getWriter();
 		if(result > 0) {
-			request.getSession().invalidate();
-			response.sendRedirect("main.ini");
-		} else {
-			String page = "views/common/errorPage.jsp";
-			RequestDispatcher view = request.getRequestDispatcher(page);
-			request.setAttribute("msg", "탈퇴실패");
-			view.forward(request, response);
+			System.out.println("UpdatePwdChk 서블릿에서 확인하는 기존 비번 일치함 있음 =>"+result);
+			out.append("success");
+			
+		}else {
+			System.out.println("UpdatePwdChk 서블릿에서 확인하는 기존 비번 불일치  =>"+result);
+			out.append("fail");
 		}
-		/*
-		 * $('#memberD').click(function(){ var result = window.confirm('정말 탈퇴하시겠습니까?');
-		 * 
-		 * if(result){ location.href="<%= request.getContextPath() %>/delete.mem"; }
-		 * else { alert("탈퇴 실패! 관리자에게 문의 바랍니다."); } });
-		 */
-		
+		out.flush();
+		out.close();
 		
 		
 		

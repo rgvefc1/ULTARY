@@ -477,7 +477,7 @@ public class MemberDAO {
 	public int pwdUpdate(Connection conn, Member b, String passwordN) {
 		PreparedStatement pstmt = null;
 		int result = 0;
-		
+		//update member set password=? where memberid=?
 		String query = prop.getProperty("pwdUpdate");
 		System.out.println(passwordN);
 		try {
@@ -901,6 +901,33 @@ public class MemberDAO {
 		return result;
 	}
 	// 병민끝!
+
+	public int pwdUpdateChk(Connection conn, Member b) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		//select count(*) from member where MEMBERID =? and PASSWORD = ?  
+		String query = prop.getProperty("chkMemeber");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, b.getMemberId());
+			pstmt.setString(2, b.getPassword());
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 
 
