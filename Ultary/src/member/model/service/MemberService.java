@@ -100,16 +100,36 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
-
-	public int findPwdUpdate(String memberId, String email, String newPassword) {
+	
+	////////20200425연화 업뎃
+	public int findPwdUpdate1(String memberId1, String email, String newPassword) {
 		Connection conn = getConnection();
 		
-		int result = new MemberDAO().findPwdUpdate(conn, memberId, email, newPassword);
+		int result = new MemberDAO().findPwdUpdate1(conn, memberId1, email, newPassword);
 		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		close(conn);
 		return result;
 	}
-
+	public int findPwdUpdate2(String memberId2, String pwquery, String pwqans, String newPassword) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDAO().findPwdUpdate2(conn, memberId2, pwquery, pwqans, newPassword);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+////////20200425연화 업뎃 끝
+	
 	public int findPwdQnaMember(String memberId, int pwquery, String pwqans) {
 		Connection conn = getConnection();
 		
