@@ -1,14 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.*,trust.model.vo.*"%>
+    pageEncoding="UTF-8" import="member.model.vo.*,trust.model.vo.*,java.util.*"%>
 <%
 	Member m = (Member)request.getAttribute("m");
 	Pet pet = (Pet)request.getAttribute("pet");
 	TrustPost tp = (TrustPost)request.getAttribute("tp");
+	Media proImg = (Media)request.getAttribute("proImg");
 	
 	String petKind="";
+
 	switch(pet.getPetKind()){
 	case '1' : petKind="강아지"; break;
 	case '2' : petKind ="고양이"; break;
+	case '3' : petKind ="설치류"; break;
+	case '4' : petKind ="물고기"; break;
+	case '5' : petKind ="파충류"; break;
+	case '6' : petKind ="조류"; break;
+	case '7' : petKind = "기타"; break;
 	}
 %>
 <!DOCTYPE html>
@@ -46,7 +53,11 @@
 				<div id="page1">
 					<div id="page2">
 						<div id="page2-1">
-							<img src="/Ultary/views/trustMatch/photo.jpg" id="userphoto">
+						 <%if(proImg == null){ %>
+						 	<img src="<%= request.getContextPath() %>/image/프로필.png" id="userphoto" class="profile-photo">
+						 <%} else{ %>
+						 	<img src="<%= request.getContextPath() %>/uploadFiles/<%=proImg.getWebName() %>" id="userphoto" class="profile-photo">
+						 <%} %>
 							<h3 id="nick1"><%=m.getNickname() %><input type="hidden" name = "memberid" value="<%=m.getMemberId()%>"></h3>
 						</div>
 						<div id="page2-2">

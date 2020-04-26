@@ -40,7 +40,7 @@ public class DetailMatchServlet extends HttpServlet {
 		String loginUser = sessionMember.getMemberId();
 	
 		String memberid = request.getParameter("memberid");
-		System.out.println(memberid);
+
 		Member m = new MatchingService().DetailView(memberid);
 		
 		String page = null;
