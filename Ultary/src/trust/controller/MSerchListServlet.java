@@ -122,6 +122,7 @@ public class MSerchListServlet extends HttpServlet {
 			
 			ArrayList<Member> markList = new MemberService().selectMarkMember(loginId);
 			ArrayList<Media> proImg = new PostService().selectAllproimg();
+			
 			page="views/trustMatch/matching02.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);

@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import member.model.vo.Media;
 import member.model.vo.Member;
+import post.model.service.PostService;
 import trust.model.service.MatchingService;
 import trust.model.vo.TrustReview;
 
@@ -39,10 +41,11 @@ public class Myreview extends HttpServlet {
 		String loginUser = sessionMember.getMemberId();
 		
 		ArrayList<TrustReview> tr = new MatchingService().trList(loginUser);
-	
+		ArrayList<Media> proImg = new PostService().selectAllproimg();
+		
 		RequestDispatcher view = request.getRequestDispatcher("views/trustMatch/matching07.jsp");
 		request.setAttribute("tr", tr);
-		
+		request.setAttribute("proImg", proImg);
 		view.forward(request, response);
 	}
 

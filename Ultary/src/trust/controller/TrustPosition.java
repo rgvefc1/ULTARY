@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import member.model.vo.Media;
 import member.model.vo.Member;
 import member.model.vo.Pet;
+import post.model.service.PostService;
 import trust.model.service.MatchingService;
 import trust.model.vo.TrustPost;
 
@@ -49,12 +51,13 @@ public class TrustPosition extends HttpServlet {
 			Pet mypet = new MatchingService().DetailPet(loginUser);
 			ArrayList<TrustPost> balsin = new MatchingService().TpostBalshin(loginUser);
 			ArrayList<TrustPost> susin = new MatchingService().TpostSushin(loginUser);
-			
+			ArrayList<Media> proImg = new PostService().selectAllproimg();
 			
 			RequestDispatcher view = request.getRequestDispatcher("views/trustMatch/matching05.jsp");
 			request.setAttribute("mypet",mypet);
 			request.setAttribute("balsin", balsin);
 			request.setAttribute("susin", susin);
+			request.setAttribute("proImg", proImg);
 			view.forward(request, response);
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/erroPage.jsp");
