@@ -4,6 +4,7 @@
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	ArrayList<Pet> PetList = (ArrayList<Pet>)request.getAttribute("PetList");
 	ArrayList<Media> MediaList = (ArrayList<Media>)request.getAttribute("MediaList");
+	String memberid = (String)request.getParameter("memberid");
 	String petkind = "";
 %>
 <!DOCTYPE html>
@@ -266,7 +267,7 @@ $("#self").change(function() {
 				</tr>
 				<tr>
 					<td colspan="2">
-						<input type="button" id="pd<%= j %>"  class="deleteBtn" style="cursor:pointer;" value="삭제">
+						<input type="button" id="pd<%= j %>"  class="deleteBtn" style="cursor:pointer;" value="선택">
 						<%-- <input type="button" id="pp<%= p.getPetNum() %>" class="updateBtn" style="cursor:pointer;" value="수정"> --%>
 					</td>
 				</tr>
@@ -274,20 +275,11 @@ $("#self").change(function() {
 <script>
 	var deleteBtn = "#pd"+"<%= j %>";
 	$(deleteBtn).click(function(){ // 삭제버튼
-		var result = confirm("<%= p.getPetName() %>의 정보를 삭제하시곘습니까?");
+		var result = confirm("<%= p.getPetName() %>의 정보를 보내시겠습니까?");
 		
 		if(result){
-			var petNum = <%= p.getPetNum() %>;
-			var webname = "<%= m.getWebName() %>";
-			$.ajax({
-				url:'delete.pet',
-				data: {petNum:petNum, webname:webname},
-				success: function(data){
-					location.reload();
-				}
-			});
-		} else{
-			alert("삭제 취소");
+			opener.location.href="<%= request.getContextPath() %>/DetailMatch.tu?petNum=<%= p.getPetNum() %>&memberid=<%= memberid %>";
+			window.close();
 		}
 		
 	});
@@ -298,8 +290,6 @@ $("#self").change(function() {
 	<% } else{ %>
 	<h1>새로운 펫정보를 입력해주세요.</h1>
 	<% } %>
-	<input type="button" class="okBtn" style="cursor:pointer;" value="확인">
-	<input type="button" id="add" style="cursor:pointer;" value="추가">
 		<%-- <script>
 			$('.updateBtn').click(function(){ // 수정버튼
 				var myId = this.id;

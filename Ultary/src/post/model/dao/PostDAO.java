@@ -2031,5 +2031,40 @@ public class PostDAO {
 		
 		return hotList;
 	}
+
+	public Media selectpetImg(Connection conn, int petNum) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Media petImg = null;
+		
+		String query = prop.getProperty("selectpetImg");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, petNum);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				petImg = new Media(rset.getInt("medianum"),
+									rset.getString("imgroute"),
+									rset.getString("imgname"),
+									rset.getString("webname"),
+									rset.getInt("mediause"),
+									rset.getString("memberid"),
+									rset.getInt("postnum"),
+									rset.getInt("petnum"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return petImg;
+	}
 	
 }

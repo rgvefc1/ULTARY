@@ -671,4 +671,19 @@ public class PostService {
 				return hotList;
 			}
 
+			public Media selectpetImg(int petNum) {
+				Connection conn =getConnection();
+				
+				Media petImg = new PostDAO().selectpetImg(conn,petNum);
+				
+				if(petImg != null) {
+					commit(conn);
+				}else {
+					rollback(conn);
+				}
+				
+				return petImg;
+			}
+
+
 }
