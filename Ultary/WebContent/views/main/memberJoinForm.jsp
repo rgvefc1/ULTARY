@@ -353,8 +353,9 @@
 	/* 아이디 유효성 검사 ajax 중복불가*/
 	var isidUsable = false; 	// 아이디 중복 시false, 사용가능시 true
 	var isIdChecked = false;	// 아이디 중복확인을 했는지 안했는지 검사
-	var re1 =/^[a-zA-Z\d]{4,11}$/; // 아이디 정규식
-	
+// 	var re1 =/^[a-zA-Z\d]{4,11}$/; // 아이디 정규식
+	var re1 =/^[a-zA-Z]{1}[a-zA-Z0-9_]{4,11}$/; //시작은 영문으로만, '_'를 제외한 특수문자 안되며 영문, 숫자, '_'으로만 이루어진 5 ~ 12자 이하
+
 	$("#memberid").on('change paste keyup', function(){
 		isIdChecked = false;
 	});
@@ -363,7 +364,7 @@
 		var userId = $('#memberid');
 		
 		if(!re1.test(userId.val())){ //아이디 값이 아니거나, 아이디값이 3자보다 짧으면
-			alert('아이디는 영문자와 숫자로 4글자 이상 11글자 이하로 입력하세요.');
+			alert('아이디는 영문자로 시작하는 4~12글자 이하로 입력하세요.');
 			userId.focus();
 		} else{
 			$.ajax({
