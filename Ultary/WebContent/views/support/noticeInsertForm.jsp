@@ -14,6 +14,7 @@
 <meta charset="UTF-8">
 <title>ULTARY</title>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/common/완성본틀.css">
+
 <style>
     #content {
         background: whitesmoke;
@@ -23,6 +24,7 @@
         line-height: 2em;
         font-family: "맑은 고딕";
         text-align: center;
+        height: 600px;
     }
     .outer{
 		width: 600px; height: 540px; background-color: rgba(255, 255, 255, 0.4); border: 15px solid skyblue;
@@ -52,13 +54,13 @@
        
        <div class="outer">
 		<br>
-		<h2 align="center">공지사항 작성</h2>
+		<h2 align="center">공지사항 작성(관리자용)</h2>
 		<div class="tableArea">
-			<form action="<%= request.getContextPath() %>/sinsert.no" method="post">
+			<form action="<%= request.getContextPath() %>/sinsert.no" method="post" onsubmit="return checkContent();">
 				<table>
 					<tr>
 						<th>제목</th>
-						<td colspan="3"><input type="text" size="50" name="title"></td>				
+						<td colspan="3"><input type="text" size="50" name="title" id="titleC"></td>				
 					</tr>
 					<tr>
 						<th>작성자</th>
@@ -75,7 +77,7 @@
 					</tr>
 					<tr>
 						<td colspan="4">
-							<textarea name="content" cols="60" rows="15" style="resize:none;"></textarea>
+							<textarea name="content" cols="60" rows="15" style="resize:none;" id ="contentC"></textarea>
 						</td>
 					</tr>
 				</table>
@@ -84,9 +86,10 @@
 				
 				<div align="center">
 					<button type="submit" id="insertNoBtn">등록</button>
-					<button onclick="location.href='javascript:history.go(-1);'" id="cancelBtn">취소</button>
+					<button type="reset" onclick="location.href='javascript:history.go(-1);'" id="cancelBtn">취소</button>
 				</div>
 			</form>
+			<br>
 		</div>
 	</div>
 	
@@ -96,8 +99,22 @@
     </div>
    </div>
    </div> 
-</body>
-	<script>
 
+	<script>
+		function checkContent(){
+			var title = document.getElementById('titleC').value;
+			var content = document.getElementById('contentC').value;
+			
+			if(title == ""){
+				alert('제목을 입력하세요');
+				return false;
+			}else if( content== ""){
+				alert('내용을 입력하세요');
+				return false;
+			}else{
+				return true;
+			}
+		}
 	</script>
+</body>
 </html>

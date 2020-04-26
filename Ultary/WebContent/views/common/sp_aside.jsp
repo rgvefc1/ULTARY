@@ -16,5 +16,6 @@
 			<li><a href='<%=request.getContextPath()%>/views/support/InquirySend.jsp'>1:1 문의</a></li>
 		</ul>
 	</aside>
+
 </body>
 </html>
