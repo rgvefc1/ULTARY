@@ -118,7 +118,7 @@ footer{
 	margin-left:10px;
 	text-align:center;
 	float:right;
-	background: #FFDF24;
+	background: #363636;
 	border-radius: 10px;
 	width:100px;
 	height:40px;
@@ -311,7 +311,7 @@ footer{
 	height:35px;
 	font-size:15.9px;
 	font-weight: 900;
-	background:#FFDF24;
+	background: #363636;
 	color: white;
 }
 div[id^=likeBtn]{

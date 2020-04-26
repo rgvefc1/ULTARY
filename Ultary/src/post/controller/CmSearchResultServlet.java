@@ -10,9 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.vo.Media;
 import post.model.service.PostService;
+import post.model.vo.CAns;
 import post.model.vo.PageInfo;
 import post.model.vo.Post;
+import post.model.vo.PostComment;
 
 /**
  * Servlet implementation class CmSearchResultServlet
@@ -72,6 +75,14 @@ public class CmSearchResultServlet extends HttpServlet {
 		
 		ArrayList<Post> list = service.selectSearchList(searchtext,categorynum,searchcon,currentPage,boardLimit);
 		
+		ArrayList<Media> AllMList = service.selectAllMList();
+		
+		ArrayList<Media> ProList = service.selectAllproimg();
+		
+		ArrayList<PostComment> pclist = service.selectAllpc();
+	
+		ArrayList<CAns> calist = service.selectAllca();
+		
 		String page ="";
 		if(list != null) {
 			page ="views/community/search_result.jsp";
@@ -81,6 +92,10 @@ public class CmSearchResultServlet extends HttpServlet {
 			request.setAttribute("cnum", categorynum);
 			request.setAttribute("searchcon", searchcon);
 			request.setAttribute("list", list);
+			request.setAttribute("AllMList", AllMList);
+			request.setAttribute("ProList", ProList);
+			request.setAttribute("pclist", pclist);
+			request.setAttribute("calist", calist);
 		} else {
 			page="views/common/errerPage.jsp";
 			request.setAttribute("msg", "검색에 실패");

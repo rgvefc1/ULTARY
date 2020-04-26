@@ -97,12 +97,10 @@
         			</div>
         			</div>
         			</form>
-        		<div class="array_wrap">
+        			<div id="hr_wrap">
         			<hr id="hr2">
-        			<select>
-        				<option>최신순</option>
-        				<option>추천순</option>
-        			</select>
+        			</div>
+        		<div class="array_wrap">
         			<% if(loginUser != null && loginUser.getMemberId().equals("admin") && cnum == 1){ %>	
 	     		<div id="adminwritebtn" onclick="location.href='views/community/cmnpostWrite.jsp'">
 	     		<img src="<%= request.getContextPath() %>/image/연필.png">글쓰기
