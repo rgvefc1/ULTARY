@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import member.model.vo.Media;
 import member.model.vo.Member;
 import member.model.vo.Pet;
+import post.model.service.PostService;
 import trust.model.service.MatchingService;
 import trust.model.vo.TrustPost;
 
@@ -45,18 +47,19 @@ public class DetailTpVIewSurvlet extends HttpServlet {
 		
 		String page = null;
 		if(m != null) {
-			Pet pet = new MatchingService().DetailPet(loginUser);
-			if(pet != null) {
-				TrustPost tp = new MatchingService().tpview(tpnum);
-				if(tp!=null) {
+			Pet pet = new MatchingService().DetailPet(memberid);
+			TrustPost tp = new MatchingService().tpview(tpnum);
+			Media proImg = new PostService().selectProImg(memberid);
+			if(tp!=null) {
 					page="views/trustMatch/postview.jsp";
 					request.setAttribute("m",m);
 					request.setAttribute("pet",pet);
 					request.setAttribute("tp", tp);
-				}
+					request.setAttribute("proImg", proImg);
+				
 			}else {
 				page="views/common/errorPage.jsp";
-				request.setAttribute("msg","pet이 없습니다");
+				request.setAttribute("msg","trustpost를 불러올수없습니다.");
 			}
 		}else {
 			page="views/common/errorPage.jsp";

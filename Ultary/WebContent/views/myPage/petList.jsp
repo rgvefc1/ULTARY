@@ -232,7 +232,7 @@ $("#self").change(function() {
 			case '6':	petkind="어류"; break;
 			case '7':	petkind="기타"; break;
 			} %>
-			<% for(int j=0;j<MediaList.size();j++){
+			<% for(int j=0;j<MediaList.size();j++){  
 				Media m = MediaList.get(j); %>
 				<% if(p.getPetNum() == m.getPetNum()){ %> <!--펫정보랑 펫사진이랑 일치하는지 -->
 			<table class="petone" id="petone<%= p.getPetNum() %>">

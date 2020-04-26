@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import member.model.service.MemberService;
 import member.model.vo.Member;
@@ -32,8 +33,8 @@ public class UpdateMemberServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String nickname = request.getParameter("nickname");
-		String email = request.getParameter("email");
-		String phone = request.getParameter("phone");
+		String email = ((Member)request.getSession().getAttribute("loginUser")).getEmail();
+		String phone = ((Member)request.getSession().getAttribute("loginUser")).getPhone();
 		
 		String zipNo = request.getParameter("zipNo");
 		String roadAddrPart1 = request.getParameter("roadAddrPart1");
@@ -51,11 +52,16 @@ public class UpdateMemberServlet extends HttpServlet {
 		String pwquery = request.getParameter("pwquery");
 		String pwqans = request.getParameter("pwqans");
 		String trust = request.getParameter("trust");
-		String trustmeans = request.getParameter("trustmeans");
+		String trustmeans = request.getParameter("turstmeans")==null? "0" : request.getParameter("turstmeans");
 		String[] trustfieldArr = request.getParameterValues("trustfield");
-		String trustfield = String.join(",", trustfieldArr);
+		String trustfield = null;
+		if(trustfieldArr != null) {
+	         trustfield = String.join(", ", trustfieldArr);
+	      }
 		String trustadd = request.getParameter("trustadd");
+		
 		String memberId = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
+		String password = ((Member)request.getSession().getAttribute("loginUser")).getPassword();
 		
 		Member m = new Member();
 		m.setNickname(nickname);
@@ -77,7 +83,11 @@ public class UpdateMemberServlet extends HttpServlet {
 		String page = "";
 		String msg = "";
 		if(result > 0) {
-			response.sendRedirect("views/main/main.jsp");
+			Member member = new Member(memberId, password);
+			Member loginUser = new MemberService().loginMember(member);
+			HttpSession session = request.getSession();
+			session.setAttribute("loginUser", loginUser);
+			response.sendRedirect("Pet.view");
 		} else {
 			page = "views/common/errorPage.jsp";
 			msg = "정보변경에 실패";

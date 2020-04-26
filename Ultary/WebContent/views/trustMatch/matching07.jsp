@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.Member,java.util.*,trust.model.vo.*"%>
+    pageEncoding="UTF-8" import="member.model.vo.*,java.util.*,trust.model.vo.*"%>
 <%
 	ArrayList<TrustReview> tr = (ArrayList<TrustReview>)request.getAttribute("tr");
-	
+	ArrayList<Media> proImg = (ArrayList<Media>)request.getAttribute("proImg");
 %>
 <!DOCTYPE html>
 <html>
@@ -37,7 +37,21 @@
 			  <%for(int i=0; i<tr.size();i++){ %>
 				<div class="content" id="content1">
 					<div class="content-1">
-						<img src="/Ultary/views/trustMatch/photo.jpg" class="ps">
+					<% if(!proImg.isEmpty()){ 
+						for(int j=0;j<=proImg.size();j++){
+						 if(j==proImg.size()-1){%>
+						 <img class="ps" src="<%= request.getContextPath() %>/image/프로필.png">
+						 <%break;
+						   }
+						 Media cProimg = proImg.get(j);
+						 if(cProimg.getMemberId().equals(tr.get(i).getMemberId())){%>
+						  <img class="ps" src="<%= request.getContextPath() %>/uploadFiles/<%= cProimg.getWebName() %>">
+						 <%break; 
+						 } %>
+						<%} %>
+					<%} else{ %>
+						 <img class="ps" src="<%= request.getContextPath() %>/image/프로필.png">
+					<%} %>
 						<h5 class="nick" id="nick1"><%=tr.get(i).getMemberId() %></h5>
 						<input type="hidden" name="trnum" id="trnum" value="<%=tr.get(i).getTrNum() %>">
 					</div>

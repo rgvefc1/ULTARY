@@ -1937,5 +1937,99 @@ public class PostDAO {
 		}
 		return result;
 	}
+
+	/////// 희은 ////
+	// 공지사항 불러오기 
+	public ArrayList<Post> selectcmnotice(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Post> noticeList = null;
+	
+		String query = prop.getProperty("selectnotice");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			noticeList = new ArrayList<Post>();
+			while(rset.next()) {
+				Post p = new Post(rset.getInt("postnum"),
+								rset.getString("posttitle"),
+								rset.getString("postcontent"),
+								rset.getInt("postrange"),
+								rset.getInt("categorynum"));
+				
+				noticeList.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+		}
+		
+		return noticeList;
+	}
+	
+	// 최신글 불러오기
+	public ArrayList<Post> selectcmnew(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		ArrayList<Post> newList = null;
+		
+		String query = prop.getProperty("selectnew");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			newList = new ArrayList<Post>();
+			
+			while(rset.next()) {
+				Post p = new Post(rset.getInt("postnum"),
+						rset.getString("posttitle"),
+						rset.getString("postcontent"),
+						rset.getInt("postrange"),
+						rset.getInt("categorynum"));
+				
+				newList.add(p);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+		}
+		
+		return newList;
+	}
+	// 인기글 불러오기
+	public ArrayList<Post> selecthot(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Post> hotList = null;
+		
+		String query = prop.getProperty("selecthot");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			hotList = new ArrayList<Post>();
+			
+			while(rset.next()) {
+				Post p = new Post(rset.getInt("postnum"),
+						rset.getString("posttitle"),
+						rset.getString("postcontent"),
+						rset.getInt("postrange"),
+						rset.getInt("categorynum"));
+				hotList.add(p);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(stmt);
+		}
+		
+		return hotList;
+	}
 	
 }

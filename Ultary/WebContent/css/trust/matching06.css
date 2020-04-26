@@ -16,10 +16,10 @@
 					border-radius:30px;	float:left;}
 	.name{margin-top:50px; margin-right: 97px;font-weight: bold;font-size: 25px;}
 	.address{display:inline-block; }
-	.infoDiv{padding-top: 10px;padding-left: 20px; float: left;}
-	.infobutton1{margin-top: 15px; width: 100px; height: 30px; margin-left: 339px; background: hsla(197, 62%, 74%, 0.603);
+	.infoDiv{padding-top: 10px;padding-left: 20px; float: left;    width: 494px;}
+	.infobutton1{margin-top: 15px; width: 100px; height: 30px; margin-left: 15px; background: hsla(197, 62%, 74%, 0.603);
 	    		cursor: pointer; text-align: center;display: inline-block; border-radius:8px;color:white;}
-	.infobutton2{margin-top: 15px; width: 100px; height: 30px; margin-left: 339px; background: hsla(197, 62%, 74%, 0.603);
+	.infobutton2{margin-top: 15px; width: 100px; height: 30px; margin-left: 15px; background: hsla(197, 62%, 74%, 0.603);
 	   			 cursor: pointer; text-align: center;  display: inline-block;border-radius:8px;color:white;}
 	#like{margin-left:15px;}
 	#review-box{width:100%;height:462px;}

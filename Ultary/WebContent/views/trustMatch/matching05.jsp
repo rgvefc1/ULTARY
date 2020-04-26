@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="trust.model.vo.*,java.util.ArrayList,member.model.vo.Pet"%>
+    pageEncoding="UTF-8" import="trust.model.vo.*,java.util.ArrayList,member.model.vo.*"%>
 <%
 	Pet mypet = (Pet)request.getAttribute("mypet");
-	/* ArrayList<Media> proImg = (ArrayList<Media>)request.getAttribute("proImg"); */
+	ArrayList<Media> proImg = (ArrayList<Media>)request.getAttribute("proImg");
 	ArrayList<TrustPost> balsin = (ArrayList<TrustPost>)request.getAttribute("balsin");
 	ArrayList<TrustPost> susin = (ArrayList<TrustPost>)request.getAttribute("susin");
 	
@@ -59,7 +59,7 @@
 			<%@ include file ="/views/common/tr_aside.jsp" %>
 			<section>
 			<div>
-            <form>
+            <!-- <form> -->
             <div id="matching">
 				<h1 id="title">의뢰관리</h1>
 				<p id="title-1">위탁 내용 상세보기와 진행사항을 보여드립니다.</p>
@@ -150,7 +150,21 @@
 					<%for( int i=0;i<balsin0.size();i++){ %>
 						<div id="reqcontent1" onclick="detailview('<%=balsin0.get(i).getSushin()%>','<%=balsin0.get(i).getTpostNum()%>');">
 						<div id ="req1">
-							<img src="/Ultary/views/trustMatch/photo.jpg" id="req-photo">
+						<% if(!proImg.isEmpty()){ 
+						for(int j=0;j<=proImg.size();j++){
+						 if(j==proImg.size()-1){%>
+						 <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/image/프로필.png">
+						 <%break;
+						   }
+						 Media cProimg = proImg.get(j);
+						 if(cProimg.getMemberId().equals(balsin0.get(i).getSushin())){%>
+						  <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/uploadFiles/<%= cProimg.getWebName() %>">
+						 <%break; 
+						 } %>
+						<%} %>
+					<%} else{ %>
+						 <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/image/프로필.png">
+					<%} %>
 							<h5 style="display:inline"><%= balsin0.get(i).getSushin() %></h5>
 						</div>
 						<div id ="req2">
@@ -179,9 +193,23 @@
 				</div>
 				<%} else{ %>
 					<% for(int i=0;i<susin0.size();i++){ %>
-					<div id="reqcontent1" onclick="detailview('<%=susin0.get(i).getBalshin()%>','<%=susin0.get(i).getTpostNum()%>');">
+					<div id="reqcontent1<%= i %>" onclick="detailview('<%=susin0.get(i).getBalshin()%>','<%=susin0.get(i).getTpostNum()%>');">
 						<div id ="req1">
-							<img src="/Ultary/views/trustMatch/photo.jpg" id="req-photo">
+					<% if(!proImg.isEmpty()){ 
+						for(int j=0;j<proImg.size();j++){
+						 if(j==proImg.size()-1){%>
+						 <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/image/프로필.png">
+						 <%break;
+						   }
+						 Media cProimg = proImg.get(j);
+						 if(cProimg.getMemberId().equals(susin0.get(i).getBalshin())){%>
+						  <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/uploadFiles/<%= cProimg.getWebName() %>">
+						 <%break; 
+						 } %>
+						<%} %>
+					<%} else{ %>
+						 <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/image/프로필.png">
+					<%} %>
 							<h5 style="display:inline"><%=susin0.get(i).getBalshin() %></h5>
 						</div>
 						<div id ="req2">
@@ -190,8 +218,8 @@
 						<div id ="req3">
 							<p style="display:inline;"><%=susin0.get(i).getTrustPS() %>	</p>
 						</div>
-						<button type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=1&tpostnum=<%=susin0.get(i).getTpostNum()%>'">수락</button>
-					<button type="button" id="btn2" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=2&tpostnum=<%=susin0.get(i).getTpostNum()%>'">거절</button>
+						<input type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=1&tpostnum=<%=susin0.get(i).getTpostNum()%>&memberid=<%=susin0.get(i).getBalshin() %>'" value="수락">
+						<button type="button" id="btn2" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=2&tpostnum=<%=susin0.get(i).getTpostNum()%>'">거절</button>
 					</div>
 					<%} }%>
 					</div>
@@ -212,9 +240,23 @@
 				</div>
 				<%} else{ %>
 					<%for( int i=0;i<balsin1.size();i++){ %>
-					<div id="reqcontent1" onclick="detailview('<%=balsin1.get(i).getSushin()%>','<%=balsin1.get(i).getTpostNum()%>');">
+					<div id="reqcontent1<%= i %>" <%-- onclick="detailview('<%=balsin1.get(i).getSushin()%>','<%=balsin1.get(i).getTpostNum()%>');" --%>>
 						<div id ="req1">
-							<img src="/Ultary/views/trustMatch/photo.jpg" id="req-photo">
+					<% if(!proImg.isEmpty()){ 
+						for(int j=0;j<=proImg.size();j++){
+						 if(j==proImg.size()-1){%>
+						 <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/image/프로필.png">
+						 <%break;
+						   }
+						 Media cProimg = proImg.get(j);
+						 if(cProimg.getMemberId().equals(balsin0.get(i).getSushin())){%>
+						  <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/uploadFiles/<%= cProimg.getWebName() %>">
+						 <%break; 
+						 } %>
+						<%} %>
+					<%} else{ %>
+						 <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/image/프로필.png">
+					<%} %>
 							<h5 style="display:inline"><%= balsin1.get(i).getSushin() %></h5>
 						</div>
 						<div id ="req2">
@@ -224,11 +266,30 @@
 							<p style="display:inline;"><%=balsin1.get(i).getTrustPS() %>	</p>
 						</div>
 						<%if(balsin1.get(i).getTrnum()==0){ %>
-						<button type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/insertReview.tu?user=<%= balsin1.get(i).getSushin() %>&tpostnum=<%=balsin1.get(i).getTpostNum()%>'">리뷰작성</button>
+						<button  id="btnre<%=i %>" class="btn">리뷰작성</button>
 						<%} else{ %>
-						<input type="button" class="btn" id="btn1" name="btn1" value="리뷰수정" onclick="location.href='<%=request.getContextPath()%>/trustcol.tu?trnum=<%=balsin1.get(i).getTrnum()%>'">
+						<button class="btn" id="btnre<%=i %>" name="btn1" >리뷰수정</button>
 						<%} %>
 					</div>
+   			<script>
+				$(function(){
+					var reqcontent1 = "#reqcontent1"+<%= i %>;
+					$(reqcontent1).click(function(e){
+						var btnr = "#btnre"+<%= i %>;
+						if(!$(btnr).has(e.target).length){
+							location.href="<%=request.getContextPath()%>/DetailTp.tu?memberid=<%= balsin1.get(i).getSushin() %>&tp=<%=balsin1.get(i).getTpostNum()%>";
+						} else{
+							console.log('허ㅜ');
+							<%--  if($(btnr).text()=="리뷰작성"){
+								location.href='<%=request.getContextPath()%>/insertReview.tu?user=<%= balsin1.get(i).getSushin() %>&tpostnum=<%=balsin1.get(i).getTpostNum()%>';
+							}else if($(btnr).text()=="리뷰수정"){
+								location.href='<%=request.getContextPath()%>/trustcol.tu?trnum=<%=balsin1.get(i).getTrnum()%>';
+							}  --%>
+						}
+					});
+				});
+				
+			</script>
 					<%} }%>
 					</div>
 					<div id = "mysusin1" style="display:none" >
@@ -240,7 +301,21 @@
 					<% for(int i=0;i<susin1.size();i++){ %>
 					<div id="reqcontent1" onclick="detailview('<%=susin1.get(i).getBalshin()%>','<%=susin1.get(i).getTpostNum()%>');">
 						<div id ="req1">
-							<img src="/Ultary/views/trustMatch/photo.jpg" id="req-photo">
+						<% if(!proImg.isEmpty()){ 
+						for(int j=0;j<proImg.size();j++){
+						 if(j==proImg.size()-1){%>
+						 <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/image/프로필.png">
+						 <%break;
+						   }
+						 Media cProimg = proImg.get(j);
+						 if(cProimg.getMemberId().equals(susin1.get(i).getBalshin())){%>
+						  <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/uploadFiles/<%= cProimg.getWebName() %>">
+						 <%break; 
+						 } %>
+						<%} %>
+					<%} else{ %>
+						 <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/image/프로필.png">
+					<%} %>
 							<h5 style="display:inline"><%=susin1.get(i).getBalshin() %></h5>
 						</div>
 						<div id ="req2">
@@ -274,7 +349,21 @@
 					<%for( int i=0;i<balsin2.size();i++){ %>
 						<div id="reqcontent1" onclick="detailview('<%=balsin2.get(i).getSushin()%>','<%=balsin2.get(i).getTpostNum()%>');">
 							<div id ="req1">
-								<img src="/Ultary/views/trustMatch/photo.jpg" id="req-photo">
+						<% if(!proImg.isEmpty()){ 
+						for(int j=0;j<proImg.size();j++){
+						 if(j==proImg.size()-1){%>
+						 <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/image/프로필.png">
+						 <%break;
+						   }
+						 Media cProimg = proImg.get(j);
+						 if(cProimg.getMemberId().equals(balsin2.get(i).getSushin())){%>
+						  <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/uploadFiles/<%= cProimg.getWebName() %>">
+						 <%break; 
+						 } %>
+						<%} %>
+					<%} else{ %>
+						 <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/image/프로필.png">
+					<%} %>
 								<h5 style="display:inline"><%= balsin2.get(i).getSushin() %></h5>
 							</div>
 							<div id ="req2">
@@ -294,9 +383,23 @@
 					</div>
 					<%}else{ %>
 						<% for(int i=0;i<susin2.size();i++){ %>
-						<div id="reqcontent1" onclick="detailview('<%=susin2.get(i).getSushin()%>','<%=susin2.get(i).getTpostNum()%>');">
+						<div id="reqcontent1<%= i %>" onclick="detailview('<%=susin2.get(i).getSushin()%>','<%=susin2.get(i).getTpostNum()%>');">
 						<div id ="req1">
-							<img src="/Ultary/views/trustMatch/photo.jpg" id="req-photo">
+						<% if(!proImg.isEmpty()){ 
+						for(int j=0;j<proImg.size();j++){
+						 if(j==proImg.size()-1){%>
+						 <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/image/프로필.png">
+						 <%break;
+						   }
+						 Media cProimg = proImg.get(j);
+						 if(cProimg.getMemberId().equals(susin2.get(i).getBalshin())){%>
+						  <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/uploadFiles/<%= cProimg.getWebName() %>">
+						 <%break; 
+						 } %>
+						<%} %>
+					<%} else{ %>
+						 <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/image/프로필.png">
+					<%} %>
 							<h5 style="display:inline"><%=susin2.get(i).getBalshin() %></h5>
 						</div>
 						<div id ="req2">
@@ -374,16 +477,17 @@
 					$('#mybalsin2').show();
 				});
 				
-				function detailview(userid,tpnum){
-					
+				
+			 <%-- 	function detailview(userid,tpnum,e){
 					location.href="<%=request.getContextPath()%>/DetailTp.tu?memberid="+userid+"&tp="+tpnum;
+					e.stopPropagation();
 					
-				}
+				} --%>
 	
 			</script>
 
 			
-            </form>
+           <!--  </form> -->
             </div>
 			</section>
 			</div>

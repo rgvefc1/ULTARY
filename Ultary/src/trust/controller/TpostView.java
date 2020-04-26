@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import member.model.vo.Media;
 import member.model.vo.Member;
 import member.model.vo.Pet;
+import post.model.service.PostService;
 import trust.model.service.MatchingService;
 import trust.model.vo.TrustPost;
 
@@ -36,7 +37,6 @@ public class TpostView extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		TrustPost tp = (TrustPost)request.getAttribute("tp"); 
 		HttpSession session = request.getSession();
 		Member sessionMember =(Member)session.getAttribute("loginUser");
 		String loginUser = sessionMember.getMemberId(); 
@@ -44,13 +44,14 @@ public class TpostView extends HttpServlet {
 		Pet mypet = new MatchingService().DetailPet(loginUser);
 		ArrayList<TrustPost> balsin = new MatchingService().TpostBalshin(loginUser);
 		ArrayList<TrustPost> susin = new MatchingService().TpostSushin(loginUser);
-		/* ArrayList<Media> proImg = new */ 
+		ArrayList<Media> proImg = new PostService().selectAllproimg();
 		
 	
 			RequestDispatcher view = request.getRequestDispatcher("views/trustMatch/matching05.jsp");
 			request.setAttribute("mypet",mypet);
 			request.setAttribute("balsin", balsin);
 			request.setAttribute("susin", susin);
+			request.setAttribute("proImg", proImg);
 			view.forward(request, response);
 		
 	}

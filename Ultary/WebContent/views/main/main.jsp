@@ -214,10 +214,10 @@
       location.href="<%= request.getContextPath() %>/myreview.tu";
    });
    $('#cssmenu>ul>li:eq(3)>a').click(function(){
-      location.href="<%= request.getContextPath() %>/views/myPage/memberUpdate.jsp";
+      location.href="<%= request.getContextPath() %>/Pet.view";
    });
    $('#menu4>li:eq(0) a').click(function(){
-      location.href="<%= request.getContextPath() %>/views/myPage/memberUpdate.jsp";
+      location.href="<%= request.getContextPath() %>/Pet.view";
    });
    $('#menu4>li:eq(1) a').click(function(){
       location.href="<%= request.getContextPath() %>/views/myPage/pwdUpdate.jsp";
