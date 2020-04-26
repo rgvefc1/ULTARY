@@ -59,7 +59,7 @@
 			<%@ include file ="/views/common/tr_aside.jsp" %>
 			<section>
 			<div>
-            <form>
+            <!-- <form> -->
             <div id="matching">
 				<h1 id="title">의뢰관리</h1>
 				<p id="title-1">위탁 내용 상세보기와 진행사항을 보여드립니다.</p>
@@ -193,7 +193,7 @@
 				</div>
 				<%} else{ %>
 					<% for(int i=0;i<susin0.size();i++){ %>
-					<div id="reqcontent1" onclick="detailview('<%=susin0.get(i).getBalshin()%>','<%=susin0.get(i).getTpostNum()%>');">
+					<div id="reqcontent1<%= i %>" onclick="detailview('<%=susin0.get(i).getBalshin()%>','<%=susin0.get(i).getTpostNum()%>');">
 						<div id ="req1">
 					<% if(!proImg.isEmpty()){ 
 						for(int j=0;j<proImg.size();j++){
@@ -240,7 +240,7 @@
 				</div>
 				<%} else{ %>
 					<%for( int i=0;i<balsin1.size();i++){ %>
-					<div id="reqcontent1" onclick="detailview('<%=balsin1.get(i).getSushin()%>','<%=balsin1.get(i).getTpostNum()%>');">
+					<div id="reqcontent1<%= i %>" <%-- onclick="detailview('<%=balsin1.get(i).getSushin()%>','<%=balsin1.get(i).getTpostNum()%>');" --%>>
 						<div id ="req1">
 					<% if(!proImg.isEmpty()){ 
 						for(int j=0;j<=proImg.size();j++){
@@ -266,11 +266,30 @@
 							<p style="display:inline;"><%=balsin1.get(i).getTrustPS() %>	</p>
 						</div>
 						<%if(balsin1.get(i).getTrnum()==0){ %>
-						<button type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/insertReview.tu?user=<%= balsin1.get(i).getSushin() %>&tpostnum=<%=balsin1.get(i).getTpostNum()%>'">리뷰작성</button>
+						<button  id="btnre<%=i %>" class="btn">리뷰작성</button>
 						<%} else{ %>
-						<input type="button" class="btn" id="btn1" name="btn1" value="리뷰수정" onclick="location.href='<%=request.getContextPath()%>/trustcol.tu?trnum=<%=balsin1.get(i).getTrnum()%>'">
+						<button class="btn" id="btnre<%=i %>" name="btn1" >리뷰수정</button>
 						<%} %>
 					</div>
+   			<script>
+				$(function(){
+					var reqcontent1 = "#reqcontent1"+<%= i %>;
+					$(reqcontent1).click(function(e){
+						var btnr = "#btnre"+<%= i %>;
+						if(!$(btnr).has(e.target).length){
+							location.href="<%=request.getContextPath()%>/DetailTp.tu?memberid=<%= balsin1.get(i).getSushin() %>&tp=<%=balsin1.get(i).getTpostNum()%>";
+						} else{
+							console.log('허ㅜ');
+							<%--  if($(btnr).text()=="리뷰작성"){
+								location.href='<%=request.getContextPath()%>/insertReview.tu?user=<%= balsin1.get(i).getSushin() %>&tpostnum=<%=balsin1.get(i).getTpostNum()%>';
+							}else if($(btnr).text()=="리뷰수정"){
+								location.href='<%=request.getContextPath()%>/trustcol.tu?trnum=<%=balsin1.get(i).getTrnum()%>';
+							}  --%>
+						}
+					});
+				});
+				
+			</script>
 					<%} }%>
 					</div>
 					<div id = "mysusin1" style="display:none" >
@@ -364,7 +383,7 @@
 					</div>
 					<%}else{ %>
 						<% for(int i=0;i<susin2.size();i++){ %>
-						<div id="reqcontent1" onclick="detailview('<%=susin2.get(i).getSushin()%>','<%=susin2.get(i).getTpostNum()%>');">
+						<div id="reqcontent1<%= i %>" onclick="detailview('<%=susin2.get(i).getSushin()%>','<%=susin2.get(i).getTpostNum()%>');">
 						<div id ="req1">
 						<% if(!proImg.isEmpty()){ 
 						for(int j=0;j<proImg.size();j++){
@@ -458,27 +477,17 @@
 					$('#mybalsin2').show();
 				});
 				
-				$("body").click(function(e){
-			        if($('.alert').css('display') == 'block'){
-			            if(!$('.alert').has(e.target).length) {
-			                $('.alert').hide();
-			            }
-			        } else if($('.alert').css('display') == 'none'){
-			            if($('#alertbuttondiv').has(e.target).length) {
-			                $('.alert').show();
-			            }
-			        }
-			    });
-				function detailview(userid,tpnum,e){
-					e.stopPropagation();
+				
+			 <%-- 	function detailview(userid,tpnum,e){
 					location.href="<%=request.getContextPath()%>/DetailTp.tu?memberid="+userid+"&tp="+tpnum;
+					e.stopPropagation();
 					
-				}
+				} --%>
 	
 			</script>
 
 			
-            </form>
+           <!--  </form> -->
             </div>
 			</section>
 			</div>
