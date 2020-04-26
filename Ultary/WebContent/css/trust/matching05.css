@@ -3,10 +3,30 @@
 	#title{text-align:left;font-family:Dotum,"돋움",Helvetica,"Apple SD Gothic Neo",sans-serif;float:left;
 			margin-top: 26px;  margin-bottom: 29px;}
 	#title-1{text-align: left; margin-top: 45px; display: block;margin-left: 115px;}
-	#page{width: 100%; height: 633px; background-color: hsla(197, 62%, 74%, 0.603); float: left; }
-	#page1{ width: 95%; height: 563px; background-color: white;margin-left: 22px; margin-top: 10px;
-    		border-radius: 20px;padding-top:36px;}
-    #page3{width: 86%; height: 283px;margin-left: 66px; margin-top: 33px;}
+	#page{width: 100%;
+    min-height: 633px;
+    background-color: hsla(197, 62%, 74%, 0.603);
+    float: left;}
+	#page1{     width: 95%;
+    min-height: 563px;
+    background-color: white;
+    margin-left: 22px;
+    margin-top: 10px;
+    border-radius: 20px;
+    padding-top: 36px;
+    margin-bottom: 20px;}
+    #page3{width: 86%;
+    min-height: 283px;
+    margin-left: 66px;
+    margin-top: 33px;
+    overflow: hidden;}
+    .petone{
+    	float: left;
+    border: 1px solid gray;
+    }
+    .fileInput{
+    	border-radius: 300px;
+    }
     #page3-1{width:100%;height:36px;background-color:hsla(197, 62%, 74%, 0.603);text-align:center;}
     #page3-1-1{display:inline;}
     #page3-2{width:50%; height:87%;float:left;}

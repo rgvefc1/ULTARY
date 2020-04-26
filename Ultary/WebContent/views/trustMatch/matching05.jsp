@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="trust.model.vo.*,java.util.ArrayList,member.model.vo.*"%>
 <%
-	Pet mypet = (Pet)request.getAttribute("mypet");
 	ArrayList<Media> proImg = (ArrayList<Media>)request.getAttribute("proImg");
+	ArrayList<Pet> PetList = (ArrayList<Pet>)request.getAttribute("PetList");
+	ArrayList<Media> MediaList = (ArrayList<Media>)request.getAttribute("MediaList");
+	String petkind = "";
+	
 	ArrayList<TrustPost> balsin = (ArrayList<TrustPost>)request.getAttribute("balsin");
 	ArrayList<TrustPost> susin = (ArrayList<TrustPost>)request.getAttribute("susin");
 	
@@ -70,56 +73,59 @@
 				<div id="page1">
 					
 					<div id= "page3">
-						<div id="page3-1">
-							<h3>반려동물 정보</h3>
-						</div>
-						<div id="page3-2">
-						<table id="page3_table">
-							<%if(mypet == null) {%>
-								<tr>
-									<h3 style="text-align:center">등록된 애완동물 이없습니다.</h3>
-									<img id="petaddbutton"src="<%= request.getContextPath() %>/image/뼈다귀.png" alt="" width="50">
-								</tr>
-								<script>
-									$('#petaddbutton').mouseenter(function(){
-										$('#petaddbutton').attr("src","<%= request.getContextPath() %>/image/뼈다귀after.png")
-									});
-									$('#petaddbutton').mouseout(function(){
-										$('#petaddbutton').attr("src","<%= request.getContextPath() %>/image/뼈다귀.png")
-									});
-
-									
-									
-									$('#petaddbutton').click(function(){
-										window.open('<%= request.getContextPath()%>/views/myPage/petList.jsp', 'pop', 'width=950, height=650');
-									});
-								</script>
-							<%}else{ %>
-							
-								<tr>
-									<td class="page3_td"><div class="petname">반려동물 이름</div></td>
-									<td><label><%=mypet.getPetName() %></label></td>
-								</tr>
-								<tr>
-									<td class="page3_td"><div class="petname">반려동물 종류</div></td>
-									<td><label><%=mypet.getPetKind() %></label></td>
-								</tr>
-								<tr>
-									<td class="page3_td"><div class="petname">성별</div></td>
-									<td><label><%=mypet.getPetGender() %></label></td>
-								</tr>
-								<tr>
-									<td class="page3_td"><div class="petname">반려동물 나이</div></td>
-									<td><label><%=mypet.getPetage() %></label></td>
-								</tr>
-							<%} %>
-							</table>
-							
-						</div>
-						<div id="page3-3">
-							<img src="/Ultary/views/trustMatch/photo.jpg" id="pet-photo">
-						</div>
-						
+						<% if(!PetList.isEmpty()){ %>
+      <% for(int i=0;i<PetList.size();i++){ 
+         Pet p = PetList.get(i);
+         switch(p.getPetKind()){
+         case '1': petkind="강아지"; break;
+         case '2':   petkind="고양이"; break;
+         case '3':   petkind="설치류"; break;
+         case '4':   petkind="파충류"; break;
+         case '5':   petkind="조류"; break;
+         case '6':   petkind="어류"; break;
+         case '7':   petkind="기타"; break;
+         } %>
+         <% if(!MediaList.isEmpty()){ %>
+         <% for(int j=0;j<MediaList.size();j++){
+            Media m = MediaList.get(j); %>
+            <% if(p.getPetNum() == m.getPetNum()){ %> <!--펫정보랑 펫사진이랑 일치하는지 -->
+         <table class="petone">
+            <tr>
+               <th>프로필  사진</th>
+               <td>
+                  <img src='<%= request.getContextPath() %>/uploadFiles/<%= m.getWebName() %>' border='0' class="fileInput" id="basicImg" width="200px" height="126px" style='cursor:pointer;'>
+               </td>
+            </tr>
+            <tr>
+               <th>반려동물 이름</th>
+               <td><%= p.getPetName() %></td>
+            </tr>
+            <tr>
+               <th>반려동물 종류</th>
+               <td>
+                  <%= petkind %>
+               </td>
+            </tr>
+            <tr>
+               <th>성별</th>
+               <td>
+                  <%= p.getPetGender() %>
+               </td>
+            </tr>
+            <tr>
+               <th>나이</th>
+               <td>
+                  <%= p.getPetage() %>
+               </td>
+            </tr>
+         </table>
+            <% } %>
+         <% } %>
+      <% } %>
+      <% } %>
+   <% } else { %>
+   <h1>새로운 펫 정보를 입력해주세요.</h1>
+   <% } %>
 					</div>
 				<div id="page4" >
 					<div id="page4-1">의뢰관리</div>
@@ -148,11 +154,11 @@
 					</div>
 				<%} else{%>
 					<%for( int i=0;i<balsin0.size();i++){ %>
-						<div id="reqcontent1" onclick="detailview('<%=balsin0.get(i).getSushin()%>','<%=balsin0.get(i).getTpostNum()%>');">
+						<div id="reqcontent1" onclick="location.href='<%=request.getContextPath()%>/DetailTp.tu?memberid=<%=balsin0.get(i).getSushin() %>&tp=<%=balsin0.get(i).getTpostNum()%>'">
 						<div id ="req1">
 						<% if(!proImg.isEmpty()){ 
 						for(int j=0;j<=proImg.size();j++){
-						 if(j==proImg.size()-1){%>
+						 if(j==proImg.size()-1){ %>
 						 <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/image/프로필.png">
 						 <%break;
 						   }
@@ -193,7 +199,7 @@
 				</div>
 				<%} else{ %>
 					<% for(int i=0;i<susin0.size();i++){ %>
-					<div id="reqcontent1<%= i %>" onclick="detailview('<%=susin0.get(i).getBalshin()%>','<%=susin0.get(i).getTpostNum()%>');">
+					<div id="reqcontent1<%= i %>" onclick="location.href='<%=request.getContextPath()%>/DetailTp.tu?memberid=<%=susin0.get(i).getBalshin() %>&tp=<%=susin0.get(i).getTpostNum()%>'">
 						<div id ="req1">
 					<% if(!proImg.isEmpty()){ 
 						for(int j=0;j<proImg.size();j++){
@@ -219,7 +225,7 @@
 							<p style="display:inline;"><%=susin0.get(i).getTrustPS() %>	</p>
 						</div>
 						<input type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=1&tpostnum=<%=susin0.get(i).getTpostNum()%>&memberid=<%=susin0.get(i).getBalshin() %>'" value="수락">
-						<button type="button" id="btn2" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=2&tpostnum=<%=susin0.get(i).getTpostNum()%>'">거절</button>
+						<<div  id="btn2" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=2&tpostnum=<%=susin0.get(i).getTpostNum()%>'">거절</div>
 					</div>
 					<%} }%>
 					</div>
@@ -271,7 +277,7 @@
 						<button class="btn" id="btnre<%=i %>" name="btn1" >리뷰수정</button>
 						<%} %>
 					</div>
-   			<script>
+   			<%-- <script>
 				$(function(){
 					var reqcontent1 = "#reqcontent1"+<%= i %>;
 					$(reqcontent1).click(function(e){
@@ -280,16 +286,16 @@
 							location.href="<%=request.getContextPath()%>/DetailTp.tu?memberid=<%= balsin1.get(i).getSushin() %>&tp=<%=balsin1.get(i).getTpostNum()%>";
 						} else{
 							console.log('허ㅜ');
-							<%--  if($(btnr).text()=="리뷰작성"){
+							 if($(btnr).text()=="리뷰작성"){
 								location.href='<%=request.getContextPath()%>/insertReview.tu?user=<%= balsin1.get(i).getSushin() %>&tpostnum=<%=balsin1.get(i).getTpostNum()%>';
 							}else if($(btnr).text()=="리뷰수정"){
 								location.href='<%=request.getContextPath()%>/trustcol.tu?trnum=<%=balsin1.get(i).getTrnum()%>';
-							}  --%>
+							} 
 						}
 					});
 				});
 				
-			</script>
+			</script> --%>
 					<%} }%>
 					</div>
 					<div id = "mysusin1" style="display:none" >
@@ -478,11 +484,11 @@
 				});
 				
 				
-			 <%-- 	function detailview(userid,tpnum,e){
+			  	<%-- function detailview(userid,tpnum,e){
 					location.href="<%=request.getContextPath()%>/DetailTp.tu?memberid="+userid+"&tp="+tpnum;
 					e.stopPropagation();
 					
-				} --%>
+				}  --%>
 	
 			</script>
 

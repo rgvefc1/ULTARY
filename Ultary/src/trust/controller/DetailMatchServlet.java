@@ -1,6 +1,7 @@
 package trust.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import member.model.service.MemberService;
 import member.model.vo.Media;
 import member.model.vo.Member;
 import member.model.vo.Pet;
@@ -39,7 +41,17 @@ public class DetailMatchServlet extends HttpServlet {
 		Member sessionMember =(Member)session.getAttribute("loginUser");
 		String loginUser = sessionMember.getMemberId();
 	
+		ArrayList<Pet> PetList = new MemberService().loginPet(loginUser);
+		ArrayList<Media> MediaList = new MemberService().loginMedia(loginUser);
+		
+		
 		String memberid = request.getParameter("memberid");
+		String petNum = "";
+		if(request.getParameter("petNum")!= null) {
+			petNum = request.getParameter("petNum");
+		} else {
+			petNum = null;
+		}
 
 		Member m = new MatchingService().DetailView(memberid);
 		
@@ -50,7 +62,10 @@ public class DetailMatchServlet extends HttpServlet {
 			if(pet != null) {
 				page="views/trustMatch/matching03.jsp";
 				request.setAttribute("m",m);
+				request.setAttribute("MediaList", MediaList);
+				request.setAttribute("PetList", PetList);
 				request.setAttribute("pet",pet);
+				request.setAttribute("petNum", petNum);
 				request.setAttribute("proImg", proImg);
 			}else {
 				page="views/common/errorPage.jsp";

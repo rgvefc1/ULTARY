@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.*"%>
+    pageEncoding="UTF-8" import="member.model.vo.*, java.util.*"%>
 <%
+	String petNum = (String)request.getAttribute("petNum");
 	Member m = (Member)request.getAttribute("m");
 	Pet pet = (Pet)request.getAttribute("pet");
 	Media proImg = (Media)request.getAttribute("proImg");
+	
+	ArrayList<Pet> PetList = (ArrayList<Pet>)request.getAttribute("PetList");
+	ArrayList<Media> MediaList = (ArrayList<Media>)request.getAttribute("MediaList");
 	String petKind="";
 	switch(pet.getPetKind()){
 	case '1' : petKind="강아지"; break;
@@ -66,30 +70,74 @@
 						<div id="page3-1">
 							<h3 style="text-align: center;">반려동물 정보</h3>
 						</div>
+						<% if(petNum == null){ %>
 						<div id="page3-2">
 							<table id="page3_table">
 								<tr>
 									<td class="page3_td"><div class="petname">반려동물 이름</div></td>
-									<td><label><%=pet.getPetName() %></label><input type="hidden" name="petnum" value="<%=pet.getPetNum()%>"></td>
-									
+									<td><label></label><input type="hidden" name="petnum" value="<%= petNum %>"></td>
 								</tr>
 								<tr>
 									<td class="page3_td"><div class="petname">반려동물 종류</div></td>
-									<td><label><%=petKind %></label></td>
+									<td><label></label></td>
 								</tr>
 								<tr>
 									<td class="page3_td"><div class="petname">성별</div></td>
-									<td><label><%=pet.getPetGender() %></label></td>
+									<td><label></label></td>
 								</tr>
 								<tr>
 									<td class="page3_td"><div class="petname">반려동물 나이</div></td>
-									<td><label><%=pet.getPetage() %>살</label></td>
+									<td><label></label></td>
 								</tr>
 							</table>
 						</div>
 						<div id="page3-3">
 							<img src="/Ultary/views/trustMatch/photo.jpg" id="pet-photo">
 						</div>
+							
+						<% }else{ %>
+							<% for(int i=0;i<PetList.size();i++){ 
+								if(PetList.get(i).getPetNum()==Integer.parseInt(petNum)){ 
+									Pet p = PetList.get(i); %>
+						<div id="page3-2">
+							<table id="page3_table">
+								<tr>
+									<td class="page3_td"><div class="petname">반려동물 이름</div></td>
+									<td><label><%= p.getPetName() %></label><input type="hidden" name="petnum" value="<%= p.getPetNum() %>"></td>
+									
+								</tr>
+								<tr>
+									<td class="page3_td"><div class="petname">반려동물 종류</div></td>
+									<td><label><%= p.getPetKind() %></label></td>
+								</tr>
+								<tr>
+									<td class="page3_td"><div class="petname">성별</div></td>
+									<td><label><%= p.getPetGender() %></label></td>
+								</tr>
+								<tr>
+									<td class="page3_td"><div class="petname">반려동물 나이</div></td>
+									<td><label><%= p.getPetage() %></label></td>
+								</tr>
+							</table>
+						</div>
+						<div id="page3-3">
+							<% for(int j=0;j<MediaList.size();j++){ 
+								if(p.getPetNum()== MediaList.get(j).getPetNum()){ %>
+							<img src="<%= request.getContextPath() %>/uploadFiles/<%= MediaList.get(j).getWebName() %>" id="pet-photo">
+								<% } %>
+							<% } %>
+						</div>
+								<% } %>
+							<% } %>
+						<% } %>
+						<div id="petplus">반려동물 선택</div>
+<script>
+   $(function(){
+      $('#petplus').click(function(){
+         window.open('<%= request.getContextPath()%>/tr.pet?memberid=<%= m.getMemberId() %>', 'pop', 'width=950', 'height=650');
+      });
+   });
+</script>
 					</div>
 					<div id="page4">
 						<table id="page4-in">
