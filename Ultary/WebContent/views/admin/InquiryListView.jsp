@@ -262,7 +262,6 @@ input:checked+.slider:before {
 	<script>
 	
 		function gosubmit(){
-			
 			var name = document.getElementsByName("answer");
 			
 		}

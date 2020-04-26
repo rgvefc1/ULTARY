@@ -24,19 +24,19 @@
 							</ul>
 						</li>
 						<li>
-							<a href='<%= request.getContextPath() %>/cmAllList.po'>커뮤니티</a>
-		                     <ul id="menu2">
-		                        <li><a href='<%= request.getContextPath() %>/cmnlist.po'>공지사항</a></li>
-		                        <li><a href='<%= request.getContextPath() %>/cmAllList.po'>모아보기</a></li>
-		                        <li><a href='<%= request.getContextPath() %>/cmdlist.po'>펫일상</a></li>
-		                        <li><a href='<%= request.getContextPath() %>/cmklist.po'>펫지식</a></li>
-		                        <li><a href='<%= request.getContextPath() %>/cmrlist.po'>펫리뷰</a></li>
-		                        <li><a href='<%= request.getContextPath() %>/cmrelist.po'>펫분양</a></li>
-		                     </ul>
+				          <a href='<%= request.getContextPath() %>/cmAllList.po'>커뮤니티</a>
+                     <ul id="menu2">
+                        <li><a href='<%= request.getContextPath() %>/cmList.po?cnum=1'>공지사항</a></li>
+                        <li><a href='<%= request.getContextPath() %>/cmAllList.po'>모아보기</a></li>
+                        <li><a href='<%= request.getContextPath() %>/cmList.po?cnum=2'>펫일상</a></li>
+                        <li><a href='<%= request.getContextPath() %>/cmList.po?cnum=3'>펫지식</a></li>
+                        <li><a href='<%= request.getContextPath() %>/cmList.po?cnum=4'>펫리뷰</a></li>
+                        <li><a href='<%= request.getContextPath() %>/cmList.po?cnum=5'>펫분양</a></li>
+                     </ul>
 						</li>
-						<li><a href='#'>위탁매칭</a>
+						<li><a href='<%=request.getContextPath() %>/views/trustMatch/matching01.jsp'>위탁매칭</a>
 							<ul id="menu3">
-								<li><a href="/Ultary/views/trustMatch/matching01.jsp">위탁검색</a></li>
+								<li><a href="<%=request.getContextPath() %>/views/trustMatch/matching01.jsp">위탁검색</a></li>
 								<li><a href="<%=request.getContextPath() %>/TpostView.tu">의뢰 관리</a></li>
 								<li><a href="<%=request.getContextPath() %>/myreview.tu">내가 남긴 리뷰</a></li>
 							</ul>
