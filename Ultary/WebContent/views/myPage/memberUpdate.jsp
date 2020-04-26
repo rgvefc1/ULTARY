@@ -2,11 +2,12 @@
     pageEncoding="UTF-8" import="member.model.vo.*, java.util.ArrayList"%>
 <%
 	Member loginUser = (Member)session.getAttribute("loginUser");
-	ArrayList<Pet> loginPet = (ArrayList<Pet>)session.getAttribute("loginPet");
-	ArrayList<Media> loginMedia = (ArrayList<Media>)session.getAttribute("loginMedia");
+	ArrayList<Pet> PetList = (ArrayList<Pet>)request.getAttribute("PetList");
+	ArrayList<Media> MediaList = (ArrayList<Media>)request.getAttribute("MediaList");
 	String add = ((Member)session.getAttribute("loginUser")).getAddress();
 	String[] addArr = add.split("/");
 	String petkind = "";
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -23,8 +24,8 @@
 function goPopup(){
 	// 주소검색을 수행할 팝업 페이지를 호출합니다.
 	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
-	var pop = window.open("addressUpdate_Popup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
-	
+	var pop = window.open("views/main/popup/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+	           
 	// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
     //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
 }
@@ -36,7 +37,10 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
 		 document.myForm.zipNo.value = zipNo;                 //우편번호         
          document.myForm.roadAddrPart1.value = roadAddrPart1; //도로명주소(참고항목 제외)  
          document.myForm.roadAddrPart2.value = roadAddrPart2; //도로명주소 참고항목
-         document.myForm.addrDetail.value = addrDetail;       //고객 입력 상세 주소	
+         document.myForm.addrDetail.value = addrDetail;       //고객 입력 상세 주소
+         document.joinForm.siNm.value = siNm;       	 //위탁검색용 시도명
+		 document.joinForm.sggNm.value = sggNm;       //위탁검색용 시군구명
+		 document.joinForm.emdNm.value = emdNm;       //위탁검색용 읍면동명
 }
 
 
@@ -48,7 +52,8 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
 
 	#mypage{
 		width:900px;
-		height:1500px;
+		min-height:1500px;
+		
 	}
 	
 	#myForm{border: 1px solid hsla(197, 62%, 74%, 0.603); border-width: 20px; background: white; margin: 20px;}
@@ -180,12 +185,9 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
 					</div>
 				</div>
 				<div id="header-bottom">
-						<a href='<%= request.getContextPath() %>/main.login'><img id="logoimg" src="<%= request.getContextPath() %>/image/logo.png"></a>
-				
+					<img id="logoimg" src="<%= request.getContextPath() %>/image/logo.png">
 				</div>
 			</header>
-			<nav>
-			
 <%@ include file ="mg_nav.jsp" %>
 
 
@@ -199,8 +201,10 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
 					</ul>
 				</aside>
 				<section>
+
+				<section>
 	
-	<center><h1><u>내 정보 관리</u></h1></center>
+	<center><h1>내 정보 관리</h1></center>
 	<hr width=50% color="white">
 	<div id="mypage">
 	<form id="myForm" name = "myForm" action="<%= request.getContextPath() %>/update.mem" method="post">
@@ -240,7 +244,7 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
 		<tr>
                      <th>우편번호</th>
                      <td>
-         <!-- 1우편번호-->      <input type="text" id="zipNo" name="zipNo" width="60px" value="<%= addArr[0] %>"/>
+         <!-- 1우편번호-->    <input type="text" id="zipNo" name="zipNo" width="60px" value="<%= addArr[0] %>"/>
         			
        				
          <!-- 팝업버튼 -->      <input type="button" value="검색" onclick="goPopup();">
@@ -249,17 +253,21 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
                   <tr>
                      <th>도로명주소</th>
                      <td>
-         <!--2도로명주소-->       <input type="text" id="roadAddrPart1" name="roadAddrPart1" width="240px" value="<%= addArr[1] %>"/><br>
-         			<%-- <%= loginUser.getAddress().split(regex) %> --%>
+         <!--2도로명주소--> <input type="text" id="roadAddrPart1" name="roadAddrPart1" width="240px" value="<%= addArr[1] %>"/><br>
+
                      </td>
                   </tr>
                   <tr>
                      <th>상세주소</th>
                      <td>
          <!-- 3참고주소 -->       <input type="text" id="roadAddrPart2" name="roadAddrPart2" width="115px" value="<%= addArr[2] %>"/>
-         			<%-- <%= loginUser.getAddress().split(regex) %> --%>
+   	
          <!-- 4고객입력 상세주소 --><input type="text" id="addrDetail" name="addrDetail" width="115px" value="<%= addArr[3] %>"/><br>
-         			<%-- <%= loginUser.getAddress().split(regex) %> --%>
+         	<!-- --------------------------------------------------------------------------------------- -->
+         <!-- 위탁검색용 시도명 --><input type="hidden" id="siNm" name="siNm" width="115px" />
+         <!-- 위탁검색용 시군구명 --><input type="hidden" id="sggNm" name="sggNm" width="115px" />
+         <!-- 위탁검색용 읍면동명--><input type="hidden" id="emdNm" name="emdNm" width="115px"/>
+         <!-- --------------------------------------------------------------------------------------- -->
                      </td>
                   </tr>
 		<tr>
@@ -324,7 +332,7 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
 		<div id=newMember_animal style="display: none;">	
 		<table>
 		<tr>
-			<th>
+			<th> 
 				<label class="trustway">돌봄방식</label>
 			</th>
 			<td>	
@@ -351,11 +359,11 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
 			<th>돌봄조건</th>
 			<td>
 			<input type="checkbox" name="trustfield" value="픽업" id="dolbombom" <%= "trustfield[0]" %>> <label>픽업여부</label>
-			<input type="checkbox" name="trustfield" value="미당" id="dolbombom" <%= "trustfield[1]" %>> <label>마당여부</label>
-			<input type="checkbox" name="trustfield" value="야외" id="dolbombom" <%= "trustfield[2]" %>> <label>야외산책</label><br>
-			<input type="checkbox" name="trustfield" value="노령" id="dolbombom" <%= "trustfield[3]" %>> <label>노령여부</label>
-			<input type="checkbox" name="trustfield" value="대형" id="dolbombom" <%= "trustfield[4]" %>> <label>대형동물</label>
-			<input type="checkbox" name="trustfield" value="목욕" id="dolbombom" <%= "trustfield[5]" %>> <label>목욕가능</label>	
+			<input type="checkbox" name="trustfield" value="미당여부" id="dolbombom" <%= "trustfield[1]" %>> <label>마당여부</label>
+			<input type="checkbox" name="trustfield" value="산책" id="dolbombom" <%= "trustfield[2]" %>> <label>산책</label><br>
+			<input type="checkbox" name="trustfield" value="목욕" id="dolbombom" <%= "trustfield[3]" %>> <label>목욕</label>
+			<input type="checkbox" name="trustfield" value="온도" id="dolbombom" <%= "trustfield[4]" %>> <label>온도</label>
+			<input type="checkbox" name="trustfield" value="대형동물" id="dolbombom" <%= "trustfield[5]" %>> <label>대형동물</label>	
 			</td>
 		</tr>
 		<tr>
@@ -372,8 +380,9 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
 		<center><h2>반려동물 정보</h2></center>
 	<!-- 여기부터 반려동물 정보칸 -->
 		<div id="petdiv">
-		<% for(int i=0;i<loginPet.size();i++){ 
-			Pet p = loginPet.get(i);
+	<% if(!PetList.isEmpty()){ %>
+		<% for(int i=0;i<PetList.size();i++){ 
+			Pet p = PetList.get(i);
 			switch(p.getPetKind()){
 			case '1': petkind="강아지"; break;
 			case '2':	petkind="고양이"; break;
@@ -383,9 +392,10 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
 			case '6':	petkind="어류"; break;
 			case '7':	petkind="기타"; break;
 			} %>
-			<% for(int j=0;j<loginMedia.size();j++){
-				Media m = loginMedia.get(j); %>
-				<% if(p.getPetNum() == m.getPetNum()){ %>
+			<% if(!MediaList.isEmpty()){ %>
+			<% for(int j=0;j<MediaList.size();j++){
+				Media m = MediaList.get(j); %>
+				<% if(p.getPetNum() == m.getPetNum()){ %> <!--펫정보랑 펫사진이랑 일치하는지 -->
 			<table class="petone">
 				<tr>
 					<th>프로필  사진</th>
@@ -415,21 +425,54 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
 						<%= p.getPetage() %>
 					</td>
 				</tr>
+				<tr>
+					<td>
+						<input type="button" id="pd<%= j %>"  class="deleteBtn" style="cursor:pointer;" value="삭제">
+					</td>
+				</tr>
 			</table>
+<script>
+	var deleteBtn = "#pd"+"<%= j %>";
+	$(deleteBtn).click(function(){ // 삭제버튼
+		var result = confirm("<%= p.getPetName() %>의 정보를 삭제하시곘습니까?");
+		
+		if(result){
+			var petNum = <%= p.getPetNum() %>;
+			var webname = "<%= m.getWebName() %>";
+			$.ajax({
+				url:'delete.pet',
+				data: {petNum:petNum, webname:webname},
+				success: function(data){
+					location.reload();
+				}
+			});
+		} else{
+			alert("삭제 취소");
+		}
+		
+	});
+</script>
 				<% } %>
 			<% } %>
 		<% } %>
+		<% } %>
+	<% } else { %>
+	<h1>새로운 펫 정보를 입력해주세요.</h1>
+	<% } %>
 		</div>
-		<center><input type="button" id="petplus" style="cursor:pointer;" value="반려동물 변경"></center>
-		<script>
-			$('#petplus').click(function(){
-				window.open('<%= request.getContextPath()%>/views/myPage/petList.jsp', 'pop', 'width=950, height=650');
-			});
-		</script>
+		<center><input type="button" id="petplus" style="cursor:pointer;" value="반려동물 변경"></center><br>
+<script>
+	$(function(){
+		$('#petplus').click(function(){
+			window.open('<%= request.getContextPath()%>/views/myPage/petinsert_Popup.jsp', 'pop', 'width=950', 'height=650');
+		});
+	});
+			 
+</script>
 	</div>
 				</section>
 			</div>
-			<footer>from.hoseong</footer>
+			<footer></footer>
 		</div>
 	</div>
 </body>
