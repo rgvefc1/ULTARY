@@ -29,7 +29,6 @@
 </head>
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/common/완성본틀.css">
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/community/cm_details.css">
-	
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
@@ -69,20 +68,18 @@
 					  			<!-- 프로필 -->
 					  			<div id="cdt_profile">
 								<% if(!proList.isEmpty()) { 
-						  				for(int o=0;o<=proList.size();o++){
-						  										if(o==proList.size()){	%>
-							  						<img class="comment2-1img" src="<%= request.getContextPath() %>/image/프로필.png">
-							  							<% break; 
-						  									}
-							  								Media cProimg  = proList.get(o);
-							  								if(cProimg.getMemberId().equals(post.getMemberid())){ %>
-							  						<img class="comment2-1img" src="<%= request.getContextPath() %>/uploadFiles/<%= cProimg.getWebName() %>">
-							  						<% break;
-							  							}
+						  			for(int o=0;o<=proList.size();o++){
+						  				if(o==proList.size()){	%>
+							  			<img class="comment2-1img" src="<%= request.getContextPath() %>/image/프로필.png">
+							  			<% break; }
+							  			Media cProimg  = proList.get(o);
+							  			if(cProimg.getMemberId().equals(post.getMemberid())){ %>
+							  			<img class="comment2-1img" src="<%= request.getContextPath() %>/uploadFiles/<%= cProimg.getWebName() %>">
+							  			<% break; }
 							  						}
-							  					} else { %>
-							  						<img class="comment2-1img" src="<%= request.getContextPath() %>/image/프로필.png">
-							  					<% } %>
+							  			} else { %>
+							  			<img class="comment2-1img" src="<%= request.getContextPath() %>/image/프로필.png">
+							  		 <% } %>
 							  	</div>
 				  			<label><%= post.getMemberid() %></label>
 				  			</div>

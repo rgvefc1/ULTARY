@@ -531,7 +531,13 @@ article{
 	width:310px;
 	height:560px;
 }
-
+.articleinner>ul{
+	list-style: circle;
+}
+.articleinner>ul a{
+	color:black;
+	font-size: 20px;
+}
 /* ----저작권------------------------------------------- */
 footer{
 	width:100%;

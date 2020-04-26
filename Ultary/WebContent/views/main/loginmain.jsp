@@ -8,6 +8,10 @@
 	ArrayList<CAns> allca = (ArrayList<CAns>)request.getAttribute("allca"); // 모든 답글목록
 	ArrayList<Media> postImg = (ArrayList<Media>)request.getAttribute("postImg"); // 모든 프사,게시글사진
 	ArrayList<MarkPost> mpList = (ArrayList<MarkPost>)request.getAttribute("mpList"); // 관심글 목록
+	ArrayList<Post> nlist = (ArrayList<Post>)request.getAttribute("nList");
+	ArrayList<Post> newList = (ArrayList<Post>)request.getAttribute("newList");
+	ArrayList<Post> hotList = (ArrayList<Post>)request.getAttribute("hotList");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -582,10 +586,14 @@
 				<div class="articlecontent">
 					<div class="articleinner">
 						<ul>
-							<li>게시글 제목</li>
-							<li>게시글 제목</li>
-							<li>게시글 제목</li>
-							<li>게시글 제목</li>
+						<%if(!nlist.isEmpty()) { %>
+							<% for(int no = 0;no<nlist.size();no++) { %>
+							<% Post np = nlist.get(no); %>
+								<li><a href="<%= request.getContextPath() %>/cmdetail.po?pno=<%= np.getPostNum() %>"><%=np.getPostTitle() %></a></li>
+							<%} %>
+						<% } else { %>
+						<li>게시글이 없음</li>
+						<% } %>
 						</ul>
 					</div>
 				</div>
@@ -595,10 +603,14 @@
 				<div class="articlecontent">
 					<div class="articleinner">
 						<ul>
-							<li>게시글 제목</li>
-							<li>게시글 제목</li>
-							<li>게시글 제목</li>
-							<li>게시글 제목</li>
+							<%if(!newList.isEmpty()) { %>
+							<% for(int newo = 0;newo<nlist.size();newo++) { %>
+							<% Post newp = newList.get(newo); %>
+								<li><a href="<%= request.getContextPath() %>/cmdetail.po?pno=<%= newp.getPostNum() %>"><%=newp.getPostTitle() %></a></li>
+							<%} %>
+						<% } else { %>
+						<li>게시글이 없음</li>
+						<% } %>
 						</ul>
 					</div>
 				</div>
@@ -608,10 +620,14 @@
 				<div class="articlecontent">
 					<div class="articleinner">
 						<ul>
-							<li>게시글 제목</li>
-							<li>게시글 제목</li>
-							<li>게시글 제목</li>
-							<li>게시글 제목</li>
+							<%if(!hotList.isEmpty()) { %>
+							<% for(int hoto = 0;hoto<nlist.size();hoto++) { %>
+							<% Post hotp = hotList.get(hoto); %>
+								<li><a href="<%= request.getContextPath() %>/cmdetail.po?pno=<%= hotp.getPostNum() %>"><%=hotp.getPostTitle() %></a></li>
+							<%} %>
+						<% } else { %>
+						<li>게시글이 없음</li>
+						<% } %>
 						</ul>
 					</div>
 				</div>
