@@ -6,6 +6,9 @@
 	ArrayList<PostComment> allpc = (ArrayList<PostComment>)request.getAttribute("allpc"); // 모든 댓글목록
 	ArrayList<CAns> allca = (ArrayList<CAns>)request.getAttribute("allca"); // 모든 답글목록
 	ArrayList<Media> postImg = (ArrayList<Media>)request.getAttribute("postImg"); // 모든 프사,게시글사진
+	ArrayList<Post> nlist = (ArrayList<Post>)request.getAttribute("nList");
+	ArrayList<Post> newList = (ArrayList<Post>)request.getAttribute("newList");
+	ArrayList<Post> hotList = (ArrayList<Post>)request.getAttribute("hotList");
 %>
 <!DOCTYPE html>
 <html>
@@ -214,10 +217,10 @@
       location.href="<%= request.getContextPath() %>/myreview.tu";
    });
    $('#cssmenu>ul>li:eq(3)>a').click(function(){
-      location.href="<%= request.getContextPath() %>/Pet.view";
+      location.href="<%= request.getContextPath() %>/views/myPage/memberUpdate.jsp";
    });
    $('#menu4>li:eq(0) a').click(function(){
-      location.href="<%= request.getContextPath() %>/Pet.view";
+      location.href="<%= request.getContextPath() %>/views/myPage/memberUpdate.jsp";
    });
    $('#menu4>li:eq(1) a').click(function(){
       location.href="<%= request.getContextPath() %>/views/myPage/pwdUpdate.jsp";
@@ -303,6 +306,7 @@
 				alert('검색어를 입력해주세요');
 				return false;
 			} else{
+				alert('검색어를 입력해주세요');
 				return true;
 			}
 		<% } %>
@@ -386,7 +390,8 @@
 								$('#expansionTitle').text("Title | <%= post.getPostTitle() %>");
 								$('#expansionTitle').append('<hr>');
 								/* 게시글 내용 */
-								$('#expansioncontent').text("<%= post.getPostContent() %>");
+								<% String contents = (post.getPostContent()).replace("\r\n", "<br>"); %>
+								$('#expansioncontent').text("<%= contents %>");
 								/* 카테고리 */
 								$('#petlife').text("<%= category %>");
 								/* 좋아요 수 */
@@ -454,10 +459,14 @@
 				<div class="articlecontent">
 					<div class="articleinner">
 						<ul>
-							<li>게시글 제목</li>
-							<li>게시글 제목</li>
-							<li>게시글 제목</li>
-							<li>게시글 제목</li>
+						<%if(!nlist.isEmpty()) { %>
+							<% for(int no = 0;no<nlist.size();no++) { %>
+							<% Post np = nlist.get(no); %>
+								<li><a href="#"><%=np.getPostTitle() %></a></li>
+							<%} %>
+						<% } else { %>
+						<li>게시글이 없음</li>
+						<% } %>
 						</ul>
 					</div>
 				</div>
@@ -467,10 +476,14 @@
 				<div class="articlecontent">
 					<div class="articleinner">
 						<ul>
-							<li>게시글 제목</li>
-							<li>게시글 제목</li>
-							<li>게시글 제목</li>
-							<li>게시글 제목</li>
+							<%if(!newList.isEmpty()) { %>
+							<% for(int newo = 0;newo<nlist.size();newo++) { %>
+							<% Post newp = newList.get(newo); %>
+								<li><a href="#"><%=newp.getPostTitle() %></a></li>
+							<%} %>
+						<% } else { %>
+						<li>게시글이 없음</li>
+						<% } %>
 						</ul>
 					</div>
 				</div>
@@ -480,15 +493,24 @@
 				<div class="articlecontent">
 					<div class="articleinner">
 						<ul>
-							<li>게시글 제목</li>
-							<li>게시글 제목</li>
-							<li>게시글 제목</li>
-							<li>게시글 제목</li>
+							<%if(!hotList.isEmpty()) { %>
+							<% for(int hoto = 0;hoto<nlist.size();hoto++) { %>
+							<% Post hotp = hotList.get(hoto); %>
+								<li><a href="#"><%=hotp.getPostTitle() %></a></li>
+							<%} %>
+						<% } else { %>
+						<li>게시글이 없음</li>
+						<% } %>
 						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
+<script>
+		$('#articlewrap a').click(function(){
+		window.alert('로그인 후 이용해주세요');
+		});
+</script>
 	</article>
 	<footer>제작 : 한호성</footer>	
 </body>

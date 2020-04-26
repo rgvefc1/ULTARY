@@ -535,8 +535,12 @@ article{
 	list-style: circle;
 }
 .articleinner>ul a{
+	text-decoration: none;
 	color:black;
 	font-size: 20px;
+}
+.articleinner>ul a:hover{
+	color:blue;
 }
 /* ----저작권------------------------------------------- */
 footer{

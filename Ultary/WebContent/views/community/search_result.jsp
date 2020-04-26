@@ -16,6 +16,15 @@
 	int lcount =(int)request.getAttribute("lcount");
 
    	 PageInfo pi = (PageInfo)request.getAttribute("pi");
+   	 
+	ArrayList<Media> allMList = (ArrayList)request.getAttribute("AllMList");
+	
+	ArrayList<Media> ProList = (ArrayList)request.getAttribute("ProList");
+	
+	ArrayList<PostComment> pclist = (ArrayList)request.getAttribute("pclist");
+	
+	ArrayList<CAns> calist = (ArrayList)request.getAttribute("calist");
+   	 
        
        int currentPage = pi.getCurrentPage();
        int maxPage = pi.getMaxPage();
@@ -90,11 +99,7 @@
                  </script>
               <div class="open">
               <hr class="mainhr">
-                 <div class="wrap_openbtn">
-                 <select>
-                    <option selected>추천순</option>
-                    <option>최신순</option>
-                 </select>   
+                 <div class="wrap_openbtn">   
                  <label class="switch">
                  <input type="checkbox">
                  <span class="slider round"></span><br>
@@ -118,7 +123,8 @@
                     <% if(slist.isEmpty()) {  %>
                     <div>검색 결과 없음  </div>
                     <% } else {
-                           for(Post p : slist){
+                           for(int i=0;i<slist.size();i++){
+                        	   Post p = slist.get(i);
                     %>
                        <% String cname ="";
                        switch(p.getCategorynum()){
@@ -137,27 +143,125 @@
                       <div class="recommend"><%= p.getPostLike() %></div>
                       <div class="view"><%= p.getPostclick() %></div>
                       </div>      
-                      <div class="boardopen">
+                    <div class="boardopen">
+                     <div class="open_wrap">
                     <div class="oprofile">
+                 	<div id="cdt_profile">
+							<% if(!ProList.isEmpty()) { 
+						  		for(int o=0;o<=ProList.size();o++){
+						  			if(o==ProList.size()){	%>
+							  		<img class="comment2-1img" src="<%= request.getContextPath() %>/image/프로필.png">
+							  		<% break; }
+							  		Media cProimg  = ProList.get(o);
+							  		if(cProimg.getMemberId().equals(p.getMemberid())){ %>
+							  		<img class="comment2-1img" src="<%= request.getContextPath() %>/uploadFiles/<%= cProimg.getWebName() %>">
+							  		<% break; }
+							  			}
+							  		} else { %>
+							  		<img class="comment2-1img" src="<%= request.getContextPath() %>/image/프로필.png">
+							  	<% } %>
+						</div>
+						<label><%= p.getMemberid() %></label>
                     </div>
                        <div class="opencontent">
                        <div class="otitle"><a href="#"><%= p.getPostTitle() %></a></div>
-                       <div class="odetail"><%= p.getPostContent() %></div>
-                       <div class="commen"><label class="cwriter">댓글쓴</label><label>댓글댓글</label></div>
+                       <% ArrayList<Media> imgList = new ArrayList<Media>();
+                       	for(int j =0;j<allMList.size();j++){
+                       		Media m = allMList.get(j);
+                         if(p.getPostNum() == m.getPostNum()){
+                       			imgList.add(m);
+                       		}
+                       	}  %>
+                       <% if(!imgList.isEmpty()){%>
+ 					<div class="media">
+						<div class="slide" id="slide<%= i %>">
+					      <div id="back<%= i %>" class="slideBtn"><img src="<%= request.getContextPath() %>/image/왼쪽 화살표.png" alt="" width="50"></div>
+					      <ul>
+					      <% for(int z=0;z<imgList.size();z++){
+					      	Media real = imgList.get(z); %>
+					        <li><img src="<%= request.getContextPath() %>/uploadFiles/<%= real.getWebName() %>" alt="" width="550" height="350"></li>
+					      <% } %>
+					      </ul>
+					      <div id="next<%= i %>" class="slideBtn"><img src="<%= request.getContextPath() %>/image/오른쪽 화살표.png" alt="" width="50"></div>
+					    </div>
+					</div>                      
+                       <% }%>
+                       <% String contents = (p.getPostContent()).replace("\r\n", "<br>"); %>
+                       <div class="odetail"><%= contents %></div>
+                       <% if(!pclist.isEmpty())  {%>
+                       			<% for(int a = 0;a<pclist.size();a++){
+                       				PostComment pc = pclist.get(a); %>
+                       			<% if(pc.getPostNum() == p.getPostNum()) { %>
+                       			<div class="commen"> 
+                       				<label><%= pc.getMemberid() %></label>
+                       				<label><%= pc.getcContent() %></label>
+                       			</div>
+                       			<%  %>
+                       			<% if(!calist.isEmpty()) { %>
+                       			<% for(int b= 0;b<calist.size();b++) { 
+                       				CAns ca = calist.get(b);%>
+                       				<% if(pc.getcNum() == ca.getcNum()) { %>
+                       				<div class="cans">
+                       					<label><%= ca.getMemberid() %></label>
+                       					<label><%= ca.getAnsContent() %></label>
+                       				</div>
+                       				<% break;} %>
+								<% }%>
+							<% break;} %>
+						  <% } %>
+						<% } %>
+					<% } %>       						
                        </div>
-                       <div class="likecount">
-                       <img src="<%=request.getContextPath()%>/images/heart.png">&nbsp;32 &nbsp;&nbsp;
-                       <img src="<%=request.getContextPath()%>/images/like.png">&nbsp;100
-                    </div>
+                      
                  </div>
+                 </div>
+                 <script>
+                 // 이미지 슬라이드 
+                 $(document).ready(function(){
+                	 var imgs;
+                     var img_count;
+                     var img_position = 1;
+                     var slide = "#slide"+<%= i %>+" ul";
+                     var backbtn = "#back"+<%= i %>;
+                     var nextbtn = "#next"+<%= i %>;
+
+                     imgs = $(slide);
+                     $back = $(backbtn);
+                     $next = $(nextbtn);
+                     img_count = imgs.children().length;
+
+                     //버튼을 클릭했을 때 함수 실행
+                     $back.click(function () {
+                       back();
+                     });
+                     $next.click(function () {
+                       next();
+                     });
+
+                     function back() {
+                       if(1<img_position){
+                         imgs.animate({
+                           left:'+=550px'
+                         });
+                         img_position--;
+                       }
+                     }
+                     function next() {
+                       if(img_count>img_position){
+                         imgs.animate({
+                           left:'-=550px'
+                         });
+                         img_position++;
+                       }
+                     }
+                 });
+                 </script>
                  <%
                            }
                     }   
-                    %>
-                             
+                    %>  
+                    </div> 
                  <div class="wbtn_wrap"><div class="wbtn"><img src="<%=request.getContextPath()%>/image/연필.png" id="pencil">글쓰기</div></div>
-              </div>
-              </div>
               </div>
               <!-- 페이징 -->
               <div class="pagingArea" align="center">
@@ -190,6 +294,10 @@
          <button onclick="location.href='<%= request.getContextPath() %>/cmSearch.po?currentPage=<%=maxPage %>&categorynum=<%=cnum %>&searchtext=<%=searchtext%>&searchcon=<%=searchcon%>'">&gt;&gt;</button>
       <% } %>
               </div>
+             </div>
+           </div>
+		</section>
+		</div>           
            <script>
            var check = $("input[type='checkbox']");
          check.click(function(){
@@ -217,11 +325,8 @@
 				return true;
 			});
       </script>
-         </div>
-				</section>
 			</div>
 			<footer>from.hoseong</footer>
 		</div>
-	</div>
 </body>
 </html>

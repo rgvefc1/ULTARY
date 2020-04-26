@@ -57,6 +57,7 @@
 	margin-left:15px;
 }
 .array_wrap{
+	text-align:right;
 	margin-bottom: 15px;
 	vertical-align: middle;
 }
@@ -138,6 +139,10 @@
 .wbtn_wrap{
 	text-align: right;
 	margin-top:15px;
+}
+.hr_wrap{
+	margin-top:10px;
+	margin-bottom:10px;
 }
 .wbtn{
 	display:inline-block;

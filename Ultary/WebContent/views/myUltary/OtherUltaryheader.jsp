@@ -110,18 +110,18 @@
 			});
 		});
 		<% if(markbl){ %>
-		$('#tlmark1').css("background", "gold");
+		$('#tlmark1').css("background", "#5CD1E5");
 		$('#tlmark1').mouseover(function(){
-			$('#tlmark1').css("background", "crimson");
+			$('#tlmark1').css("background", "#363636");
 		}).mouseout(function(){
-			$('#tlmark1').css("background", "gold");
+			$('#tlmark1').css("background", "#5CD1E5");
 		});
 		<% } else{ %>
-		$('#tlmark1').css("background", "crimson");
+		$('#tlmark1').css("background", "#363636");
 		$('#tlmark1').mouseover(function(){
-			$('#tlmark1').css("background", "gold");
+			$('#tlmark1').css("background", "#5CD1E5");
 		}).mouseout(function(){
-			$('#tlmark1').css("background", "crimson");
+			$('#tlmark1').css("background", "#363636");
 		});
 		<% } %>
 	});

@@ -42,22 +42,24 @@ footer{
     margin-left: 31.1px;
 }
 .markimg{
-	border:1px solid black;
 	border-radius: 50px;
-	width:100px;
-	height:100px;
-	margin:10px;
-	float:left;
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    float: left;
 }
-.markmember>div>img{
-	width: 70px;
-    height: 70px;
-    margin-left: 13.7px;
-    margin-top: 11px;
+.markmember>div img{
+	width: 100%;
+    height: 100%;
+    border-radius: 50px;
 }
 .marknick{
 	margin-top: 50px;
     font-size: 30px;
+}
+.marknick>a{
+	text-decoration: none;
+	color:black;
 }
 .marklike{
 	float: right;

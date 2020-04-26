@@ -71,11 +71,7 @@
                  </form>
               <div class="open">
               <hr class="mainhr">
-                 <div class="wrap_openbtn">
-                 <select id="array_con">
-                    <option selected value="new">최신순</option>
-                    <option value="like">추천순</option>
-                 </select>   
+                 <div class="wrap_openbtn">   
                  <label class="switch">
                  <input type="checkbox">
                  <span class="slider round"></span><br>
