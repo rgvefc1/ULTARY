@@ -329,4 +329,19 @@ public class MemberService {
 		return result1;
 		//병민끝!
 	}
+
+	public int pwdUpdateChk(Member b) {
+		Connection conn = getConnection();
+
+		int result = new MemberDAO().pwdUpdateChk(conn, b);
+		if(result >0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+		//병민끝! 20200426
+	}
 }
