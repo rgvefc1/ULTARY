@@ -39,6 +39,9 @@ public class InitialMainServlet extends HttpServlet {
 		ArrayList<PostComment> allpc = new PostService().selectAllpc(); // 모든 댓글목록
 		ArrayList<CAns> allca = new PostService().selectAllca(); // 모든 답글목록
 		ArrayList<Media> postImg = new PostService().selectAllPostImg(); // 모든 프사,게시글사진
+		ArrayList<Post> nList = new PostService().selectcmnotice();// 공지사항 불러오기
+		ArrayList<Post> newList = new PostService().selectcmnew();// 최신글 불러오기
+		ArrayList<Post> hotList = new PostService().selecthot(); // 인기글 불러오기
 		
 		String page = "";
 		if(allHPost != null && allpc != null && allca != null && postImg != null) {
@@ -46,6 +49,9 @@ public class InitialMainServlet extends HttpServlet {
 			request.setAttribute("allpc", allpc);
 			request.setAttribute("allca", allca);
 			request.setAttribute("postImg", postImg);
+			request.setAttribute("nList", nList);
+			request.setAttribute("newList", newList);
+			request.setAttribute("hotList", hotList);
 			page = "views/main/main.jsp";
 		} else {
 			page = "views/common/errorPage.jsp";

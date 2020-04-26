@@ -644,5 +644,31 @@ public class PostService {
 				close(conn);
 				return result;
 			}
-	      
+//////////희은////////
+/// 메인화면 공지사항 불러오기
+
+			public ArrayList<Post> selectcmnotice() {
+				// 공지사항 불러오기
+				Connection conn  = getConnection();
+				ArrayList<Post> noticelist = new PostDAO().selectcmnotice(conn);
+				close(conn);
+				return noticelist;
+			}
+
+			// 최신글 불러오기
+			public ArrayList<Post> selectcmnew() {
+			Connection conn = getConnection();
+			ArrayList<Post> newList = new PostDAO().selectcmnew(conn);
+			close(conn);
+				return newList;
+			}
+			
+			// 인기글 불러오기
+			public ArrayList<Post> selecthot() {
+				Connection conn = getConnection();
+				ArrayList<Post> hotList = new PostDAO().selecthot(conn);
+				close(conn);
+				return hotList;
+			}
+
 }

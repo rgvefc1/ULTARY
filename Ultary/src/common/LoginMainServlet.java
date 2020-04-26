@@ -45,6 +45,9 @@ public class LoginMainServlet extends HttpServlet {
 		ArrayList<CAns> allca = new PostService().selectAllca(); // 모든 답글목록
 		ArrayList<Media> postImg = new PostService().selectAllPostImg(); // 모든 프사,게시글사진
 		ArrayList<MarkPost> mpList = new PostService().selectAllmp(loginId); // 관심글목록
+		ArrayList<Post> nList = new PostService().selectcmnotice();// 공지사항 불러오기
+		ArrayList<Post> newList = new PostService().selectcmnew();// 최신글 불러오기
+		ArrayList<Post> hotList = new PostService().selecthot(); // 인기글 불러오기
 		
 		String page = "";
 		if(allHPost != null && markMemList != null && allpc != null && allca != null && postImg != null) {
@@ -54,6 +57,9 @@ public class LoginMainServlet extends HttpServlet {
 			request.setAttribute("allca", allca);
 			request.setAttribute("postImg", postImg);
 			request.setAttribute("mpList", mpList);
+			request.setAttribute("nList", nList);
+			request.setAttribute("newList", newList);
+			request.setAttribute("hotList", hotList);
 			page = "views/main/loginmain.jsp";
 		} else {
 			page = "views/common/errorPage.jsp";
