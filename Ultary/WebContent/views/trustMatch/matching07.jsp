@@ -32,15 +32,17 @@
 		<hr>
 		<div id="page-in" style="padding-top: 10px;padding-bottom:10px;">
 			<%if(tr.isEmpty()) {%>
-				내가 남긴 후기가 없습니다.
+				<div class="content" id="content1" style="text-align:center;">
+				<h4>내가 남긴 후기가 없습니다.</h4>
+				</div>
 			<%} else{ %>
 			  <%for(int i=0; i<tr.size();i++){ %>
 				<div class="content" id="content1">
 					<div class="content-1">
 					<% if(!proImg.isEmpty()){ 
 						for(int j=0;j<=proImg.size();j++){
-						 if(j==proImg.size()-1){%>
-						 <img class="ps" src="<%= request.getContextPath() %>/image/프로필.png">
+						 if(j==proImg.size()){%>
+							 <img class="ps" src="<%= request.getContextPath() %>/image/프로필.png">
 						 <%break;
 						   }
 						 Media cProimg = proImg.get(j);

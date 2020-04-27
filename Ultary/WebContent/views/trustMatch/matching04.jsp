@@ -5,6 +5,7 @@
 	ArrayList<Member> mark = (ArrayList<Member>)request.getAttribute("mark");
 	ArrayList<TrustReview> trList = (ArrayList<TrustReview>)request.getAttribute("trList");
 	Media proImg = (Media)request.getAttribute("proImg");
+	ArrayList<Media> allImg = (ArrayList<Media>)request.getAttribute("allImg");
 %>
 <!DOCTYPE html>
 <html>
@@ -249,7 +250,22 @@
 			<%} else{ %>
 			<%for(int i=0;i<trList.size();i++){ %>
 			<div class="review">
-				<img src="/Ultary/views/trustMatch/photo.jpg" id="profile" class="review-photo">
+				<% if(!allImg.isEmpty()){ 
+						for(int j=0;j<allImg.size();j++){
+						 if(j==allImg.size()-1){%>
+						 <img id="profile" class="review-photo" src="<%= request.getContextPath() %>/image/프로필.png">
+						 <%break;
+						   }
+						 Media cProimg = allImg.get(j);
+						 if(cProimg.getMemberId().equals(m.getMemberId())){%>
+						  <img id="profile" class="review-photo" src="<%= request.getContextPath() %>/uploadFiles/<%= cProimg.getWebName() %>">
+						 <%break; 
+						 } %>
+						<%} %>
+					<%} else{ %>
+						 <img id="profile" class="review-photo" src="<%= request.getContextPath() %>/image/프로필.png">
+					<%} %>
+				
 				<span class="point">
 				<%for(int j=0;j<trList.get(i).getTrScore();j++){ %>
 				★

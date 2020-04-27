@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.Member,java.util.ArrayList,trust.model.vo.*"%>
+    pageEncoding="UTF-8" import="member.model.vo.*,java.util.ArrayList,trust.model.vo.*"%>
 <%
 	Member m = (Member)request.getAttribute("m");
 	String tpostnum = request.getParameter("tpostnum");
 	String user = m.getMemberId();
+	Media proimg = (Media)request.getAttribute("proimg");
 %>
 <!DOCTYPE html>
 <html>
@@ -48,7 +49,11 @@
 					<div id="page2">
 						<div id="page2-1">
 							<div id="content1" class="content-profile">
-								<img src="/Ultary/views/trustMatch/photo.jpg" id="profile" class="profile-photo">
+							<%if(proimg == null){ %>
+							 	<img src="<%= request.getContextPath() %>/image/프로필.png" id="profile" class="profile-photo">
+							 <%} else{ %>
+							 	<img src="<%= request.getContextPath() %>/uploadFiles/<%=proimg.getWebName() %>" id="profile" class="profile-photo">
+							 <%} %>
 								<div class="infoDiv">
 								<span class="name" id="name1"><%=m.getNickname() %></span><br><br>
 								<span class="address" id="class1"><%=m.getAddress() %></span>

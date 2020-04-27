@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.model.vo.Media;
 import member.model.vo.Member;
+import post.model.service.PostService;
 import trust.model.service.MatchingService;
 import trust.model.vo.TrustReview;
 
@@ -36,12 +38,14 @@ public class Trustcol extends HttpServlet {
 		
 		TrustReview tr = new MatchingService().trusReviewSerch(trnum);
 		Member m = new MatchingService().DetailView(tr.getMemberId());
+		Media proimg = new PostService().selectProImg(tr.getMemberId());
 		
 		String page ="";
 		if(m != null) {
 			page = "views/trustMatch/matchingcol.jsp";
 			request.setAttribute("tp",tr);
 			request.setAttribute("m", m);
+			request.setAttribute("proimg", proimg);
 		}else {
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "실패!");

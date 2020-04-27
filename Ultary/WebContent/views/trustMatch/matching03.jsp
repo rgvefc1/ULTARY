@@ -71,29 +71,19 @@
 							<h3 style="text-align: center;">반려동물 정보</h3>
 						</div>
 						<% if(petNum == null){ %>
-						<div id="page3-2">
-							<table id="page3_table">
-								<tr>
-									<td class="page3_td"><div class="petname">반려동물 이름</div></td>
-									<td><label></label><input type="hidden" name="petnum" value="<%= petNum %>"></td>
+						<div id="pagepage">
+							<table style="margin-left: 251px;">
+								<tr>							
+									<td>
+									<img id="petplus" src="<%=request.getContextPath() %>/image/고양이.png">
+									</td>
 								</tr>
 								<tr>
-									<td class="page3_td"><div class="petname">반려동물 종류</div></td>
-									<td><label></label></td>
-								</tr>
-								<tr>
-									<td class="page3_td"><div class="petname">성별</div></td>
-									<td><label></label></td>
-								</tr>
-								<tr>
-									<td class="page3_td"><div class="petname">반려동물 나이</div></td>
-									<td><label></label></td>
+								<td>
+									펫 선택하기
+								</td>
 								</tr>
 							</table>
-						</div>
-						<div id="page3-3">
-							<img src="/Ultary/views/trustMatch/photo.jpg" id="pet-photo">
-						</div>
 							
 						<% }else{ %>
 							<% for(int i=0;i<PetList.size();i++){ 
@@ -130,7 +120,7 @@
 								<% } %>
 							<% } %>
 						<% } %>
-						<div id="petplus">반려동물 선택</div>
+						
 <script>
    $(function(){
       $('#petplus').click(function(){

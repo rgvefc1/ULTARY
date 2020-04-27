@@ -43,11 +43,12 @@ public class TpostView extends HttpServlet {
 		String loginUser = sessionMember.getMemberId();
 		
 		ArrayList<Pet> PetList = new MemberService().loginPet(loginUser);
+		System.out.println(PetList.size());
 		ArrayList<Media> MediaList = new MemberService().loginMedia(loginUser);
 		
 		ArrayList<TrustPost> balsin = new MatchingService().TpostBalshin(loginUser);
 		ArrayList<TrustPost> susin = new MatchingService().TpostSushin(loginUser);
-		ArrayList<Media> proImg = new PostService().selectAllproimg();
+		ArrayList<Media> proImg = new MatchingService().selectAllImg();
 	
 			RequestDispatcher view = request.getRequestDispatcher("views/trustMatch/matching05.jsp");
 			request.setAttribute("balsin", balsin);

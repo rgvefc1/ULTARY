@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import member.model.service.MemberService;
+import member.model.vo.Media;
 import member.model.vo.Member;
+import post.model.service.PostService;
 import trust.model.service.MatchingService;
 import trust.model.vo.TrustPost;
 import trust.model.vo.TrustReview;
@@ -39,11 +41,13 @@ public class InsertReview extends HttpServlet {
 		int tpostnum = Integer.parseInt(request.getParameter("tpostnum"));
 		String loginId = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
 		Member m  = new MatchingService().RwriteView(tpostnum);
+		Media proimg = new PostService().selectProImg(m.getMemberId());
 		
 		String page = "";
 		if(m != null) {
 			page="views/trustMatch/matching06.jsp";
 			request.setAttribute("m", m);
+			request.setAttribute("proimg", proimg);
 		}else {
 			page="views/common/erroPage.jsp";
 			request.setAttribute("msg", "조회 실패");

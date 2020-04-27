@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import member.model.service.MemberService;
 import member.model.vo.Media;
 import member.model.vo.Member;
 import member.model.vo.Pet;
@@ -39,7 +40,6 @@ public class TrustPosition extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int position = Integer.parseInt(request.getParameter("position"));
 		int tpostNum = Integer.parseInt(request.getParameter("tpostnum"));
-		System.out.println(position);
 		
 		int result = new MatchingService().changePosition(position,tpostNum);
 		
@@ -48,15 +48,18 @@ public class TrustPosition extends HttpServlet {
 			Member sessionMember =(Member)session.getAttribute("loginUser");
 			String loginUser = sessionMember.getMemberId(); 
 			
-			Pet mypet = new MatchingService().DetailPet(loginUser);
+			ArrayList<Pet> PetList = new MemberService().loginPet(loginUser);
+			ArrayList<Media> MediaList = new MemberService().loginMedia(loginUser);
+			
 			ArrayList<TrustPost> balsin = new MatchingService().TpostBalshin(loginUser);
 			ArrayList<TrustPost> susin = new MatchingService().TpostSushin(loginUser);
-			ArrayList<Media> proImg = new PostService().selectAllproimg();
+			ArrayList<Media> proImg = new MatchingService().selectAllImg();
 			
 			RequestDispatcher view = request.getRequestDispatcher("views/trustMatch/matching05.jsp");
-			request.setAttribute("mypet",mypet);
 			request.setAttribute("balsin", balsin);
 			request.setAttribute("susin", susin);
+			request.setAttribute("MediaList", MediaList);
+			request.setAttribute("PetList", PetList);
 			request.setAttribute("proImg", proImg);
 			view.forward(request, response);
 		}else {

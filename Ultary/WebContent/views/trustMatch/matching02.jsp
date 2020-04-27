@@ -215,7 +215,7 @@
 						<%} else{ %>
 							<input type="button" id="mark<%= i %>" class="infobutton1" value="관심등록" onclick="markmem('<%= m.getNickname() %>','<%=loginUser.getMemberId()%>');">
 						<%} %>
-					<div class="infobutton2" ><a href="<%=request.getContextPath() %>/otherpost.tl?nickname='<%=m.getNickname()%>'">울타리방문</a></div>
+					<div class="infobutton2" ><a href="<%=request.getContextPath() %>/otherpost.tl?nickname=<%=m.getNickname()%>">울타리방문</a></div>
 				</div>
 				<%} %>
 			<%} %>

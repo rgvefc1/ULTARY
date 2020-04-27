@@ -46,12 +46,14 @@ public class MemberDetailServlet extends HttpServlet {
 			ArrayList<Member> markList = new MemberService().selectMarkMember(loginId);
 			ArrayList<TrustReview> trList = new MatchingService().trReview(memberid);
 			Media proImg = new PostService().selectProImg(memberid); 
+			ArrayList<Media> allImg = new PostService().selectAllproimg();
 			
 			page="views/trustMatch/matching04.jsp";
 			request.setAttribute("m",m);
 			request.setAttribute("mark", markList);
 			request.setAttribute("trList", trList);
 			request.setAttribute("proImg", proImg);
+			request.setAttribute("allImg",allImg);
 		}else {
 			page="views/common/errorPage.jsp";
 			request.setAttribute("msg","해당 member 없음");

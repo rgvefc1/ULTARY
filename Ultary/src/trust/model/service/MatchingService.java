@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import member.model.dao.MemberDAO;
+import member.model.vo.Media;
 import member.model.vo.Member;
 import member.model.vo.Pet;
 import trust.model.dao.MatchingDAO;
@@ -153,7 +154,6 @@ public class MatchingService {
 		if(result > 0) {
 			commit(conn);
 			int trnum = new MatchingDAO().gettrnum(conn,user);
-System.out.println(trnum);
 			result2= new MatchingDAO().insertTpnum(conn,tpnum,trnum);
 			
 			if(result2>0) {
@@ -261,6 +261,34 @@ System.out.println(trnum);
 		
 		return result;
 	}
+
+	public Pet SerchPet(int petnum) {
+		Connection conn =getConnection();
+		
+		Pet pet = new MatchingDAO().SerchPet(conn,petnum);
+	
+		
+		close(conn);
+		return pet;
+	}
+
+	public Media serchpetImg(int petnum) {
+		Connection conn = getConnection();
+		
+		Media m = new MatchingDAO().serchpetImg(conn,petnum);
+		
+		close(conn);
+		return m;
+	}
+
+	public ArrayList<Media> selectAllImg() {
+		Connection conn = getConnection();
+		
+		ArrayList<Media> allImg = new MatchingDAO().selectAllImg(conn);
+		close(conn);
+		return allImg;
+	}
+
 
 
 

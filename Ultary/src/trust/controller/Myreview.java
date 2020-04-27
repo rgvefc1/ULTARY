@@ -41,7 +41,7 @@ public class Myreview extends HttpServlet {
 		String loginUser = sessionMember.getMemberId();
 		
 		ArrayList<TrustReview> tr = new MatchingService().trList(loginUser);
-		ArrayList<Media> proImg = new PostService().selectAllproimg();
+		ArrayList<Media> proImg = new MatchingService().selectAllImg();
 		
 		RequestDispatcher view = request.getRequestDispatcher("views/trustMatch/matching07.jsp");
 		request.setAttribute("tr", tr);

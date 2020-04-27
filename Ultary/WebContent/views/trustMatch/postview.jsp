@@ -2,21 +2,12 @@
     pageEncoding="UTF-8" import="member.model.vo.*,trust.model.vo.*,java.util.*"%>
 <%
 	Member m = (Member)request.getAttribute("m");
-	Pet pet = (Pet)request.getAttribute("pet");
 	TrustPost tp = (TrustPost)request.getAttribute("tp");
 	Media proImg = (Media)request.getAttribute("proImg");
-	
-	String petKind="";
+	Pet pet = (Pet)request.getAttribute("pet");
+	Media media = (Media)request.getAttribute("Media");
+	int petnum =(int)request.getAttribute("petnum");
 
-	switch(pet.getPetKind()){
-	case '1' : petKind="강아지"; break;
-	case '2' : petKind ="고양이"; break;
-	case '3' : petKind ="설치류"; break;
-	case '4' : petKind ="물고기"; break;
-	case '5' : petKind ="파충류"; break;
-	case '6' : petKind ="조류"; break;
-	case '7' : petKind = "기타"; break;
-	}
 %>
 <!DOCTYPE html>
 <html>
@@ -42,7 +33,7 @@
 				
 				
 					<div>
-            <form action="<%=request.getContextPath()%>/Tpostsend.tu" onsubmit="return datacheck();">
+            <form action="<%=request.getContextPath()%>/Tpostsend.tu">
             <div id="matching">
 				<h1 id="title">의뢰관리</h1>
 				<p id="title-1">위탁 내용 상세보기와 진행사항을 보여드립니다.</p>
@@ -69,6 +60,11 @@
 							<h3 style="text-align: center;">반려동물 정보</h3>
 						</div>
 						<div id="page3-2">
+				<%if(pet == null) {%>
+					<table id="page3_table">
+						<th>pet을 불러오는데 실패했습니다.</th>
+					</table>
+				<%} else{ %>
 							<table id="page3_table">
 								<tr>
 									<td class="page3_td"><div class="petname">반려동물 이름</div></td>
@@ -77,7 +73,7 @@
 								</tr>
 								<tr>
 									<td class="page3_td"><div class="petname">반려동물 종류</div></td>
-									<td><label><%=petKind %></label></td>
+									<td><label><%=pet.getPetKind() %></label></td>
 								</tr>
 								<tr>
 									<td class="page3_td"><div class="petname">성별</div></td>
@@ -90,8 +86,13 @@
 							</table>
 						</div>
 						<div id="page3-3">
-							<img src="/Ultary/views/trustMatch/photo.jpg" id="pet-photo">
+						<%if(media == null){ %>
+						 	<img src="<%= request.getContextPath() %>/image/프로필.png" id="pet-photo" class="pet-photo">
+						 <%} else{ %>
+						 	<img src="<%= request.getContextPath() %>/uploadFiles/<%=media.getWebName() %>" id="pet-photo" class="pet-photo">
+						 <%} %>
 						</div>
+				<% }%>
 					</div>
 					<div id="page4">
 						<table id="page4-in">
@@ -143,7 +144,7 @@
 						</div>
 						<textarea id="page5-textarea" cols="30" rows="30" name="trustAdd" readonly><%=tp.getTrustPS() %></textarea>
 					</div>
-						<input type="button" name="sub" id="sub" value="요청취소" onclick="<%=request.getContextPath()%>/updateTp.tu?tpnum=<%=tp.getTpostNum()%>">
+						<input type="button" name="sub" id="sub" value="요청취소" onclick="location.href='<%=request.getContextPath()%>/updateTp.tu?tpnum=<%=tp.getTpostNum()%>'">
 					</div>
 				</div>
 			</div>
@@ -159,7 +160,7 @@
 				
 				</section>
 			</div>
-			<footer>from.hoseong</footer>
+			<footer></footer>
 		</div>
 	</div>
 </body>
