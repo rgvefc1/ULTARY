@@ -39,17 +39,17 @@
 <!----테이블 섹션  시작--------------------------------------------------------------------->			
 	<section>
 		<div class="tableArea">
-			<form id="loginForm" action="<%= request.getContextPath() %>/login.mem" method="post">
+			<form id="loginForm" action="<%= request.getContextPath() %>/login.mem" method="post" onsubmit="return validate();">
 					<h1 align="center">로그인</h1>
 						<hr width=50% color="white">
 						<br>
 							<table  style="line-height: 2; height: 130px; width: 220px;">
 								<tr>
-									<td><input type="text" id="memberid" name="memberid" class="input_login" placeholder="아이디" autofocus required></td>
-									<td rowspan="2"><button type=button id="loginBtn_normal" class="loginBtn_main" onclick="validate();">로그인</button></td>
+									<td><input type="text" id="memberid" name="memberid" class="input_login" placeholder="아이디" autofocus tabindex=1></td>
+									<td rowspan="2"><input value="로그인" type="submit" id="loginBtn_normal" class="loginBtn_main" tabindex=3></td>
 								</tr>
 								<tr>
-									<td><input type="password" id="password" name="password" class="input_login" placeholder="비밀번호" required></td>
+									<td><input type="password" id="password" name="password" class="input_login" placeholder="비밀번호" tabindex=2></td>
 								</tr>
 								
 <!----네이버 로그인 연동 시작--------------------------------------------------------------------->
@@ -67,14 +67,14 @@
 								<tr style="text-align:center;">
 									<td colspan="2">
 								<!-- 	<button type=button id="loginBtn_naver" class="loginBtn" onclick="location.href='/controller/naverlogin.do';" >네이버 계정으로 로그인</button> -->
-				<!--네이버 계정으로 로그인 버튼  --><a href="<%=apiURL%>"><img class="naverloginBtn" src="<%= request.getContextPath() %>/image/네이버 아이디로 로그인_완성형_White.PNG"/></a>
+				<!--네이버 계정으로 로그인 버튼  --><a href="<%=apiURL%>"><img class="naverloginBtn" src="<%= request.getContextPath() %>/image/네이버 아이디로 로그인_완성형_White.PNG" tabindex=4/></a>
 									</td>
 								</tr>
 <!----네이버 로그인 연동 끝--------------------------------------------------------------------->								
 							</table>
 							</form>
 							<hr width=10% color="white">
-							<button type=button id="loginBtn_normal_insertmember" class="loginBtn" onclick="gomemberJointerm();"> 일반 회원 가입</button>
+							<button type=button id="loginBtn_normal_insertmember" class="loginBtn" onclick="gomemberJointerm();" tabindex=5> 일반 회원 가입</button>
 							<br>
 							<br>
 							<hr width=50% color="white">
@@ -89,9 +89,9 @@
 		<table id="footer">
 			<tbody>
 				<tr>
-					<td><div class="footer_link" onclick="gofindId();">아이디 찾기</div></td>
+					<td><div class="footer_link" onclick="gofindId();" tabindex=6>아이디 찾기</div></td>
 					<td>|</td>
-					<td><div class="footer_link" onclick="gofindPwd();">비밀번호 찾기</div></td>
+					<td><div class="footer_link" onclick="gofindPwd();" tabindex=7>비밀번호 찾기</div></td>
 				</tr>
 			</tbody>
 		</table>
@@ -99,43 +99,54 @@
 	
 <!---- 풋터 끝 --------------------------------------------------------------------->											
 	<script>
+	$(function(){
+		check = false;
+	});
 	
+	$('#loginBtn_normal').click(function(){
+		
+	});
 	function validate(){
 		if($('#memberid').val().trim().length==0){
 			alert('아이디를 입력해주세요');
 			$('#memberid').focus();
+			return false;
 		}
 		if($('#password').val().trim().length==0){
 			alert('비밀번호를 입력해주세요.');
 			$('#password').focus();
+			return false;
 		}
-	};
-	
-	$('#loginBtn_normal').click(function(){
-		
 		var memberid = $('#memberid');
 		var password = $('#password');
 		
-		var validatechk = false;
 		$.ajax({ // 아이디, 비번질문, 비번질문답으로 회원인지 조회
-			url: '<%= request.getContextPath() %>/login.mem',
+			url: '<%=request.getContextPath() %>/loginValidate.do',
+			type: 'post',
 			data:{memberid: memberid.val(), password: password.val()},
+			async : false,
 			success: function(data){
 				console.log(data);
-					
-					if(memberid.val() != null && password.val() != null){
-						if(data.trim() == "fail"){
-							alert('입력하신 사항이 일치하지 않습니다. 다시 확인해주세요.');
-							memberid.focus();
-				 			
-						}else{
-							$('#loginForm').submit();
-						}
+				if(data.trim() == "fail"){
+					check = false; 
+				}else{
+					check = true;
 				}
 			}
 		});
-	});
-		
+		console.log(check);
+		if(check){
+			return true; //로그인서블릿으로
+		}else{
+			alert('입력하신 사항이 일치하지 않습니다. 다시 확인해주세요.');
+			memberid.focus();
+			return false;
+		}
+	};
+	
+	
+	////////--------------------------------------------------------------------------------------------
+	
 		function gofindId(){ //아이디 찾기로 이동
 			location.href='<%= request.getContextPath() %>/views/main/findMember/findIdForm.jsp';
 		}

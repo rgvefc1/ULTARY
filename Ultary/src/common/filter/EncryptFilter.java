@@ -23,7 +23,8 @@ import common.wrapper.EncryptWrapper;
 				"insertMemberServlet", 
 				"LoginServlet",
 				"UpdatePwdServlet",
-				"UpdatePwdChk"
+				"UpdatePwdChk",
+				"loginValidateServlet"
 		})
 public class EncryptFilter implements Filter {
 
