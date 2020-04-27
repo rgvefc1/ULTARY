@@ -101,7 +101,6 @@
     <!--  <form action ="<%= request.getContextPath() %>/insert.inq" method ="post" onsubmit="return submitcheck();"> -->
         <p style="color: gray;">궁금하신 사항을 입력해 주세요</p>
         <p style="color: gray;">고객님의 소중한 문의사항을 관리자가 확인 후 답변해 드립니다.</p>
-        <p style="color: gray;">답변은 마이페이지에서 확인하실 수 있습니다.</p>
     	 <hr>
         <div id = "content-box">
        
@@ -164,7 +163,6 @@
 		}else{
 			$.ajax({
 				url: "<%= request.getContextPath() %>/insert.inq",
-			
 				data : 
 				{
 					title: title,
@@ -184,9 +182,9 @@
 					}
 				}
 			});
-		
 		}
 	});
+	
 	
 	/*
 	function submitcheck() {

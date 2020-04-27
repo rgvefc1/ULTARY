@@ -47,12 +47,10 @@ public class InquriySendSevlet extends HttpServlet {
 			Inquiry n = new Inquiry(title, content, userId);
 			result = new InquiryService().insertInquiry(n);
 		}	
-		
 		if (result > 0) {
 			System.out.println("문의성공");
 			response.getWriter().print(result);
 		}
-		
 	}
 
 	/**
