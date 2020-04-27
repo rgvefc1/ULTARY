@@ -134,7 +134,7 @@
 				
 				</section>
 			</div>
-			<footer>from.hoseong</footer>
+			<footer></footer>
 		</div>
 	</div>
 </body>
