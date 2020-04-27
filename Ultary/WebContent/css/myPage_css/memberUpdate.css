@@ -1,4 +1,4 @@
-@charset "UTF-8";
+
 @charset "UTF-8";
 #all{
 	width:100%;
@@ -53,6 +53,7 @@ footer{
 	background:green;
 }
 
+
 /* ---헤더 상단바------------------------------------------------ */
 
 #header-top{
@@ -60,27 +61,34 @@ footer{
 	height:40px;
 	overflow:hidden;
 }
-
-/* #343a40!important; */
-
 .headerimg{
 	width:30px;
 	height:30px;
 	margin-top:5px;
 	margin-left:10px;
 	float:left;
+	cursor: pointer;
 }
-#header-topR{
-	width:220px;
-	height:100%;
-	margin-top: -12.7px;
-	float:right;
+#logimg{
+	margin-top:2.4px;
+	margin-left:510px;
+	width:55px;
+	height:35px;
+	float:left;
+}
+#header-topR {
+    width: 250px;
+    height: 100%;
+    margin-top: -12.7px;
+    float: right;
 }
 #nick{
 	float:left;
 	margin-top: 15px;
     font-size: 25px;
-    color: blue;
+    color: red;
+    text-align: right;
+    width: 90px;
 }
 #nim{
 	float:left;
@@ -89,9 +97,9 @@ footer{
     font-size: 35px;
 }
 #logout{
-	float:left;
-	margin-top: 17.2px;
-    margin-left: 15.1px;
+	float: right;
+    margin-top: 19px;
+    margin-right: 8.1px;
     width: 80px;
     height: 30px;
     font-size: 11px;
@@ -102,6 +110,9 @@ footer{
     border-radius: 10px;
     cursor: pointer;
 }
+
+
+
 
 /* ---헤더 하단바------------------------------------------------ */
 
@@ -115,6 +126,108 @@ footer{
     height: 110px;
     margin-left: 45.5%;
     margin-top: 15.1px;
+}
+
+
+/* -----알림창------------------------------------------ */
+#alertbuttondiv{
+	margin-left: 15.2px;
+}
+.alert:after, .alert:before {
+	bottom: 100%;
+    left: 8.3%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+.alert:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #B2CCFF;
+	border-width: 30px;
+	margin-left: -30px;
+}
+.alert:before {
+	border-color: rgba(0, 0, 0, 0);
+	border-width: 36px;
+	margin-left: -36px;
+}
+.alert{
+	position: relative;
+    top: 36.5px;
+    left: 11.4px;
+    z-index: 900;
+    background: #B2CCFF;
+    border-radius: 5px;
+    width: 400px;
+    min-height: 50px;
+    display:none;
+    padding-bottom: 10px;
+}
+#alerttitle{
+	width:400px;
+	height:50px;
+	border-radius:20px;
+	text-align: center;
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 50px;
+}
+.alertcontentdiv{
+	border: 1px solid black;
+	width:380px;
+	height: 50px;
+	margin-left: 10px;
+	border-radius: 10px;
+	font-size: 18px;
+	line-height: 50px;
+	background:white;
+}
+.alertcontent{
+	float: left;
+    width: 330px;
+    text-align: center;
+    border-radius: 8.5px;
+    cursor: pointer;
+}
+.alertcontent:hover{
+	background:#8C8C8C;
+}
+.alertclose{
+	width: 50px;
+    height: 50px;
+    float: left;
+    line-height: 50px;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 8px;
+}
+.alertclose:hover{
+	background:#8C8C8C;
+}
+#alertspace{
+	height: 10px;
+}
+
+#alert-wrap{
+	position: absolute;
+    width: 500px;
+    min-height: 49px;
+    margin-top: 40px;
+}
+.alertcount{
+	width: 22px;
+    height: 22px;
+    background: red;
+    float: left;
+    border-radius: 50px;
+    margin-top: 16.5px;
+    margin-left: -10.6px;
+    text-align: center;
+    color: white;
 }
 
 /* --카테고리 바------------------------------------------------ */

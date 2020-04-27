@@ -45,8 +45,6 @@
 					$('.alertcount').hide();
 				}
 				$('.alertcount').text(data);
-			},error: function(){
-				
 			}
 		});
 		$.ajax({
@@ -74,8 +72,6 @@
 					$div.append($div2);
 					$('.alert').append($div);
 				}
-			}, error: function(){
-				
 			}
 		});
 		setTimeout(updateDate, 5000);

@@ -326,7 +326,7 @@
 			});
       </script>
 			</div>
-			<footer>from.hoseong</footer>
+			<footer>ULTARY</footer>
 		</div>
 </body>
 </html>

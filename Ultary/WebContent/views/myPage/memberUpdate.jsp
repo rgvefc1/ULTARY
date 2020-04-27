@@ -175,9 +175,96 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
 	<div id="all">
 		<div id="all-wrap">
 			<header>
+				<div id="alert-wrap">
+					<div class="alert">
+						<div id="alerttitle">전체알림</div>
+						<div class="alertcontentdiv">
+							<div class="alertcontent">한호성님의 위탁요청이 전송되었습니다.</div>
+							<div class="alertclose">&nbsp;&nbsp;X</div>
+						</div>
+					</div>
+				</div>
+<script>
+	$("body").click(function(e){
+		if($('.alert').css('display') == 'block'){
+			if(!$('.alert').has(e.target).length) {
+				$('.alert').hide();
+			}
+		} else if($('.alert').css('display') == 'none'){
+			if($('#alertbuttondiv').has(e.target).length) {
+				$('.alert').show();
+			}
+		}
+	});
+	$(function(){
+		updateDate();
+	});
+	function updateDate(){
+		$.ajax({
+			url: '<%= request.getContextPath() %>/AlertCount.al',
+			success: function(data){
+				if(data==0){
+					$('.alertcount').hide();
+				}
+				$('.alertcount').text(data);
+			},error: function(){
+				
+			}
+		});
+		$.ajax({
+			url: '<%= request.getContextPath() %>/selectAlert.al',
+			type: 'post',
+			cache: false,
+			success: function(data){
+				$('.alert').html("");
+				$('.alert').append('<div id="alerttitle">전체알림</div>');
+				for(var key in data){
+					var $div = $('<div>').attr('class','alertcontentdiv');
+					var $div1 = $('<div>').attr('class','alertcontent').attr('onclick', "alDetail('"+data[key].allink+"','"+data[key].alsnum+"');");
+					var $div2 = $('<div>').attr('class', 'alertclose').attr('onclick', "alDelete('"+data[key].alsnum+"');");
+					if(data[key].alkind == 1){
+						$div1.text(data[key].memberid+"님이 댓글을 달았습니다.");
+						$div2.text("  X");
+					} else{
+						$div1.text(data[key].memberid+"님이 답글을 달았습니다.");
+						$div2.text("  X");
+					}
+					if(data[key].alcheck == 'Y'){
+						$div.css('background', '#8C8C8C');
+					}
+					$div.append($div1);
+					$div.append($div2);
+					$('.alert').append($div);
+				}
+			}, error: function(){
+				
+			}
+		});
+		setTimeout(updateDate, 5000);
+	}
+	function alDelete(anum){
+		$.ajax({
+			url: '<%= request.getContextPath() %>/deleteAlert.al',
+			data: {alsnum:anum},
+			success: function(d){
+				updateDate();
+				$('.alert').css('height', "-=50px");
+			}
+		});
+	}
+	function alDetail(allink, anum){
+		$.ajax({
+			url: '<%= request.getContextPath() %>/Updatecheck.al',
+			data: {alsnum:anum},
+			success: function(dat){
+				location.href="<%=request.getContextPath() %>"+allink;
+			}
+		});
+	}
+</script>
 				<div id="header-top">
-					<img class="headerimg" src="<%= request.getContextPath() %>/image/알림.png">
-					<img class="headerimg" src="<%= request.getContextPath() %>/image/메신저.png">
+					<div id="alertbuttondiv"><img class="headerimg" src="<%= request.getContextPath() %>/image/알림.png"></div>
+					<div class="alertcount"></div>
 					<div id="header-topR">
 						<div id="nick"><%= loginUser.getNickname() %></div>
 						<div id="nim">님</div>
@@ -185,7 +272,7 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
 					</div>
 				</div>
 				<div id="header-bottom">
-					<img id="logoimg" src="<%= request.getContextPath() %>/image/logo.png">
+					<a href='<%= request.getContextPath() %>/main.login'><img id="logoimg" src="<%= request.getContextPath() %>/image/logo.png"></a>
 				</div>
 			</header>
 <%@ include file ="mg_nav.jsp" %>
@@ -260,7 +347,7 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
                   </tr>
                   <tr>
                      <th>상세주소</th>
-                     <td>`
+                     <td>
          <!-- 3참고주소 -->       <input type="text" id="roadAddrPart2" name="roadAddrPart2" width="115px" value="<%= addArr[2] %>"/>
          <!-- 4고객입력 상세주소 --><input type="text" id="addrDetail" name="addrDetail" width="115px" value="<%= addArr[3] %>"/><br>
          	<!-- --------------------------------------------------------------------------------------- -->
@@ -344,6 +431,8 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
 			$('#trust_Y').attr('checked','checked');
 		} else if(<%= loginUser.getTrust() %>== ""){
 			$('#trust_N').attr('checked','checked');
+		}
+	});
 </script>
 		</table>
 		<div id=newMember_animal style="display: none;">	
@@ -537,14 +626,13 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
 	<h1>새로운 펫 정보를 입력해주세요.</h1>
 	<% } %>
 		</div>
-		<center><input type="button" id="petplus" style="cursor:pointer;" value="반려동물 변경"></center><br>
+		<center><input type="button" id="petplus" style="cursor:pointer;" value="반려동물 입력"></center><br>
 <script>
 	$(function(){
 		$('#petplus').click(function(){
 			window.open('<%= request.getContextPath()%>/views/myPage/petinsert_Popup.jsp', 'pop', 'width=950', 'height=650');
 		});
-	});
-			 
+	});	 
 </script>
 	</div>
 				</section>

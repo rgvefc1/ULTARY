@@ -33,7 +33,7 @@ public class AlertCount extends HttpServlet {
 		String memberId = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
 		
 		int alertcount = new PostService().alertCount(memberId);
-		System.out.println(alertcount);
+//		System.out.println(alertcount);
 		
 		response.getWriter().println(alertcount);
 	}
