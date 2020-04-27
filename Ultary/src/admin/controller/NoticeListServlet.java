@@ -61,14 +61,12 @@ public class NoticeListServlet extends HttpServlet {
 		if (request.getParameter("option") != null && request.getParameter("search") != null) {
 			option = request.getParameter("option");
 			searchKeyword = request.getParameter("search");
-
 			listCount = service.getListCountFilter(option, searchKeyword);
 			list = service.selectList(option, searchKeyword, currentPage, boardLimit);
 		} else {
 			listCount = service.getListCountAll();
 			list = service.selectList(currentPage, boardLimit);
 		}
-
 		maxPage = (int) ((double) listCount / boardLimit + 0.9);
 		startPage = (((int) ((double) currentPage / pageLimit + 0.9) - 1)) * pageLimit + 1;
 		endPage = pageLimit + startPage - 1;
