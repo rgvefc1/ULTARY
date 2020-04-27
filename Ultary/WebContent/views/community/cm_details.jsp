@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="member.model.vo.*,post.model.vo.*, java.util.ArrayList"%>
 <%
+
 	Post post = (Post)request.getAttribute("post");
 
 	ArrayList<Media> fileList = (ArrayList<Media>)request.getAttribute("fileList");
@@ -123,10 +124,10 @@
 				  				<% } else { %>
 				  				<input type="button" class="cdt_recom" value="추천">
 				  				<% } %>
-				  				<% if(loginUser != null && loginUser.getNickname().equals(post.getMemberid())){ %>
-				  				<input type="submit" id="modify" value="수정">
 				  				<% if(loginUser != null && (loginUser.getNickname().equals(post.getMemberid()) || loginUser.getNickname().equals("관리자"))){ %>
 				  				<input type="button" id="deletebtn" value="삭제">
+				  				<% if(loginUser != null && loginUser.getNickname().equals(post.getMemberid())) { %>
+				  				<input type="submit" id="modify" value="수정">
 				  				<% } %>
 				  				<% } %>
 				  				<div id="menuBtn">목록으로</div>
@@ -532,7 +533,7 @@ $(document).ready(function(){
 
 </script>
 			</div>
-			<footer>from.hoseong</footer>
+			<footer>ULTARY</footer>
 			</div>
 		</div>
 </body>

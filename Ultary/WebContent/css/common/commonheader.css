@@ -28,7 +28,7 @@ header{
 	float:left;
 }
 #header-topR {
-    width: 250px;
+    width: 280px;
     height: 100%;
     margin-top: -12.7px;
     float: right;
@@ -39,7 +39,7 @@ header{
     font-size: 25px;
     color: red;
     text-align: right;
-    width: 90px;
+    width: 140px;
 }
 #nim{
 	float:left;

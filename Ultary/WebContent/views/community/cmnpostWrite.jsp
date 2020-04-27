@@ -123,7 +123,7 @@
 				
 				</section>
 			</div>
-			<footer>from.hoseong</footer>
+			<footer>ULTARY</footer>
 		</div>
 	</div>
 </body>

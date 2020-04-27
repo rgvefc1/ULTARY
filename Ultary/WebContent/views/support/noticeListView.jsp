@@ -317,7 +317,7 @@ button:hover {
 		</div>
 
 
-		<footer>from.hoseong</footer>
+		<footer>ULTARY</footer>
 	</div>
 
 	<script>

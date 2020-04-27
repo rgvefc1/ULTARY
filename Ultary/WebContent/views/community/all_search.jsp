@@ -30,6 +30,7 @@
 	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/common/완성본틀.css">
 	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/community/all_search.css">
    <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/community/togglebtn.css">
+   <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
@@ -299,7 +300,7 @@
 			});
       </script>
 			</div>
-			<footer>from.hoseong</footer>
+			<footer>ULTARY</footer>
 		</div>
 </body>
 </html>

@@ -382,7 +382,6 @@
 				if(!$('#expansion').has(e.target).length) {
 					$('#expansioncomment>ul').html("");
 					$('#expansion').hide();
-					location.reload();
 				}
 			} else if($('#expansion').css('display') == 'none'){
 				if($($item).has(e.target).length) {
