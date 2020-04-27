@@ -508,6 +508,6 @@
 		});
 </script>
 	</article>
-	<footer>제작 : 한호성</footer>	
+	<footer>ULTARY</footer>	
 </body>
 </html>

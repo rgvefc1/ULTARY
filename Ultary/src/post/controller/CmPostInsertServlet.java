@@ -92,7 +92,7 @@ public class CmPostInsertServlet extends HttpServlet {
 			
 			if(result > 0) {
 				if(p.getCategorynum() == 1) {
-					response.sendRedirect("cmnotice.po");
+					response.sendRedirect("cmList.po?cnum=1");
 				} else {
 				response.sendRedirect("cmAllList.po");
 				}
