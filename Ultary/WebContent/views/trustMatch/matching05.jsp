@@ -5,7 +5,6 @@
 	ArrayList<Pet> PetList = (ArrayList<Pet>)request.getAttribute("PetList");
 	ArrayList<Media> MediaList = (ArrayList<Media>)request.getAttribute("MediaList");
 	String petkind = "";
-	
 	ArrayList<TrustPost> balsin = (ArrayList<TrustPost>)request.getAttribute("balsin");
 	ArrayList<TrustPost> susin = (ArrayList<TrustPost>)request.getAttribute("susin");
 	
@@ -418,8 +417,8 @@
 						<div id="reqcontent1" onclick="location.href='<%=request.getContextPath()%>/DetailTp.tu?memberid=<%=balsin2.get(i).getSushin() %>&tp=<%=balsin2.get(i).getTpostNum()%>'">
 							<div id ="req1">
 						<% if(!proImg.isEmpty()){ 
-						for(int j=0;j<proImg.size();j++){
-						 if(j==proImg.size()-1){%>
+						for(int j=0;j<=proImg.size();j++){
+						 if(j==proImg.size()){%>
 						 <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/image/프로필.png">
 						 <%break;
 						   }
