@@ -43,7 +43,7 @@ public class Review extends HttpServlet {
 		
 		String user = request.getParameter("user");
 		int tpnum = Integer.parseInt(request.getParameter("tpnum"));
-		System.out.println(user);
+
 		TrustReview tr = new TrustReview();
 		tr.setTrScore(score);
 		tr.setTrContent(review);

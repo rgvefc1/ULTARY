@@ -17,6 +17,13 @@
 	ArrayList<TrustPost> susin1 = new ArrayList<TrustPost>();
 	ArrayList<TrustPost> susin2 = new ArrayList<TrustPost>();
 	
+	ArrayList<Media> petMedia = new ArrayList<Media>();
+	for(int i =0;i<MediaList.size();i++){
+		if(MediaList.get(i).getMediaUse()==4){
+			petMedia.add(MediaList.get(i));
+		}
+	}
+	
 	for(int i=0; i< balsin.size();i++){
 		if(balsin.get(i).getPosition()==0){
 			balsin0.add(balsin.get(i));
@@ -73,60 +80,130 @@
 				<div id="page1">
 					
 					<div id= "page3">
-						<% if(!PetList.isEmpty()){ %>
-      <% for(int i=0;i<PetList.size();i++){ 
-         Pet p = PetList.get(i);
-         switch(p.getPetKind()){
-         case '1': petkind="강아지"; break;
-         case '2':   petkind="고양이"; break;
-         case '3':   petkind="설치류"; break;
-         case '4':   petkind="파충류"; break;
-         case '5':   petkind="조류"; break;
-         case '6':   petkind="어류"; break;
-         case '7':   petkind="기타"; break;
-         } %>
-         <% if(!MediaList.isEmpty()){ %>
-         <% for(int j=0;j<MediaList.size();j++){
-            Media m = MediaList.get(j); %>
-            <% if(p.getPetNum() == m.getPetNum()){ %> <!--펫정보랑 펫사진이랑 일치하는지 -->
-         <table class="petone">
-            <tr>
-               <th>프로필  사진</th>
-               <td>
-                  <img src='<%= request.getContextPath() %>/uploadFiles/<%= m.getWebName() %>' border='0' class="fileInput" id="basicImg" width="200px" height="126px" style='cursor:pointer;'>
-               </td>
-            </tr>
-            <tr>
-               <th>반려동물 이름</th>
-               <td><%= p.getPetName() %></td>
-            </tr>
-            <tr>
-               <th>반려동물 종류</th>
-               <td>
-                  <%= petkind %>
-               </td>
-            </tr>
-            <tr>
-               <th>성별</th>
-               <td>
-                  <%= p.getPetGender() %>
-               </td>
-            </tr>
-            <tr>
-               <th>나이</th>
-               <td>
-                  <%= p.getPetage() %>
-               </td>
-            </tr>
-         </table>
-            <% } %>
-         <% } %>
-      <% } %>
-      <% } %>
-   <% } else { %>
-   <h1>새로운 펫 정보를 입력해주세요.</h1>
-   <% } %>
-					</div>
+				<% if(PetList.size()==1){ %>
+				    <%Pet p = PetList.get(0);
+				         switch(p.getPetKind()){
+				         case '1': petkind="강아지"; break;
+				         case '2':   petkind="고양이"; break;
+				         case '3':   petkind="설치류"; break;
+				         case '4':   petkind="파충류"; break;
+				         case '5':   petkind="조류"; break;
+				         case '6':   petkind="어류"; break;
+				         case '7':   petkind="기타"; break;
+				         } %>
+		         <% if(!petMedia.isEmpty()){ %>
+		         		<%for(int i=0;i<petMedia.size();i++){ %>
+		           		<% Media m = petMedia.get(i); %>
+		            
+		            <% if(p.getPetNum() == m.getPetNum()){ %> <!--펫정보랑 펫사진이랑 일치하는지 -->
+		         <table class="onlypet">
+		            <tr>
+		               <th class="cate1" colspan="2">반려동물 정보</th>
+		               <td class="data111" rowspan="5">
+		                  <img src='<%= request.getContextPath() %>/uploadFiles/<%= m.getWebName() %>' border='0' class="onlyimg" id="onlyimg" width="200px" height="126px">
+		               </td>
+		            </tr>
+		            <%break;} } %>
+		            <tr>
+		               <th class="cate1">반려동물 이름</th>
+		               <td class="data111"><%= p.getPetName() %></td>
+		            </tr>
+		            <tr>
+		               <th class="cate1">반려동물 종류</th>
+		               <td class="data111">
+		                  <%= petkind %>
+		               </td>
+		            </tr>
+		            <tr>
+		               <th class="cate1">성별</th>
+		               <td class="data111">
+		                  <%= p.getPetGender() %>
+		               </td>
+		            </tr>
+		            <tr>
+		               <th class="cate1">나이</th>
+		               <td class="data111">
+		                  <%= p.getPetage() %>
+		               </td>
+		            </tr>
+		         </table>
+		            <% } %>
+		         <%  %>
+					<%}else if(!PetList.isEmpty()){ %>
+				      <% for(int i=0;i<PetList.size();i++){ 
+				         Pet p = PetList.get(i);
+				         switch(p.getPetKind()){
+				         case '1': petkind="강아지"; break;
+				         case '2':   petkind="고양이"; break;
+				         case '3':   petkind="설치류"; break;
+				         case '4':   petkind="파충류"; break;
+				         case '5':   petkind="조류"; break;
+				         case '6':   petkind="어류"; break;
+				         case '7':   petkind="기타"; break;
+				         } %>
+		         <% if(!MediaList.isEmpty()){ %>
+		         <% for(int j=0;j<MediaList.size();j++){
+		            Media m = MediaList.get(j); %>
+		            <% if(p.getPetNum() == m.getPetNum()){ %> <!--펫정보랑 펫사진이랑 일치하는지 -->
+		         <table class="petone">
+		            <tr>
+		               <th class="cate">프로필  사진</th>
+		               <td class="data11">
+		                  <img src='<%= request.getContextPath() %>/uploadFiles/<%= m.getWebName() %>' border='0' class="fileInput" id="basicImg" width="200px" height="126px" style='cursor:pointer;'>
+		               </td>
+		            </tr>
+		            <tr>
+		               <th class="cate">반려동물 이름</th>
+		               <td class="data11"><%= p.getPetName() %></td>
+		            </tr>
+		            <tr>
+		               <th class="cate">반려동물 종류</th>
+		               <td class="data11">
+		                  <%= petkind %>
+		               </td>
+		            </tr>
+		            <tr>
+		               <th class="cate">성별</th>
+		               <td class="data11">
+		                  <%= p.getPetGender() %>
+		               </td>
+		            </tr>
+		            <tr>
+		               <th class="cate">나이</th>
+		               <td class="data11">
+		                  <%= p.getPetage() %>
+		               </td>
+		            </tr>
+		         </table>
+		            <% } %>
+		         <% } %>
+		      <% } %>
+		      <% } %>
+		   <% } else { %>
+		   	<table class="nopet">
+		            <tr>
+		               <th class="nocate">등록된 반려동물이 없습니다.</th>
+		            </tr>
+		            <tr>
+		            	<td> 반려동물을 등록해 주세요.</td>
+		            </tr>
+		    </table>
+		    <img id="buttonimge" class="buttonimge" src="<%= request.getContextPath() %>/image/뼈다귀.png" style="cursor:pointer">
+		   <% } %>
+		   </div>
+		<script>
+			$('#buttonimge').mouseover(function(){
+				$('#buttonimge').attr("src","<%=request.getContextPath()%>/image/뼈다귀after.png");
+			}).mouseout(function(){
+				$('#buttonimge').attr("src","<%= request.getContextPath() %>/image/뼈다귀.png");
+			});
+			
+			$(function(){
+				$('#buttonimge').click(function(){
+					window.open('<%= request.getContextPath()%>/views/myPage/petinsert_Popup.jsp', 'pop', 'width=950', 'height=650');
+				});
+			});
+		</script>
 				<div id="page4" >
 					<div id="page4-1">의뢰관리</div>
 					<div id="page4-1-1" class="subtitle" onclick="nosub();">미승인</div>
@@ -158,7 +235,7 @@
 						<div id ="req1">
 						<% if(!proImg.isEmpty()){ 
 						for(int j=0;j<=proImg.size();j++){
-						 if(j==proImg.size()-1){ %>
+						 if(j==proImg.size()){ %>
 						 <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/image/프로필.png">
 						 <%break;
 						   }
@@ -202,8 +279,8 @@
 					<div id="reqcontent1<%= i %>" onclick="location.href='<%=request.getContextPath()%>/DetailTp.tu?memberid=<%=susin0.get(i).getBalshin() %>&tp=<%=susin0.get(i).getTpostNum()%>'">
 						<div id ="req1">
 					<% if(!proImg.isEmpty()){ 
-						for(int j=0;j<proImg.size();j++){
-						 if(j==proImg.size()-1){%>
+						for(int j=0;j<=proImg.size();j++){
+						 if(j==proImg.size()){%>
 						 <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/image/프로필.png">
 						 <%break;
 						   }
@@ -224,8 +301,8 @@
 						<div id ="req3">
 							<p style="display:inline;"><%=susin0.get(i).getTrustPS() %>	</p>
 						</div>
-						<input type="button" id="btn1" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=1&tpostnum=<%=susin0.get(i).getTpostNum()%>&memberid=<%=susin0.get(i).getBalshin() %>'" value="수락">
-						<<div  id="btn2" class="btn" onclick="location.href='<%=request.getContextPath()%>/trustposition.tu?position=2&tpostnum=<%=susin0.get(i).getTpostNum()%>'">거절</div>
+						<div  id="btn1" class="btn"><a href="<%=request.getContextPath()%>/trustposition.tu?position=1&tpostnum=<%=susin0.get(i).getTpostNum()%>&memberid=<%=susin0.get(i).getBalshin() %>">수락</a></div>
+						<div  id="btn2" class="btn"><a href="<%=request.getContextPath()%>/trustposition.tu?position=2&tpostnum=<%=susin0.get(i).getTpostNum()%>">거절</a></div>
 					</div>
 					<%} }%>
 					</div>
@@ -233,12 +310,13 @@
 
 				<div id="no-popup2" style="display:none">
 					<div id="myreq">
-							<div name ="req" id ="popup03" style="text-align:center; cursor:pointer;">내가보낸의뢰</div>
+							<div name ="req" id ="popup03" style="text-align:center; cursor:pointer;">수락받은의뢰</div>
 					</div>
 					<div id="myresp">
-							<div name ="req" id ="popup04" style="text-align:center; cursor:pointer;">내가받은의뢰</div>
+							<div name ="req" id ="popup04" style="text-align:center; cursor:pointer;">수락한 의뢰</div>
 					</div>
 				</div>
+
 				<div id = "mybalsin1" style="display:none" >
 				<%if(balsin1.size()==0){ %>
 				<div id="reqcontent1" style="text-align:center;">
@@ -246,16 +324,16 @@
 				</div>
 				<%} else{ %>
 					<%for( int i=0;i<balsin1.size();i++){ %>
-					<div id="reqcontent1<%= i %>" <%-- onclick="detailview('<%=balsin1.get(i).getSushin()%>','<%=balsin1.get(i).getTpostNum()%>');" --%>>
+					<div id="reqcontent1<%= i %>" onclick="location.href='<%=request.getContextPath()%>/DetailTp.tu?memberid=<%=balsin1.get(i).getSushin() %>&tp=<%=balsin1.get(i).getTpostNum()%>'">
 						<div id ="req1">
 					<% if(!proImg.isEmpty()){ 
 						for(int j=0;j<=proImg.size();j++){
-						 if(j==proImg.size()-1){%>
-						 <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/image/프로필.png">
+						 if(j==proImg.size()){%>
+						 	<img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/image/프로필.png">
 						 <%break;
 						   }
 						 Media cProimg = proImg.get(j);
-						 if(cProimg.getMemberId().equals(balsin0.get(i).getSushin())){%>
+						 if(cProimg.getMemberId().equals(balsin1.get(i).getSushin())){%>
 						  <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/uploadFiles/<%= cProimg.getWebName() %>">
 						 <%break; 
 						 } %>
@@ -272,32 +350,16 @@
 							<p style="display:inline;"><%=balsin1.get(i).getTrustPS() %>	</p>
 						</div>
 						<%if(balsin1.get(i).getTrnum()==0){ %>
-						<button  id="btnre<%=i %>" class="btn">리뷰작성</button>
+						<div  id="btnre<%=i %>" class="btn"><a href="<%=request.getContextPath()%>/insertReview.tu?user=<%= balsin1.get(i).getSushin() %>&tpostnum=<%=balsin1.get(i).getTpostNum()%>">리뷰작성</a></div>
 						<%} else{ %>
-						<button class="btn" id="btnre<%=i %>" name="btn1" >리뷰수정</button>
+						<div class="btn" id="btnre<%=i %>" name="btn1" ><a href="<%=request.getContextPath()%>/trustcol.tu?trnum=<%=balsin1.get(i).getTrnum()%>">리뷰수정</a></div>
 						<%} %>
 					</div>
-   			<%-- <script>
-				$(function(){
-					var reqcontent1 = "#reqcontent1"+<%= i %>;
-					$(reqcontent1).click(function(e){
-						var btnr = "#btnre"+<%= i %>;
-						if(!$(btnr).has(e.target).length){
-							location.href="<%=request.getContextPath()%>/DetailTp.tu?memberid=<%= balsin1.get(i).getSushin() %>&tp=<%=balsin1.get(i).getTpostNum()%>";
-						} else{
-							console.log('허ㅜ');
-							 if($(btnr).text()=="리뷰작성"){
-								location.href='<%=request.getContextPath()%>/insertReview.tu?user=<%= balsin1.get(i).getSushin() %>&tpostnum=<%=balsin1.get(i).getTpostNum()%>';
-							}else if($(btnr).text()=="리뷰수정"){
-								location.href='<%=request.getContextPath()%>/trustcol.tu?trnum=<%=balsin1.get(i).getTrnum()%>';
-							} 
-						}
-					});
-				});
-				
-			</script> --%>
+	
 					<%} }%>
 					</div>
+					
+					
 					<div id = "mysusin1" style="display:none" >
 				<%if(susin1.size()==0){ %>
 				<div id="reqcontent1" style="text-align:center;">
@@ -305,11 +367,11 @@
 				</div>
 				<%} else{ %>
 					<% for(int i=0;i<susin1.size();i++){ %>
-					<div id="reqcontent1" onclick="detailview('<%=susin1.get(i).getBalshin()%>','<%=susin1.get(i).getTpostNum()%>');">
+					<div id="reqcontent1" onclick="location.href='<%=request.getContextPath()%>/DetailTp.tu?memberid=<%=susin1.get(i).getBalshin() %>&tp=<%=susin1.get(i).getTpostNum()%>'">
 						<div id ="req1">
 						<% if(!proImg.isEmpty()){ 
-						for(int j=0;j<proImg.size();j++){
-						 if(j==proImg.size()-1){%>
+						for(int j=0;j<=proImg.size();j++){
+						 if(j==proImg.size()){%>
 						 <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/image/프로필.png">
 						 <%break;
 						   }
@@ -333,16 +395,16 @@
 						</div>
 					<%} }%>
 						</div>
-						</div>
+						
 					
 					
 					
 				<div id="no-popup3" style="display:none">
 					<div id="myreq">
-						<div name ="req" id ="popup05" style="text-align:center; cursor:pointer;">내가보낸의뢰</div>
+						<div name ="req" id ="popup05" style="text-align:center; cursor:pointer;">거절당한의뢰</div>
 					</div>
 					<div id="myresp">
-						<div name ="req" id ="popup06" style="text-align:center; cursor:pointer;">내가받은의뢰</div>
+						<div name ="req" id ="popup06" style="text-align:center; cursor:pointer;">거절한 의뢰</div>
 					</div>
 				</div>
 				<div id="no-popup-1">
@@ -353,7 +415,7 @@
 					</div>
 					<%}else{ %>
 					<%for( int i=0;i<balsin2.size();i++){ %>
-						<div id="reqcontent1" onclick="detailview('<%=balsin2.get(i).getSushin()%>','<%=balsin2.get(i).getTpostNum()%>');">
+						<div id="reqcontent1" onclick="location.href='<%=request.getContextPath()%>/DetailTp.tu?memberid=<%=balsin2.get(i).getSushin() %>&tp=<%=balsin2.get(i).getTpostNum()%>'">
 							<div id ="req1">
 						<% if(!proImg.isEmpty()){ 
 						for(int j=0;j<proImg.size();j++){
@@ -389,11 +451,11 @@
 					</div>
 					<%}else{ %>
 						<% for(int i=0;i<susin2.size();i++){ %>
-						<div id="reqcontent1<%= i %>" onclick="detailview('<%=susin2.get(i).getSushin()%>','<%=susin2.get(i).getTpostNum()%>');">
+						<div id="reqcontent1<%= i %>" onclick="location.href='<%=request.getContextPath()%>/DetailTp.tu?memberid=<%=susin2.get(i).getBalshin() %>&tp=<%=susin2.get(i).getTpostNum()%>'">
 						<div id ="req1">
 						<% if(!proImg.isEmpty()){ 
-						for(int j=0;j<proImg.size();j++){
-						 if(j==proImg.size()-1){%>
+						for(int j=0;j<=proImg.size();j++){
+						 if(j==proImg.size()){%>
 						 <img id="req-photo" class="req-photo" src="<%= request.getContextPath() %>/image/프로필.png">
 						 <%break;
 						   }
@@ -418,6 +480,7 @@
 					<%} }%>
 					</div>
 					</div>
+					</div>
 				</div>
 				
 					
@@ -425,6 +488,9 @@
 			
 				function nosub(){
 					$('#no-popup1').show();
+					$('#page4-1-1').css('background','gold');
+					$('#page4-1-2').css('background','lightgrey');
+					$('#page4-1-3').css('background','lightgrey');
 					$('#no-popup2').hide();
 					$('#no-popup3').hide();
 					$('#mysusin0').hide();
@@ -436,6 +502,9 @@
 				}
 				function sub(){
 					$('#no-popup2').show();
+					$('#page4-1-2').css('background','gold');
+					$('#page4-1-1').css('background','lightgrey');
+					$('#page4-1-3').css('background','lightgrey');
 					$('#no-popup1').hide();
 					$('#no-popup3').hide();
 					$('#mysusin0').hide();
@@ -449,6 +518,9 @@
 					$('#no-popup3').show();
 					$('#no-popup1').hide();
 					$('#no-popup2').hide();
+					$('#page4-1-3').css('background','gold');
+					$('#page4-1-1').css('background','lightgrey');
+					$('#page4-1-2').css('background','lightgrey');
 					$('#mysusin0').hide();
 					$('#mybalsin0').hide();
 					$('#mybalsin1').hide();
@@ -482,13 +554,6 @@
 					$('#mysusin2').hide();
 					$('#mybalsin2').show();
 				});
-				
-				
-			  	<%-- function detailview(userid,tpnum,e){
-					location.href="<%=request.getContextPath()%>/DetailTp.tu?memberid="+userid+"&tp="+tpnum;
-					e.stopPropagation();
-					
-				}  --%>
 	
 			</script>
 

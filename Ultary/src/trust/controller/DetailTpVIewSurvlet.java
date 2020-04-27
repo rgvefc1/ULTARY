@@ -1,6 +1,7 @@
 package trust.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import member.model.service.MemberService;
 import member.model.vo.Media;
 import member.model.vo.Member;
 import member.model.vo.Pet;
@@ -44,16 +46,21 @@ public class DetailTpVIewSurvlet extends HttpServlet {
 		Member m = new MatchingService().DetailView(memberid);
 		
 		int tpnum = Integer.parseInt(request.getParameter("tp"));
-		
+
 		String page = null;
 		if(m != null) {
-			Pet pet = new MatchingService().DetailPet(memberid);
 			TrustPost tp = new MatchingService().tpview(tpnum);
 			Media proImg = new PostService().selectProImg(memberid);
+			
+			Pet pet = new MatchingService().SerchPet(tp.getPetnum());
+			Media Media = new MatchingService().serchpetImg(tp.getPetnum());
+			System.out.println(pet.getMemberId());
 			if(tp!=null) {
 					page="views/trustMatch/postview.jsp";
 					request.setAttribute("m",m);
-					request.setAttribute("pet",pet);
+					request.setAttribute("Media", Media);
+					request.setAttribute("pet", pet);
+					request.setAttribute("petnum", tp.getPetnum());
 					request.setAttribute("tp", tp);
 					request.setAttribute("proImg", proImg);
 				

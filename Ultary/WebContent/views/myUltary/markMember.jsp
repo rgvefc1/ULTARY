@@ -70,7 +70,7 @@
 			</section>
 
 		</div>
-		<footer>제작사:hoseong</footer>
+		<footer></footer>
 	</div>
 </body>
 </html>

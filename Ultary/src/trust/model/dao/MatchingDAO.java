@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
+import member.model.vo.Media;
 import member.model.vo.Member;
 import member.model.vo.Pet;
 import trust.model.vo.TrustPost;
@@ -811,6 +812,102 @@ System.out.println(trnum);
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	public Pet SerchPet(Connection conn, int petnum) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Pet p = null;
+		
+		String query = prop.getProperty("serchpet");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1,petnum);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				p = new Pet(rset.getInt("petnum"),
+							rset.getString("petname"),
+							rset.getInt("petage"),
+							rset.getString("petgender").charAt(0),
+							rset.getString("petkind").charAt(0),
+							rset.getString("memberid"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return p;
+	}
+
+	public Media serchpetImg(Connection conn, int petnum) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Media m = null;
+		
+		String query = prop.getProperty("petImg");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, petnum);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				m = new Media(rset.getInt("medianum"),
+									rset.getString("imgroute"),
+									rset.getString("imgname"),
+									rset.getString("webname"),
+									rset.getInt("mediause"),
+									rset.getString("memberid"),
+									rset.getInt("postnum"),
+									rset.getInt("petnum"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+				
+		return m;
+	}
+
+	public ArrayList<Media> selectAllImg(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Media> all = new ArrayList<Media>();
+		
+		String query = prop.getProperty("selectAllImg");
+		
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			while(rset.next()) {
+				Media m = new Media(rset.getInt("medianum"),
+						rset.getString("imgroute"),
+						rset.getString("imgname"),
+						rset.getString("webname"),
+						rset.getInt("mediause"),
+						rset.getString("memberid"),
+						rset.getInt("postnum"),
+						rset.getInt("petnum"));
+				
+				all.add(m);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return all;
 	}
 
 
