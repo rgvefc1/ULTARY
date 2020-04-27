@@ -16,7 +16,7 @@
 <!----해더 시작--------------------------------------------------------------------->
 <!-- 시멘틱 태그 최대한 활용하기 -->
 	<header>
-			<a href='<%= request.getContextPath() %>/views/main/main.jsp' target="_self">
+			<a href='<%= request.getContextPath() %>/main.ini' target="_self">
 			<img id="logo" src="<%= request.getContextPath() %>/image/logo.png" width="120px" height="90px" /></a>
 	</header>
 	

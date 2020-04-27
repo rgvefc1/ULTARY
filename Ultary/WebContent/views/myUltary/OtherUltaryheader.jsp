@@ -79,7 +79,7 @@
 			</div>
 		</div>
 		<div id="header-bottom">
-			<img id="backimg" src="<%= request.getContextPath() %>/image/1.png">
+			<img id="backimg" src="<%= request.getContextPath() %>/image/bg.png">
 		</div>
 		<div id="proimgdiv">
 				<div id="promaindiv">

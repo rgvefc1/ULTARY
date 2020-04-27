@@ -125,7 +125,9 @@
 				  				<% } %>
 				  				<% if(loginUser != null && loginUser.getNickname().equals(post.getMemberid())){ %>
 				  				<input type="submit" id="modify" value="수정">
+				  				<% if(loginUser != null && (loginUser.getNickname().equals(post.getMemberid()) || loginUser.getNickname().equals("관리자"))){ %>
 				  				<input type="button" id="deletebtn" value="삭제">
+				  				<% } %>
 				  				<% } %>
 				  				<div id="menuBtn">목록으로</div>
 				  				</div>
