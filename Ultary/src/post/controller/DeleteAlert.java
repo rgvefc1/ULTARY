@@ -1,7 +1,6 @@
 package post.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,21 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.model.vo.Media;
 import post.model.service.PostService;
-import post.model.vo.Post;
 
 /**
- * Servlet implementation class CmUpdateServlet
+ * Servlet implementation class DeleteAlert
  */
-@WebServlet("/update.po")
-public class CmUpdateServlet extends HttpServlet {
+@WebServlet("/deleteAlert.al")
+public class DeleteAlert extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CmUpdateServlet() {
+    public DeleteAlert() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,23 +30,15 @@ public class CmUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int pNum = Integer.parseInt(request.getParameter("pNum"));
+		int alsnum = Integer.parseInt(request.getParameter("alsnum"));
 		
-		Post p = new PostService().selectPost(pNum);
-		ArrayList<Media> mList = new PostService().selectphoto(pNum);
+		int result = new PostService().deleteAlert(alsnum);
 		
-		
-		String page = "";
-		if(p != null && mList != null) {
-			page = "views/community/cmpostUpdate.jsp";
-			request.setAttribute("p", p);
-			request.setAttribute("mList", mList);
-		} else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "게시글 수정 폼실행에 실패");
+		if(result == 0) {
+			request.setAttribute("msg", "알람창 삭제 실패");
+			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			view.forward(request, response);
 		}
-		RequestDispatcher view = request.getRequestDispatcher(page);
-		view.forward(request, response);
 	}
 
 	/**

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import member.model.vo.Media;
+import post.model.vo.AlertScreen;
 import post.model.vo.CAns;
 import post.model.vo.MarkPost;
 import post.model.vo.Post;
@@ -2066,5 +2067,140 @@ public class PostDAO {
 		
 		return petImg;
 	}
-	
+	public int insertAlert(Connection conn, String allink, String writer, int alkind, String pNic) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAlert");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, allink);
+			pstmt.setString(2, writer);
+			pstmt.setInt(3, alkind);
+			pstmt.setString(4, pNic);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int insertAlert2(Connection conn, String allink, String writer, int alkind, int cNum) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertAlert2");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, allink);
+			pstmt.setString(2, writer);
+			pstmt.setInt(3, alkind);
+			pstmt.setInt(4, cNum);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public ArrayList<AlertScreen> selectAlert(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<AlertScreen> list = new ArrayList<AlertScreen>();
+		
+		String query = prop.getProperty("selectAlert");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()){
+				list.add(new AlertScreen(rset.getInt("alsnum"),
+										 rset.getDate("aldate"),
+										 rset.getString("allink"),
+										 rset.getString("nickname"),
+										 rset.getInt("alkind"),
+										 rset.getString("alcheck").charAt(0),
+										 rset.getString("writer")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int deleteAlert(Connection conn, int alsnum) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteAlert");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, alsnum);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updatealert(Connection conn, int alsnum) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updatealert");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1,alsnum);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int alertCount(Connection conn, String memberId) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("alertCount");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1,memberId);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
 }

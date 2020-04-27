@@ -29,7 +29,6 @@
 		ansbull = true;
 	});
 </script>
-	<%@ include file="alertchat.jsp" %>
 	<div id="expansion">
 		<div id="expansionIn">
 			<div id="expansiontop">
@@ -81,9 +80,6 @@
 		<div id="top-header">
 			<div id="top-left">
 				<% if((loginUser) != null) { %>
-				<div class="top-button" id="chatbtn">
-					<img class="top-buttonimg" src="<%= request.getContextPath() %>/image/메신저.png">
-				</div>
 				<div class="top-button" id="alertbuttondiv">
 					<img class="top-buttonimg" id="alertbutton" src="<%= request.getContextPath() %>/image/알림.png">
 				</div>

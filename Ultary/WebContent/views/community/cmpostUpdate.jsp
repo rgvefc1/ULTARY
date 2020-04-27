@@ -1,11 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="member.model.vo.*, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="member.model.vo.*, java.util.ArrayList,post.model.vo.*"%>
 <%
-	String title = (String)request.getAttribute("title");
-	String content = (String)request.getAttribute("content");
-	int range = (int)request.getAttribute("range");
-	int pno = (int)request.getAttribute("pno");
-	ArrayList<Media> mlist = (ArrayList<Media>)request.getAttribute("mlist");
+	Post p = (Post)request.getAttribute("p");
+	ArrayList<Media> mList = (ArrayList<Media>)request.getAttribute("mList");
 	
 %>
 <!DOCTYPE html>
@@ -29,14 +26,14 @@
 			<div id="asidesection">
 			<%@ include file ="/views/common/cm_aside.jsp" %>
 				<section>
-					<form action="<%= request.getContextPath() %>/cmUpdate.po" method="post" encType="multipart/form-data">
+					<form action="<%= request.getContextPath() %>/cmUpdate.po" method="post">
 					<div id="sectiondiv1">
 						<div id="sTop">게시글 수정</div>
 						<hr>
 						<div id="sTitle">
 							<label>Title : </label>
-							<input type="hidden" name="pno" value="<%= pno%>">
-							<input type="text" name="title"value="<%= title %>">
+							<input type="hidden" name="pNum" value="<%= p.getPostNum()%>">
+							<input type="text" name="title"value="<%=p.getPostTitle()  %>">
 							<select name="postRange">
 								<option value="1" selected>전체공개</option>
 								<option value="2">내관심회원만</option>
@@ -46,7 +43,8 @@
 						<hr>
 						<div id="sContent">
 							<label>Content : </label><br>
-							<textarea name="postContent"><%= content %></textarea>
+							<% String contents = (p.getPostContent()).replace("\r\n", "<br>"); %>
+							<textarea name="postContent"><%= contents %></textarea>
 						</div>
 						<hr>
 						<div id="sAdd">
@@ -59,92 +57,77 @@
 							</select>
 						</div>
 						<hr>
-						<div id="sMedia">
-							<div class="sMedia" id="media1">
-								<img id="mediaImg1" width="100%" height="100%">
-							</div>
-							<div class="sMediaL"></div>
-							<div class="sMedia" id="media2">
-								<img id="mediaImg2" width="100%" height="100%">
-							</div>
-							<div class="sMediaL"></div>
-							<div class="sMedia" id="media3">
-								<img id="mediaImg3" width="100%" height="100%">
-							</div>
-							<div class="sMediaL"></div>
-							<div class="sMedia" id="media4">
-								<img id="mediaImg4" width="100%" height="100%">
-							</div>
-							<% if(!mlist.isEmpty()) { %>
-								<% for(int i = 0; i<mlist.size();i++){ 
-									Media m = mlist.get(i); %>
-									<input type="hidden" name="medianum<%= i %>" value="<%= m.getMediaNum() %>">
-								<% } %>
-							<% } %>
-						</div>
+                  <div id="sMedia">
+                     <div class="sMedia" id="media1">
+                        <img id="mediaImg1" width="100%" height="100%" src="">
+                     </div>
+                     <div class="sMediaL"></div>
+                     <div class="sMedia" id="media2">
+                        <img id="mediaImg2" width="100%" height="100%" src="">
+                     </div>
+                     <div class="sMediaL"></div>
+                     <div class="sMedia" id="media3">
+                        <img id="mediaImg3" width="100%" height="100%" src="">
+                     </div>
+                     <div class="sMediaL"></div>
+                     <div class="sMedia" id="media4">
+                        <img id="mediaImg4" width="100%" height="100%" src="">
+                     </div>
+                  </div>
 						<hr>
 						<div id="sSubmit">
 							<input type="submit" value="Complete">
 						</div>
-						<div id="fileArea">
-							<input type="file" id="Img1" multiple="multiple" name="thumbnailImg1" onchange="LoadImg(this,1)">
-							<input type="file" id="Img2" multiple="multiple" name="thumbnailImg2" onchange="LoadImg(this,2)">
-							<input type="file" id="Img3" multiple="multiple" name="thumbnailImg3" onchange="LoadImg(this,3)">
-							<input type="file" id="Img4" multiple="multiple" name="thumbnailImg4" onchange="LoadImg(this,4)">
-						</div>
 					</div>
 <script>
-	$(function(){
-		/* 사진 넣어주기 */
-		<% if(!mlist.isEmpty()) { %>
-			<% for(int i = 0; i<mlist.size();i++){ 
-				Media m = mlist.get(i); %>
-				var media = "#mediaImg"+(<%= i %>+1);
-				var img = "#Img"+(<%= i %>+1);
-				$(media).attr("src", "<%=request.getContextPath() %>/uploadFiles/<%= m.getWebName() %>");
-			<% } %>
-		<% } %>
-		
-		$("#fileArea").hide();
-		
-		$("#media1").click(function(){
-			$("#Img1").click();
-		});
-		$("#media2").click(function(){
-			$("#Img2").click();
-		});
-		$("#media3").click(function(){
-			$("#Img3").click();
-		});
-		$("#media4").click(function(){
-			$("#Img4").click();
-		});
-		
-	});
-	function LoadImg(value, num){
-		if(value.files && value.files[0]){
-			var reader = new FileReader();
-							
-			reader.onload = function(e){								
-				switch(num){
-				case 1: 
-					$("#mediaImg1").attr("src", e.target.result);
-					break;
-				case 2:
-					$("#mediaImg2").attr("src", e.target.result);
-					break;
-				case 3: 
-					$("#mediaImg3").attr("src", e.target.result);
-					break;
-				case 4:
-					$("#mediaImg4").attr("src", e.target.result);
-					break;
-				}
-			}
-							
-			reader.readAsDataURL(value.files[0]);
-		}
-	}
+function resetall(){
+	$('#title').val("");
+	$('#content').val("");
+}
+<% switch(p.getPostRange()){ 
+	case 1:%>
+		$('#range1').prop("selected", true);
+		<% break; 
+	case 2: %>
+		$('#range2').prop("selected", true);
+		<% break;
+	case 3: %>
+		$('#range3').prop("selected", true);
+		<% break;
+  } %>
+
+<% switch(p.getCategorynum()){ 
+	case 2:%>
+		$('#catenum1').prop("selected", true);
+		<% break; 
+	case 3: %>
+		$('#catenum2').prop("selected", true);
+		<% break;
+	case 4: %>
+		$('#catenum3').prop("selected", true);
+		<% break;
+	case 5: %>
+		$('#catenum4').prop("selected", true);
+		<% break;
+   } %>
+
+<% if(!mList.isEmpty()){ 
+	if(mList.size()== 1){ %>
+	$("#mediaImg1").attr("src","<%= request.getContextPath() %>/uploadFiles/<%= mList.get(0).getWebName() %>");
+	<% } else if(mList.size() == 2){ %>
+	$("#mediaImg1").attr("src","<%= request.getContextPath() %>/uploadFiles/<%= mList.get(0).getWebName() %>");
+	$("#mediaImg2").attr("src","<%= request.getContextPath() %>/uploadFiles/<%= mList.get(1).getWebName() %>");
+	<% } else if(mList.size() == 3){ %>
+	$("#mediaImg1").attr("src","<%= request.getContextPath() %>/uploadFiles/<%= mList.get(0).getWebName() %>");
+	$("#mediaImg2").attr("src","<%= request.getContextPath() %>/uploadFiles/<%= mList.get(1).getWebName() %>");
+	$("#mediaImg3").attr("src","<%= request.getContextPath() %>/uploadFiles/<%= mList.get(2).getWebName() %>");
+	<% } else if(mList.size() == 4){ %>
+	$("#mediaImg1").attr("src","<%= request.getContextPath() %>/uploadFiles/<%= mList.get(0).getWebName() %>");
+	$("#mediaImg2").attr("src","<%= request.getContextPath() %>/uploadFiles/<%= mList.get(1).getWebName() %>");
+	$("#mediaImg3").attr("src","<%= request.getContextPath() %>/uploadFiles/<%= mList.get(2).getWebName() %>");
+	$("#mediaImg4").attr("src","<%= request.getContextPath() %>/uploadFiles/<%= mList.get(3).getWebName() %>");
+	<% } %>
+<% } %>
 	$('#complete').click(function check(){
 		if($('#title').val() == ""){
 			alert('제목을 입력해주세요');
