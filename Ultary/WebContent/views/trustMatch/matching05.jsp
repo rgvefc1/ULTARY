@@ -316,6 +316,7 @@
 							<div name ="req" id ="popup04" style="text-align:center; cursor:pointer;">수락한 의뢰</div>
 					</div>
 				</div>
+
 				<div id = "mybalsin1" style="display:none" >
 				<%if(balsin1.size()==0){ %>
 				<div id="reqcontent1" style="text-align:center;">
@@ -357,6 +358,8 @@
 	
 					<%} }%>
 					</div>
+					
+					
 					<div id = "mysusin1" style="display:none" >
 				<%if(susin1.size()==0){ %>
 				<div id="reqcontent1" style="text-align:center;">
@@ -392,7 +395,7 @@
 						</div>
 					<%} }%>
 						</div>
-						</div>
+						
 					
 					
 					
@@ -477,6 +480,7 @@
 					<%} }%>
 					</div>
 					</div>
+					</div>
 				</div>
 				
 					
@@ -484,6 +488,9 @@
 			
 				function nosub(){
 					$('#no-popup1').show();
+					$('#page4-1-1').css('background','gold');
+					$('#page4-1-2').css('background','lightgrey');
+					$('#page4-1-3').css('background','lightgrey');
 					$('#no-popup2').hide();
 					$('#no-popup3').hide();
 					$('#mysusin0').hide();
@@ -495,6 +502,9 @@
 				}
 				function sub(){
 					$('#no-popup2').show();
+					$('#page4-1-2').css('background','gold');
+					$('#page4-1-1').css('background','lightgrey');
+					$('#page4-1-3').css('background','lightgrey');
 					$('#no-popup1').hide();
 					$('#no-popup3').hide();
 					$('#mysusin0').hide();
@@ -508,6 +518,9 @@
 					$('#no-popup3').show();
 					$('#no-popup1').hide();
 					$('#no-popup2').hide();
+					$('#page4-1-3').css('background','gold');
+					$('#page4-1-1').css('background','lightgrey');
+					$('#page4-1-2').css('background','lightgrey');
 					$('#mysusin0').hide();
 					$('#mybalsin0').hide();
 					$('#mybalsin1').hide();

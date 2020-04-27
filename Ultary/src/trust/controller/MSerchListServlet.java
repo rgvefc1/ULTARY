@@ -92,7 +92,6 @@ public class MSerchListServlet extends HttpServlet {
 		
 		
 		int listCount = service.getListCount(member,pet,loginId);
-		System.out.println("listcount:"+listCount);
 		int currentPage;	// 현재 페이지
 		int pageLimit = 10;		// 한페이지의 표시된 페이징 수
 		int maxPage;		// 전체 페이지 중 마지막 페이지

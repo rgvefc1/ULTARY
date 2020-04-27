@@ -29,7 +29,7 @@
     .petone{
     	float: left;
     border: 1px solid gray;
-        margin-left: 42px;
+        margin-left: 86px;
     margin-top: 19px;
         border-radius: 34px;
     }
@@ -121,4 +121,7 @@ img#onlyimg {
     width: 167px;
     margin-left: 94px;
     cursor:pointer;
+}
+img#basicImg {
+    width: 135px;
 }
