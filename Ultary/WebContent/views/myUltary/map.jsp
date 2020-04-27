@@ -8,49 +8,54 @@
 <style>
 
 #map_div{
-	width: 670px;
-	height : 450px;
-	text-align: center;
-	background: whitesmoke;
+   width: 670px;
+   height : 450px;
+   text-align: center;
+   background: whitesmoke;
 }
 #map{
-	width:600px;
-	height:350px;
-	border: 4px solid skyblue;
-	border-radius: 20px;
-	margin-top: 20px;
-	margin-left: 30px;
+   width:600px;
+   height:350px;
+   border: 4px solid skyblue;
+   border-radius: 20px;
+   margin-top: 20px;
+   margin-left: 30px;
 }
 
 #map_content{
     
 }
 #keyword{
-	margin-top: 20px;
-	width: 350px;
-	border-radius: 20px;
+   margin-top: 20px;
+   width: 350px;
+   border-radius: 20px;
 }
 #subBTn{
-	background: skyblue;
-	color : white;
-	border-radius: 20px;
+   background: skyblue;
+   color : white;
+   border-radius: 20px;
 }
 
 </style>    
 </head>
 <body>
-<div id ="map_div">	
-	<div id ="map_content">
-		<form onsubmit="searchPlaces(); return false;">
-		   <input type="text" placeholder="키워드 or 주소를 입력하세요..." id="keyword"> 
-		   <button type="submit" id='subBTn'>검색하기</button> 
-		</form>
-	</div>
-	
-	<div id="map"></div>
-	
+<div id ="map_div">   
+   <div id ="map_content">
+      <form onsubmit="searchPlaces(); return false;">
+         <input type="text" placeholder="키워드 or 주소를 입력하세요..." id="keyword" value="<%= addArr[1] %>" disabled="disabled"> 
+         <button id='subBTn'>검색하기</button> 
+      </form>
+   </div>
+   
+   <div id="map"></div>
+   
 
 </div>
+<script>
+   $(function(){
+      $('#subBTn').hide();
+   });
+</script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4aaf89e85083d844d407d2aefdb3b6e2&libraries=services"></script>
 <script>
 
@@ -71,7 +76,7 @@ var map = new kakao.maps.Map(mapContainer, mapOption);
 var ps = new kakao.maps.services.Places(); 
 
 
-//searchPlaces();
+searchPlaces();
 
 //키워드 검색을 요청하는 함수입니다
 function searchPlaces() {

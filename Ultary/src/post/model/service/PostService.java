@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import member.model.vo.Media;
 import post.model.dao.PostDAO;
+import post.model.vo.AlertScreen;
 import post.model.vo.CAns;
 import post.model.vo.MarkPost;
 import post.model.vo.Post;
@@ -641,6 +642,12 @@ public class PostService {
 				Connection conn = getConnection();
 				int result = new PostDAO().updatePost(conn, p);
 				
+				if(result>0) {
+					commit(conn);
+				}else {
+					rollback(conn);
+				}
+				
 				close(conn);
 				return result;
 			}
@@ -684,6 +691,73 @@ public class PostService {
 				
 				return petImg;
 			}
+//////////////////////////호성 알람추가
+			public int insertAlert(String allink, String writer, int alkind, String pNic) {
+				Connection conn = getConnection();
+				int result = new PostDAO().insertAlert(conn, allink, writer, alkind, pNic);
+				
+				if(result > 0) {
+					commit(conn);
+				} else {
+					rollback(conn);
+				}
+				close(conn);
+				return result;
+			}
+			public int insertAlert2(String allink, String writer, int alkind, int cNum) {
+				Connection conn = getConnection();
+				int result = new PostDAO().insertAlert2(conn, allink, writer, alkind, cNum);
+				
+				if(result > 0) {
+					commit(conn);
+				} else {
+					rollback(conn);
+				}
+				close(conn);
+				return result;
+			}
 
+			public ArrayList<AlertScreen> selectAlert(String memberId) {
+				Connection conn = getConnection();
+				
+				ArrayList<AlertScreen> list = new PostDAO().selectAlert(conn, memberId);
+				
+				close(conn);
+				return list;
+			}
+
+			public int deleteAlert(int alsnum) {
+				Connection conn = getConnection();
+				int result = new PostDAO().deleteAlert(conn,alsnum);
+				
+				if(result > 0) {
+					commit(conn);
+				} else {
+					rollback(conn);
+				}
+				close(conn);
+				return result;
+			}
+
+			public int updatealert(int alsnum) {
+				Connection conn = getConnection();
+				int result = new PostDAO().updatealert(conn,alsnum);
+				
+				if(result > 0) {
+					commit(conn);
+				} else {
+					rollback(conn);
+				}
+				close(conn);
+				return result;
+			}
+
+			public int alertCount(String memberId) {
+				Connection conn = getConnection();
+				int count = new PostDAO().alertCount(conn,memberId);
+				
+				close(conn);
+				return count;
+			}
 
 }

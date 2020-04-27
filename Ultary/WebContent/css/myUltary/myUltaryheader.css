@@ -141,10 +141,12 @@ header{
 }
 
 /* -----알림창------------------------------------------ */
-
+#alertbuttondiv{
+	margin-left: 15.2px;
+}
 .alert:after, .alert:before {
 	bottom: 100%;
-    left: 13.4%;
+    left: 8.3%;
     border: solid transparent;
     content: " ";
     height: 0;
@@ -154,7 +156,7 @@ header{
 }
 .alert:after {
 	border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: #5CD1E5;
+	border-bottom-color: #B2CCFF;
 	border-width: 30px;
 	margin-left: -30px;
 }
@@ -168,11 +170,12 @@ header{
     top: 36.5px;
     left: 11.4px;
     z-index: 900;
-    background: #5CD1E5;
+    background: #B2CCFF;
     border-radius: 5px;
     width: 400px;
-    min-height: 300px;
+    min-height: 50px;
     display:none;
+    padding-bottom: 10px;
 }
 #alerttitle{
 	width:400px;
@@ -195,18 +198,26 @@ header{
 }
 .alertcontent{
 	float: left;
-	width:330px;
-	text-align: center;
-	margin-left: 10px;
+    width: 330px;
+    text-align: center;
+    border-radius: 8.5px;
+    cursor: pointer;
+}
+.alertcontent:hover{
+	background:#8C8C8C;
 }
 .alertclose{
-	width:40px;
-	height:50px;
-	float: right;
-	line-height: 50px;
-	font-size: 20px;
-	cursor: pointer;
-	border-radius: 20px;
+	width: 50px;
+    height: 50px;
+    float: left;
+    line-height: 50px;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 8px;
+}
+.alertclose:hover{
+	background:#8C8C8C;
 }
 #alertspace{
 	height: 10px;
@@ -218,4 +229,14 @@ header{
     min-height: 310px;
     margin-top: 40px;
 }
-
+.alertcount{
+	width: 22px;
+    height: 22px;
+    background: red;
+    float: left;
+    border-radius: 50px;
+    margin-top: 16.5px;
+    margin-left: -10.6px;
+    text-align: center;
+    color: white;
+}

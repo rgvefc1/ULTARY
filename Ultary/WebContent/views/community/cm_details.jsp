@@ -57,7 +57,7 @@
 				  				<div id="cdt_title"><%= post.getPostTitle() %></div>
 				  				<div id="cdt_cname"><%= categoryname %></div>
 				  				<input type="hidden" name ="title" value="<%= post.getPostTitle() %>"> 
-				  				<input type="hidden" name="pno" value="<%= post.getPostNum() %>">
+				  				<input type="hidden" name="pNum" value="<%= post.getPostNum() %>">
 				  				
 				  				<div id="cdt_wdate"><%= post.getPostDate()%>
 				  				</div>
@@ -135,15 +135,12 @@
 				  			<hr>
 				  				<!-- 댓글 부분 -->
 				  			<div id="detail_comment">
-				  					<label>댓글</label>
-				  					<hr>
-				  					<div class="comment_list">
 				  					<% if(!pclist.isEmpty()) { %>
 				  						<% for(int x=0;x<pclist.size();x++){ 
 				  							PostComment pc = pclist.get(x);
 				  							if(post.getPostNum() == pc.getPostNum()){ %>
 					  						<div class="comment1">
-					  							<div id="cdt_profile">
+					  							<div class="comment2-1">
 					  								<% if(!proList.isEmpty()) { 
 					  									for(int o=0;o<=proList.size();o++){
 					  										if(o==proList.size()){	%>
@@ -323,7 +320,7 @@
 				  					<% } %>
 				  				<% } %>
 				  			<% } %>
-				  				</div>
+				  			
 				  		<div id="commentansdiv" class=commentansdiv>
 							<span id="commentanstext"></span>
 							<button class="commentansclose">x</button>
@@ -335,8 +332,10 @@
 										<option value="2">작성자만</option>
 									</select>
 								</div>
+								<div id="ct_wrap">
 								<input id="commenttext" class="commenttext" type="text" placeholder="내용을 입력해주세요">
-								<button id="commentsubmit"class="commentsubmit">댓글달기</button>
+								<button id="commentsubmit"class="commentsubmit">등록</button>
+								</div>
 								</div>
 				  			</div>
 <script type="text/javascript">
@@ -360,11 +359,12 @@ $(function(){
 				var pNum = <%= post.getPostNum() %>;
 				var $range = "#commentrange";
 				var range = $($range).val();
+				var pNic = '<%= post.getMemberid() %>';
 				
 				if(ansempty && ansbull){
 					$.ajax({
 						url: 'insertComment.tl',
-						data: {writer:writer, pNum:pNum, content:content, range:range},
+						data: {writer:writer, pNum:pNum, content:content, range:range, pNic:pNic},
 						success: function(data){
 							location.reload();
 						}
@@ -372,7 +372,7 @@ $(function(){
 				} else if(ansempty && !ansbull){
 					$.ajax({
 						url: 'insertCAns.tl',
-						data: {cNumber:cNumber, writer:writer, content:content},
+						data: {pNum:pNum,cNumber:cNumber, writer:writer, content:content},
 						success: function(data){
 							location.reload();
 						}
@@ -393,11 +393,12 @@ $(function(){
 			var pNum = <%= post.getPostNum() %>;
 			var $range = "#commentrange";
 			var range = $($range).val();
+			var pNic = '<%= post.getMemberid() %>';
 			
 			if(ansempty && ansbull){
 				$.ajax({
 					url: 'insertComment.tl',
-					data: {writer:writer, pNum:pNum, content:content, range:range},
+					data: {writer:writer, pNum:pNum, content:content, range:range, pNic:pNic},
 					success: function(data){
 						location.reload();
 					}
@@ -405,7 +406,7 @@ $(function(){
 			} else if(ansempty && !ansbull){
 				$.ajax({
 					url: 'insertCAns.tl',
-					data: {cNumber:cNumber, writer:writer, content:content},
+					data: {pNum:pNum,cNumber:cNumber, writer:writer, content:content},
 					success: function(data){
 						location.reload();
 					}

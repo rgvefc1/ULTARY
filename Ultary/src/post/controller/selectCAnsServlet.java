@@ -33,11 +33,12 @@ public class selectCAnsServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int cNum = Integer.parseInt(request.getParameter("cNum"));
 		
 		ArrayList<CAns> list = new PostService().selectCAnsCnum(cNum);
 		
-		response.setContentType("application/json");
+		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(list, response.getWriter());
 	}
 

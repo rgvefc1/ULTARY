@@ -367,11 +367,12 @@
 					var pNum = <%= p.getPostNum() %>;
 					var $range = "#commentrange"+<%= i %>;
 					var range = $($range).val();
+					var pNic = '<%= p.getMemberid() %>';
 					
 					if(ansempty && ansbull){
 						$.ajax({
 							url: 'insertComment.tl',
-							data: {writer:writer, pNum:pNum, content:content, range:range},
+							data: {writer:writer, pNum:pNum, content:content, range:range, pNic:pNic},
 							success: function(data){
 								location.reload();
 							}
@@ -379,7 +380,7 @@
 					} else if(ansempty && !ansbull){
 						$.ajax({
 							url: 'insertCAns.tl',
-							data: {cNumber:cNumber, writer:writer, content:content},
+							data: {pNum:pNum, cNumber:cNumber, writer:writer, content:content},
 							success: function(data){
 								location.reload();
 							}
@@ -400,11 +401,12 @@
 				var pNum = <%= p.getPostNum() %>;
 				var $range = "#commentrange"+<%= i %>;
 				var range = $($range).val();
+				var pNic = '<%= p.getMemberid() %>';
 				
 				if(ansempty && ansbull){
 					$.ajax({
 						url: 'insertComment.tl',
-						data: {writer:writer, pNum:pNum, content:content, range:range},
+						data: {writer:writer, pNum:pNum, content:content, range:range, pNic:pNic},
 						success: function(data){
 							location.reload();
 						}
@@ -412,7 +414,7 @@
 				} else if(ansempty && !ansbull){
 					$.ajax({
 						url: 'insertCAns.tl',
-						data: {cNumber:cNumber, writer:writer, content:content},
+						data: {pNum:pNum,cNumber:cNumber, writer:writer, content:content},
 						success: function(data){
 							location.reload();
 						}

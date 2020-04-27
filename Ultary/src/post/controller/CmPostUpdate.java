@@ -1,9 +1,6 @@
 package post.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,27 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-
-import com.oreilly.servlet.MultipartRequest;
-
-import common.MyFileRenamePolicy;
-import member.model.vo.Media;
-import member.model.vo.Member;
 import post.model.service.PostService;
 import post.model.vo.Post;
 
 /**
- * Servlet implementation class CmUpdateSubmitServltet
+ * Servlet implementation class PostUpdate
  */
-@WebServlet("/cmUpdate.po")
-public class CmUpdateSubmitServltet extends HttpServlet {
+@WebServlet("/cmupdate.tl")
+public class CmPostUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CmUpdateSubmitServltet() {
+    public CmPostUpdate() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -51,16 +41,14 @@ public class CmUpdateSubmitServltet extends HttpServlet {
 		
 		int result = new PostService().updatePost(p);
 		
-		String page = "";
 		if(result > 0) {
-			page="/cmdetail.po?pno=" + pNum;
+			response.sendRedirect("post.tl");
 		} else {
-			page="views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시글 수정에 실패");
+			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			view.forward(request, response);
 		}
-	
-		RequestDispatcher view = request.getRequestDispatcher(page);
-		view.forward(request, response);
+		
 	}
 
 	/**

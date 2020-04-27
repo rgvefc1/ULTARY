@@ -27,9 +27,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/common/완성본틀.css">
-	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/community/all_search.css">
-   <link rel="stylesheet" href="<%= request.getContextPath() %>/css/community/togglebtn.css">
+	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/common/완성본틀.css">
+	<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/community/all_search.css">
+   <link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/css/community/togglebtn.css">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
@@ -286,7 +286,7 @@
             });
          });
          $('.wbtn').click(function(){
-        	location.href="<%= request.getContextPath() %>/views/community/cmpostWrite.jsp?cnum=0";
+        	location.href="<%= request.getContextPath() %>/views/community/cmpostWrite.jsp?cnum=1";
          });
         
          $(".find").click(function check() {

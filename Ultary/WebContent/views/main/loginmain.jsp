@@ -81,7 +81,7 @@
 				<div id="like">♡</div>
 				<div id="likescore" class="expansionbox"></div>
 				<div id="commenttextdiv">
-					<input id="commentsubmit" type="button" value="상세보기">
+					<a><input id="commentsubmit" type="button" value="상세보기"></a>
 				</div>
 			</div>
 		</div>
@@ -123,12 +123,10 @@
 		<div id="top-header">
 			<div id="top-left">
 				<% if((loginUser) != null) { %>
-				<div class="top-button" id="chatbtn">
-					<img class="top-buttonimg" src="<%= request.getContextPath() %>/image/메신저.png">
-				</div>
 				<div class="top-button" id="alertbuttondiv">
 					<img class="top-buttonimg" id="alertbutton" src="<%= request.getContextPath() %>/image/알림.png">
 				</div>
+				<div class="alertcount"></div>
 				<% } %>
 			</div>
 			<div id="top-right">
@@ -389,6 +387,8 @@
 			} else if($('#expansion').css('display') == 'none'){
 				if($($item).has(e.target).length) {
 					$('#expansion').show();
+					var path = "<%= request.getContextPath()%>/cmdetail.po?pno="+item;
+					$('#commenttextdiv>a').attr('href', path);
 					$('#imgslide ul').css('left', '0px');
 					imgslide_count = 0;
 					img_position = 1;
@@ -446,20 +446,16 @@
 											var $li = $('<li>');
 											var $li2 = $('<li>');
 											var $ul = $('<ul>');
-											var $div1 = $('<div>');
-											var $div2 = $('<div>');
-											var $div4 = $('<div>');
+											var $div1 = $('<div>').attr('class','comment1-1');
+											var $div2 = $('<div>').attr('class', 'commentans1-1');
 											var $comment1 = $('<div>').attr('class','comment1');
-											var $comment2 = $('<div>').attr('class','comment2');
 											var $commentans1 = $('<div>').attr('class', 'commentans1');
 											var memberid = data[key].memberid;
 											cNum = data[key].cNum;
-											console.log(cNum);
 											$div1.text(data[key].memberid);
 											$div2.text(data[key].cContent);
 											$comment1.append($div1);
 											$comment1.append($div2);
-											$comment2.append($div4);
 							/* --------------------답글----------------------- */
 											$.ajax({
 												url: 'selectCAns.tl',
@@ -471,7 +467,7 @@
 													if(da.length > 0){
 														for(var k in da){
 															var $div5 = $('<div>').text(da[k].memberid);
-															var $div6 = $('<div>').text(da[k].ansContent);
+															var $div6 = $('<div>').attr('class', 'commentans2-2').text(da[k].ansContent);
 															
 															$commentans1.append('<div>ㄴ</div>');
 															$commentans1.append($div5);
@@ -484,7 +480,6 @@
 												}
 											});
 											$li.append($comment1);
-											$li.append($comment2);
 											$li.append($ul);
 											$('#expansioncomment>ul').append($li);
 										}

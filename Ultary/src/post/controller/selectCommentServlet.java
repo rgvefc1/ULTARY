@@ -33,11 +33,12 @@ public class selectCommentServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		int pNum = Integer.parseInt(request.getParameter("pNum"));
 		
 		ArrayList<PostComment> list = new PostService().selectCommentList(pNum);
 		
-		response.setContentType("application/json");
+		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(list, response.getWriter());
 	}
 

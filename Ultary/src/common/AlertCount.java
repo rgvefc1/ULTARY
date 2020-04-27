@@ -1,30 +1,27 @@
-package post.controller;
+package common;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.model.vo.Media;
+import member.model.vo.Member;
 import post.model.service.PostService;
-import post.model.vo.Post;
 
 /**
- * Servlet implementation class CmUpdateServlet
+ * Servlet implementation class AlertCount
  */
-@WebServlet("/update.po")
-public class CmUpdateServlet extends HttpServlet {
+@WebServlet("/AlertCount.al")
+public class AlertCount extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CmUpdateServlet() {
+    public AlertCount() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,23 +30,12 @@ public class CmUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int pNum = Integer.parseInt(request.getParameter("pNum"));
+		String memberId = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
 		
-		Post p = new PostService().selectPost(pNum);
-		ArrayList<Media> mList = new PostService().selectphoto(pNum);
+		int alertcount = new PostService().alertCount(memberId);
+		System.out.println(alertcount);
 		
-		
-		String page = "";
-		if(p != null && mList != null) {
-			page = "views/community/cmpostUpdate.jsp";
-			request.setAttribute("p", p);
-			request.setAttribute("mList", mList);
-		} else {
-			page = "views/common/errorPage.jsp";
-			request.setAttribute("msg", "게시글 수정 폼실행에 실패");
-		}
-		RequestDispatcher view = request.getRequestDispatcher(page);
-		view.forward(request, response);
+		response.getWriter().println(alertcount);
 	}
 
 	/**

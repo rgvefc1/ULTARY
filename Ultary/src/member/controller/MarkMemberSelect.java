@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import member.model.service.MemberService;
+import member.model.vo.Media;
 import member.model.vo.Member;
+import post.model.service.PostService;
 
 /**
  * Servlet implementation class MarkMember
@@ -35,11 +37,13 @@ public class MarkMemberSelect extends HttpServlet {
 		String loginId = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
 		
 		ArrayList<Member> markList = new MemberService().selectMarkMember(loginId);
+		ArrayList<Media> proList = new PostService().selectAllproimg();
 		
 		String page ="";
 		if(markList != null) {
 			page = "views/myUltary/markMember.jsp";
 			request.setAttribute("markList", markList);
+			request.setAttribute("proList", proList);
 		} else {
 			page = "views/common/errorPage.jsp";
 			request.setAttribute("msg", "관심회원 조회에 실패하였습니다.");
