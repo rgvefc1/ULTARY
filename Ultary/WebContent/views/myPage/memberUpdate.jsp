@@ -212,7 +212,11 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
 	<table>
 		<tr>
 			<th>닉네임</th>
-			<td><input type="text" name="nickname" id="nickname" placeholder="닉네임을 입력하세요" value="<%= loginUser.getNickname() %>"><button>중복체크</button></td>
+			<td><input type="text" name="nickname" id="nickname" placeholder="닉네임을 입력하세요" value="<%= loginUser.getNickname() %>">
+			<label id="nickResult"></label>
+								<img id="nickname_check"  style="display:none;" src="<%= request.getContextPath() %>/image/check.png" width="15px" height="15px" /> 
+								<img id="nickname_checked" style="display:none;" src="<%= request.getContextPath() %>/image/checked.png" width="15px" height="15px" />
+								</td>
 		
 		</tr>
 		<tr>
@@ -245,8 +249,6 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
                      <th>우편번호</th>
                      <td>
          <!-- 1우편번호-->    <input type="text" id="zipNo" name="zipNo" width="60px" value="<%= addArr[0] %>"/>
-        			
-       				
          <!-- 팝업버튼 -->      <input type="button" value="검색" onclick="goPopup();">
                      </td>
                   </tr>
@@ -254,14 +256,12 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
                      <th>도로명주소</th>
                      <td>
          <!--2도로명주소--> <input type="text" id="roadAddrPart1" name="roadAddrPart1" width="240px" value="<%= addArr[1] %>"/><br>
-
                      </td>
                   </tr>
                   <tr>
                      <th>상세주소</th>
-                     <td>
+                     <td>`
          <!-- 3참고주소 -->       <input type="text" id="roadAddrPart2" name="roadAddrPart2" width="115px" value="<%= addArr[2] %>"/>
-   	
          <!-- 4고객입력 상세주소 --><input type="text" id="addrDetail" name="addrDetail" width="115px" value="<%= addArr[3] %>"/><br>
          	<!-- --------------------------------------------------------------------------------------- -->
          <!-- 위탁검색용 시도명 --><input type="hidden" id="siNm" name="siNm" width="115px" />
@@ -275,19 +275,36 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
 			<td>
 				<select id="pwquery" name="pwquery" class="member">
 					<option>비밀번호 질문</option>
-					<option value="1">기억에 남는 추억의 장소는?</option>
-					<option value="2">자신의 인생 좌우명은?</option>
-					<option value="3">자신의 보물 제1호는?</option>
-					<option value="4">유년시절 가장 생각나는 친구 이름은?</option>
-					<option value="5">인상 깊게 읽은 책 이름은?</option>
-					<option value="6">자신이 두번째로 존경하는 인물은?</option>
-					<option value="7">어릴적 별명은?</option>
-					<option value="8">다시 태어나면 되고 싶은 것은?</option>
-					<option value="9">내가 좋아하는 캐릭터는?</option>
-					<option value="10">내가 좋아하는 색깔은?</option>
+					<option id="pw1" value="1">기억에 남는 추억의 장소는?</option>
+					<option id="pw2" value="2">자신의 인생 좌우명은?</option>
+					<option id="pw3" value="3">자신의 보물 제1호는?</option>
+					<option id="pw4" value="4">유년시절 가장 생각나는 친구 이름은?</option>
+					<option id="pw5" value="5">인상 깊게 읽은 책 이름은?</option>
+					<option id="pw6" value="6">자신이 두번째로 존경하는 인물은?</option>
+					<option id="pw7" value="7">어릴적 별명은?</option>
+					<option id="pw8" value="8">다시 태어나면 되고 싶은 것은?</option>
+					<option id="pw9" value="9">내가 좋아하는 캐릭터는?</option>
+					<option id="pw10" value="10" selected="selected">내가 좋아하는 색깔은?</option>
 				</select>
 			</td>
 			</tr>
+<script>
+	$(function(){
+		<% switch(loginUser.getPwQuery()){ 
+		case 1: %> $('#pw1').prop("selected",true); <% break;
+		case 2: %> $('#pw2').prop("selected",true); <% break; 
+		case 3: %> $('#pw3').prop("selected",true); <% break; 
+		case 4: %> $('#pw4').prop("selected",true); <% break; 
+		case 5: %> $('#pw5').prop("selected",true); <% break; 
+		case 6: %> $('#pw6').prop("selected",true); <% break; 
+		case 7: %> $('#pw7').prop("selected",true); <% break; 
+		case 8: %> $('#pw8').prop("selected",true); <% break; 
+		case 9: %> $('#pw9').prop("selected",true); <% break; 
+		case 10: %> $('#pw10').prop("selected",true); <% break; 
+		} %>
+	});
+</script>			
+
 			<tr>
 				<th>비밀번호 답</th>
 				<td>
@@ -431,6 +448,66 @@ function jusoCallBack(roadFullAddr, roadAddrPart1, addrDetail, roadAddrPart2, en
 					</td>
 				</tr>
 			</table>
+		<script>
+		/* 닉네임 유효성 검사 ajax 중복불가 */		
+		var isnickUsable = false; 	// 닉네임 중복 시false, 사용가능시 true
+		var isnickChecked = false;	// 닉네임 중복확인을 했는지 안했는지 검사
+		var re3 = /^[가-힣a-zA-Z\d]{2,}$/; // 닉네임 정규식 한글 2자이상
+		
+		
+		$("#nickname").on('change paste keyup', function(){
+			isnickChecked = false;
+		});
+		
+		$('#nickname').change(function(){
+			var userNick = $('#nickname');
+			
+			if(!re3.test(userNick.val())){
+				alert('닉네임은 영문 혹은 한글 2자리 이상이어야 합니다.');
+//	 			$('#nickResult').text('사용 불가능 합니다.');
+//	 			$('#nickResult').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'50px'});
+				userNick.focus();
+				
+				if($('#nickname_checked').css("display")=="none"){ //반려
+			 		$('#nickname_checked').show();
+			 		$('#nickname_check').hide();
+				}
+				
+			} else{
+				$.ajax({
+					url:'<%= request.getContextPath() %>/nickNameCheck.mem',
+					data:{userNick: userNick.val()},
+					success: function(data){ //data로 반환 받아옴
+						
+						if(data == "success"){
+//	 						$('#nickResult').text('사용가능합니다.');
+//	 						$('#nickResult').css({'color':'green', 'float':'right','display':'inline-block','padding-right':'50px'});
+							isnickUsable = true;
+							isnickChecked= true;
+							
+							if($('#nickname_check').css("display")=="none"){
+						 		$('#nickname_check').show();
+						 		$('#nickname_checked').hide();
+							}
+							
+						}else{
+//	 						$('#nickResult').text('사용 불가능 합니다.');
+//	 						$('#nickResult').css({'color':'red', 'float':'right','display':'inline-block', 'padding-right':'50px'});
+							userNick.focus();
+							isnickUsable = false;
+							isnickChecked= false;
+							
+							if($('#nickname_checked').css("display")=="none"){
+						 		$('#nickname_checked').show();
+						 		$('#nickname_check').hide();
+							 	}
+							
+						}
+					}
+				});
+			}
+		});		
+		</script>
 <script>
 	var deleteBtn = "#pd"+"<%= j %>";
 	$(deleteBtn).click(function(){ // 삭제버튼

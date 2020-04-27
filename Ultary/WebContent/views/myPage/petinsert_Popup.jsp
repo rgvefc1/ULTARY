@@ -225,7 +225,7 @@ $("#self").change(function() {
 			<td><input type="number" name="petage" id="petage" style="width: 50px;"></td>
 		</tr>
 	</table>
-		<center><input id="cancel" type="button" value="취소하기" style='cursor:pointer;'>
+		<center><input id="cancel" type="button" max="0" value="취소하기" style='cursor:pointer;'>
 		<input id="retoch" type="submit" value="수정저장" style='cursor:pointer;'></center><br>
 	
 	</form>
@@ -241,7 +241,7 @@ $("#self").change(function() {
 	</script>
 	<script>
 	$("#cancel").click(function(){
-		history.go(-1)();
+		close();
 	});
 	</script>
 	</div>
