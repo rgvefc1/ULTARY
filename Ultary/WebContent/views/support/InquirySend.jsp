@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
 <html>
@@ -97,6 +97,7 @@
 			<img src ="<%= request.getContextPath() %>/image/support/dog11.png">
         </h2>
        
+      <% if (loginUser != null && !loginUser.getMemberId().equals("admin")) {%>
     <!-- Ajax 방식으로 변경 --> 
     <!--  <form action ="<%= request.getContextPath() %>/insert.inq" method ="post" onsubmit="return submitcheck();"> -->
         <p style="color: gray;">궁금하신 사항을 입력해 주세요</p>
@@ -113,7 +114,11 @@
            
            <br><br><br><br>
         </div>
-        
+        <% } else { %>
+        	<br>
+        	관리자로 접속하셨습니다.
+        	<hr>
+        <% } %>
         <div id ="sucess">
         	<div id ="su-msg">
         	<br>
@@ -143,7 +148,7 @@
    </div> 
 </body>
 	<script>
-	
+
 	// 페이지 리로드 : 재문의
 	$('#retry').click(function(){
 		history.go(0);
