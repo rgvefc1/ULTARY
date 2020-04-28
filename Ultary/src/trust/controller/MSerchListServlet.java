@@ -66,9 +66,11 @@ public class MSerchListServlet extends HttpServlet {
 		String address = "%"+h_area+" "+h_area2+" "+h_area3;
 		int check01 = Integer.parseInt(request.getParameter("check01"));
 		String[] check1 =	request.getParameterValues("check1");
+		System.out.println(check1.length);
 		String serch1 = "";
 		if(check1.length > 1) {
-			serch1 = String.join(",",check1);
+			serch1 = String.join(", ",check1);
+			System.out.println(serch1);
 		} else {
 			serch1 = check1[0];
 		}

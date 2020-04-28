@@ -36,10 +36,8 @@ public class TpostSendServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int petnum = Integer.parseInt(request.getParameter("petnum"));
 		
-		String area1 = request.getParameter("h_area1");
-		String area2 = request.getParameter("h_area2");
-		String area3 = request.getParameter("h_area3");
-		String address = area1+" "+area2+" "+area3;
+	
+		String address = request.getParameter("address");
 		
 		Date startDate = Date.valueOf(request.getParameter("startDate"));
 		Date endDate = Date.valueOf(request.getParameter("endDate"));
