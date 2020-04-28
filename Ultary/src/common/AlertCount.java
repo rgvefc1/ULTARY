@@ -30,7 +30,11 @@ public class AlertCount extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String memberId = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
+		String memberId="";
+		try {
+			memberId = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
+		} catch (Exception e) {
+		}
 		
 		int alertcount = new PostService().alertCount(memberId);
 //		System.out.println(alertcount);

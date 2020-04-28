@@ -35,7 +35,7 @@ public class TrustUpdateServlet extends HttpServlet {
 		char trust = request.getParameter("trust").charAt(0);
 		int trustmeans = Integer.parseInt(request.getParameter("trustmeans"));
 		String[] trustfieldlist = request.getParameterValues("trustfield");
-		String trustfield = String.join(",", trustfieldlist);
+		String trustfield = String.join(", ", trustfieldlist);
 		String trustAdd = request.getParameter("trustadd");
 		String memberid = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
 		String password = ((Member)request.getSession().getAttribute("loginUser")).getPassword();

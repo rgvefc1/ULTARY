@@ -48,11 +48,7 @@
                   <div id="sTitle">
                      <label>Title : </label>
                      <input name="title">
-                     <select name="postRange">
-                        <option value="1" selected>전체공개</option>
-                        <option value="2">내관심회원만</option>
-                        <option value="3">나만보기</option>
-                     </select>
+                     <input type="hidden" name="postRange" value="1">
                   </div>
                   <hr>
                   <div id="sContent">
@@ -72,19 +68,19 @@
                   <hr>
                   <div id="sMedia">
                      <div class="sMedia" id="media1">
-                        <img id="mediaImg1" width="100%" height="100%" src="">
+                        <img id="mediaImg1" width="100%" height="100%" src="<%= request.getContextPath() %>/image/white.jpg">
                      </div>
                      <div class="sMediaL"></div>
                      <div class="sMedia" id="media2">
-                        <img id="mediaImg2" width="100%" height="100%" src="">
+                        <img id="mediaImg2" width="100%" height="100%" src="<%= request.getContextPath() %>/image/white.jpg">
                      </div>
                      <div class="sMediaL"></div>
                      <div class="sMedia" id="media3">
-                        <img id="mediaImg3" width="100%" height="100%" src="">
+                        <img id="mediaImg3" width="100%" height="100%" src="<%= request.getContextPath() %>/image/white.jpg">
                      </div>
                      <div class="sMediaL"></div>
                      <div class="sMedia" id="media4">
-                        <img id="mediaImg4" width="100%" height="100%" src="">
+                        <img id="mediaImg4" width="100%" height="100%" src="<%= request.getContextPath() %>/image/white.jpg">
                      </div>
                   </div>
                   <hr>   
@@ -105,10 +101,10 @@
 <script>
    function resestBtn(e){
       e.click(function(){
-         $("#mediaImg1").attr("src","");
-         $("#mediaImg2").attr("src","");
-         $("#mediaImg3").attr("src","");
-         $("#mediaImg4").attr("src","");
+         $("#mediaImg1").attr("src","<%= request.getContextPath() %>/image/white.jpg");
+         $("#mediaImg2").attr("src","<%= request.getContextPath() %>/image/white.jpg");
+         $("#mediaImg3").attr("src","<%= request.getContextPath() %>/image/white.jpg");
+         $("#mediaImg4").attr("src","<%= request.getContextPath() %>/image/white.jpg");
       });
    }
    
@@ -161,7 +157,7 @@
             </form>
          </section>
       </div>
-      <footer>제작사:hoseong</footer>
+      <footer>ULTARY</footer>
    </div>
 </body>
 </html>

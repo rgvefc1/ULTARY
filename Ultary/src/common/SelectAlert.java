@@ -34,7 +34,12 @@ public class SelectAlert extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String memberId = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
+		String memberId = "";
+		
+		try {
+			memberId = ((Member)request.getSession().getAttribute("loginUser")).getMemberId();
+		} catch (Exception e) {
+		}
 		ArrayList<AlertScreen> alertList = new PostService().selectAlert(memberId);
 		
 		response.setContentType("application/json; charset=UTF-8");

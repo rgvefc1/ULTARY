@@ -8,16 +8,7 @@
 	
 	ArrayList<Pet> PetList = (ArrayList<Pet>)request.getAttribute("PetList");
 	ArrayList<Media> MediaList = (ArrayList<Media>)request.getAttribute("MediaList");
-	String petKind="";
-	switch(pet.getPetKind()){
-	case '1' : petKind="강아지"; break;
-	case '2' : petKind ="고양이"; break;
-	case '3' : petKind ="설치류"; break;
-	case '4' : petKind ="물고기"; break;
-	case '5' : petKind ="파충류"; break;
-	case '6' : petKind ="조류"; break;
-	case '7' : petKind = "기타"; break;
-	}
+	
 
 %>
 <!DOCTYPE html>
@@ -98,7 +89,18 @@
 								</tr>
 								<tr>
 									<td class="page3_td"><div class="petname">반려동물 종류</div></td>
-									<td><label><%= p.getPetKind() %></label></td>
+									<%String petKind="";
+                                 switch(p.getPetKind()){
+                                 case '1' : petKind="강아지"; break;
+                                 case '2' : petKind ="고양이"; break;
+                                 case '3' : petKind ="설치류"; break;
+                                 case '4' : petKind ="물고기"; break;
+                                 case '5' : petKind ="파충류"; break;
+                                 case '6' : petKind ="조류"; break;
+                                 case '7' : petKind = "기타"; break;
+                                 
+                                 }%>
+                           <td><label><%=petKind %></label></td>
 								</tr>
 								<tr>
 									<td class="page3_td"><div class="petname">성별</div></td>
@@ -106,7 +108,7 @@
 								</tr>
 								<tr>
 									<td class="page3_td"><div class="petname">반려동물 나이</div></td>
-									<td><label><%= p.getPetage() %></label></td>
+									<td><label><%= p.getPetage() %>살</label></td>
 								</tr>
 							</table>
 						</div>
@@ -136,31 +138,8 @@
 									<div class="page4-1">거주지역</div>
 								</td>
 								<td colspan ="2">
-									<select id="place11" name="h_area1" onChange="cat1_change(this.value,h_area2)" >
-									<option>-선택-</option>
-									<option value='1'>서울</option>
-									<option value='2'>부산</option>
-									<option value='3'>대구</option>
-									<option value='4'>인천</option>
-									<option value='5'>광주</option>
-									<option value='6'>대전</option>
-									<option value='7'>울산</option>
-									<option value='8'>강원</option>
-									<option value='9'>경기</option>
-									<option value='10'>경남</option>
-									<option value='11'>경북</option>
-									<option value='12'>전남</option>
-									<option value='13'>전북</option>
-									<option value='14'>제주</option>
-									<option value='15'>충남</option>
-									<option value='16'>충북</option>
-								  	</select>
-								
-								
-								<select id="nation1" name="h_area2">
-						  				<option>-선택-</option>
-						  		</select>
-						  			<input type="text" placeholder="동/읍을 입력해주세요." name ="h_area3"class="pl1" id="text1">
+							<%=m.getAddress() %>
+                           <input type="hidden" id="address" name="address" value="<%=m.getAddress()%>">
 								</td>
 					<script>
 					 		var cat1_num = new Array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16);

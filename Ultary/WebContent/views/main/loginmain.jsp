@@ -598,7 +598,7 @@
 					<div class="articleinner">
 						<ul>
 							<%if(!newList.isEmpty()) { %>
-							<% for(int newo = 0;newo<nlist.size();newo++) { %>
+							<% for(int newo = 0;newo<newList.size();newo++) { %>
 							<% Post newp = newList.get(newo); %>
 								<li><a href="<%= request.getContextPath() %>/cmdetail.po?pno=<%= newp.getPostNum() %>"><%=newp.getPostTitle() %></a></li>
 							<%} %>
@@ -615,7 +615,7 @@
 					<div class="articleinner">
 						<ul>
 							<%if(!hotList.isEmpty()) { %>
-							<% for(int hoto = 0;hoto<nlist.size();hoto++) { %>
+							<% for(int hoto = 0;hoto<hotList.size();hoto++) { %>
 							<% Post hotp = hotList.get(hoto); %>
 								<li><a href="<%= request.getContextPath() %>/cmdetail.po?pno=<%= hotp.getPostNum() %>"><%=hotp.getPostTitle() %></a></li>
 							<%} %>

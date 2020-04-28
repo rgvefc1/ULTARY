@@ -15,14 +15,19 @@
 	/*맨 위에 카테고리 부분 나오는곳*/
 	#cm_detail_head{text-align:left;}
 	/* 제목 부분*/
-	#cdt_title{float:left;font-size:20px;font-weight:600;display:inline;}
-	#cdt_cname{display:inline;float:left;}
+	#cdt_title_name{float:left;font-size:20px;font-weight:600;display:inline;}
 	#cdt_wdate{float:right;}
 	#cdt_border{height:10px;;border-bottom-color:lightgray;border-bottom-style:dashed;}
-	#cdt_detail_writer{text-align:left;margin-top:10px;margin-bottom:30px;}
-	#cdt_profile{float:left;}
+	#cdt_detail_writer{text-align:left;margin-top:10px;margin-bottom:30px;display: inline-block;}
+	#ctitle{font-size:15px;font-weight: bold;}
+	#cname{font-size:15px;}
+	#wdate{float:right;}
+	#cdt_profile{float:left;display:inline;}
 	#cdt_profile img{width:45px;height:45px;border-radius:100%;}
-	#cdt_detail_writer img,a{vertical-align: middle;}
+	#cdt_detail_writer label{
+	    line-height: 45px;
+    	margin-left: 3px;
+	}
 	#cdt_content{text-align:left;}
 	#cdt_img{width:500px;height:500px;}
 	#cdt_detail_content{text-align:left;}
@@ -46,8 +51,12 @@
 	#cdt_wrap{
 	display:inline-block;
 	text-align:left;
-	margin-top:20px;
+	margin-top: 40px;
+    margin-left: 6px;
 	}
+	/*관심글 등록, 추천 , 목록으로 돌아가기*/
+	#cdt_like_recom_report input{background:none;border:0;outline:0;}
+	#menuBtn{display:inline;}
 	/* 슬라이드 */
 .media{
 	width:100%;

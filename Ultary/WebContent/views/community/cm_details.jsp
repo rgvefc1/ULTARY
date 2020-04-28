@@ -26,10 +26,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title><%= post.getPostTitle() %></title>
 </head>
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/common/완성본틀.css">
 	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/community/cm_details.css">
+	<link rel="stylesheet" href="<%= request.getContextPath() %>/css/font/font.css">
+	
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
@@ -55,15 +57,13 @@
 				  	<form action="<%= request.getContextPath() %>/update.po" method="post">
 				  		<div id="cm_detail_all">
 				  			<div id="cm_detail_title">
-				  				<div id="cdt_title"><%= post.getPostTitle() %></div>
-				  				<div id="cdt_cname"><%= categoryname %></div>
-				  				<input type="hidden" name ="title" value="<%= post.getPostTitle() %>"> 
+				  			<input type="hidden" name ="title" value="<%= post.getPostTitle() %>"> 
 				  				<input type="hidden" name="pNum" value="<%= post.getPostNum() %>">
-				  				
-				  				<div id="cdt_wdate"><%= post.getPostDate()%>
-				  				</div>
+				  				<label id="ctitle"><%= post.getPostTitle() %></label>
+				  				<label id="cline"> | </label>
+				  				<label id="cname"><%= categoryname %></label>
+				  				<label id="wdate"><%= post.getPostDate()%></label>
 				  			</div>
-				  			<br>
 				  			<div id="cdt_border"></div>
 				  			<div id="cdt_detail_writer">
 					  			<!-- 프로필 -->

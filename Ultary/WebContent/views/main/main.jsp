@@ -73,6 +73,7 @@
 	$(function(){
 		$('#expansionexit').click(function(){
 			$('#expansion').hide();
+			location.reload();
 		});
 	});
 </script>
@@ -473,7 +474,7 @@
 					<div class="articleinner">
 						<ul>
 							<%if(!newList.isEmpty()) { %>
-							<% for(int newo = 0;newo<nlist.size();newo++) { %>
+							<% for(int newo = 0;newo<newList.size();newo++) { %>
 							<% Post newp = newList.get(newo); %>
 								<li><a href="#"><%=newp.getPostTitle() %></a></li>
 							<%} %>
@@ -490,7 +491,7 @@
 					<div class="articleinner">
 						<ul>
 							<%if(!hotList.isEmpty()) { %>
-							<% for(int hoto = 0;hoto<nlist.size();hoto++) { %>
+							<% for(int hoto = 0;hoto<hotList.size();hoto++) { %>
 							<% Post hotp = hotList.get(hoto); %>
 								<li><a href="#"><%=hotp.getPostTitle() %></a></li>
 							<%} %>
