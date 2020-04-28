@@ -41,8 +41,6 @@
 					$('.alertcount').hide();
 				}
 				$('.alertcount').text(data);
-			},error: function(){
-				
 			}
 		});
 		$.ajax({
@@ -70,8 +68,6 @@
 					$div.append($div2);
 					$('.alert').append($div);
 				}
-			}, error: function(){
-				
 			}
 		});
 		setTimeout(updateDate, 5000);
@@ -103,6 +99,7 @@
 </script>
 		<div id="header-top">
 			<div id="alertbuttondiv"><img class="headerimg" src="<%= request.getContextPath() %>/image/알림.png"></div>
+			<div class="alertcount"></div>
 			<a href='<%= request.getContextPath() %>/main.login'><img id="logimg" src="<%= request.getContextPath() %>/image/logo.png"></a>
 			<div id="header-topR">
 				<div id="nick"><%= loginUser.getNickname() %></div>

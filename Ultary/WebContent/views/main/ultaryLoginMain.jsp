@@ -55,7 +55,7 @@
 <!----네이버 로그인 연동 시작--------------------------------------------------------------------->
 							 <%
 							 	String clientId = "I5f2j4CStj0Q0BPbHYAM";//애플리케이션 클라이언트 아이디값";
-							    String redirectURI = URLEncoder.encode("http://localhost:9022/Ultary/views/main/callback.jsp", "UTF-8");
+							    String redirectURI = URLEncoder.encode("http://192.168.10.4:9022/Ultary/main.ini", "UTF-8");
 							    SecureRandom random = new SecureRandom();
 							    String state = new BigInteger(130, random).toString();
 							    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";

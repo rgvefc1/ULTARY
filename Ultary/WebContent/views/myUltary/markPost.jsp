@@ -506,7 +506,7 @@
 	});
 </script>
 		</div>
-		<footer>제작사:hoseong</footer>
+		<footer>ULTARY:ULTARY</footer>
 	</div>
 </body>
 </html>

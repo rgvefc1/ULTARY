@@ -114,13 +114,11 @@
 		<h5 style="text-align:center;">주의사항</h5>
 		<div id="detail" class="detail">
 		<p>
-			1. 울타리에서의  위탁요청시 요청자의 금전요구는 신고해주세요.<br>
-			2. 해당 멤버의 주소는 개인정보 보호를 위해 동/읍까지만 노출됩니다.<br>
-			3. 위탁요청의 경우 받아주는 사람의 일방적인 취소가 가능합니다. 
-		</p>
-		
+         1. 울타리에서의  위탁요청시 요청자의 금전요구는 신고해주세요.<br>
+         2. 해당 멤버의 주소는 개인정보 보호를 위해 동/읍까지만 노출됩니다.<br>
+         3. 위탁요청의 경우 받아주는 사람의 일방적인 취소가 가능합니다. 
+      </p>
 		</div>
-		
 		<h5 style="text-align:center;">돌봄환경</h5>
 		<hr>
 		<div class=detail>
@@ -258,8 +256,8 @@
 			<%for(int i=0;i<trList.size();i++){ %>
 			<div class="review">
 				<% if(!allImg.isEmpty()){ 
-						for(int j=0;j<allImg.size();j++){
-						 if(j==allImg.size()-1){%>
+						for(int j=0;j<=allImg.size();j++){
+						 if(j==allImg.size()){%>
 						 <img id="profile" class="review-photo" src="<%= request.getContextPath() %>/image/프로필.png">
 						 <%break;
 						   }
@@ -285,7 +283,6 @@
 			</div>
 			<%} %>
 			<%} %>
-			
 			
 			<input type="hidden" id="memberid" name="memberid" value=<%=m.getMemberId() %>>
 		</div>

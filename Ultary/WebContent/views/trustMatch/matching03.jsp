@@ -9,7 +9,6 @@
 	ArrayList<Pet> PetList = (ArrayList<Pet>)request.getAttribute("PetList");
 	ArrayList<Media> MediaList = (ArrayList<Media>)request.getAttribute("MediaList");
 
-
 %>
 <!DOCTYPE html>
 <html>
@@ -139,8 +138,11 @@
 									<div class="page4-1">거주지역</div>
 								</td>
 								<td colspan ="2">
-									<%=m.getAddress() %>
-									<input type="hidden" id="address" name="address" value="<%=m.getAddress()%>">
+							<%=m.getAddress() %>
+                           <input type="hidden" id="address" name="address" value="<%=m.getAddress()%>">
+								</td>
+				
+
 							</tr>
 						
 							<tr>

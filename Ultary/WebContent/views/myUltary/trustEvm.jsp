@@ -35,9 +35,9 @@
 						<div id="trustmeansdiv">
 							<label>위탁방식</label>
 							<hr>
-							<input type="radio" id="trustmeans1" name="trustmeans" value="1"><label>산책</label>
+							<input type="radio" id="trustmeans1" name="trustmeans" value="1"><label>위탁</label>
 							<input type="radio" id="trustmeans2" name="trustmeans" value="2"><label>방문</label>
-							<input type="radio" id="trustmeans3" name="trustmeans" value="3"><label>위탁</label>
+							<input type="radio" id="trustmeans3" name="trustmeans" value="3"><label>산책</label>
 							<input type="radio" id="trustmeans4" name="trustmeans" value="4"><label>전체</label>
 						</div>
 						<div id="sEnvir">
@@ -113,7 +113,7 @@
 	});
 </script>
 		</div>
-		<footer>제작사:hoseong</footer>
+		<footer>ULTARY:ULTARY</footer>
 	</div>
 </body>
 </html>

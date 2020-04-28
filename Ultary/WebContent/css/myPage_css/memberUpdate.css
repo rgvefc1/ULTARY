@@ -77,18 +77,18 @@ footer{
 	float:left;
 }
 #header-topR {
-    width: 250px;
+    width: 300px;
     height: 100%;
     margin-top: -12.7px;
     float: right;
 }
 #nick{
-	float:left;
-	margin-top: 15px;
+	float: left;
+    margin-top: 15px;
     font-size: 25px;
     color: red;
     text-align: right;
-    width: 90px;
+    width: 150px;
 }
 #nim{
 	float:left;

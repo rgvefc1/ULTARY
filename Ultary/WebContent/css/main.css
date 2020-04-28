@@ -683,11 +683,14 @@ footer{
 }
 #expansioncomment>ul>li>ul{
 	padding: 0px;
+	list-style: none;
 }
 .commentans1{
 	width: 100%;
     height: 25.4px;
     font-size: 13px;
+    float: left;
+    margin-bottom: 20px;
 }
 .commentans1>div:first-child{
 	margin-left: 55.5px;
